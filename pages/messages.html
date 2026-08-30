@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Messages | AcademicMatch</title>
+
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+</head>
+
+
+<body class="auth-page">
+
+
+    <!-- Navigation -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <a
+                href="../index.html"
+                class="logo"
+            >
+                AcademicMatch
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- Messages -->
+
+    <main class="auth-container">
+
+        <div
+            class="auth-card"
+            style="
+                max-width: 800px;
+                margin: 0 auto;
+            "
+        >
+
+
+            <!-- Header -->
+
+            <div class="auth-header">
+
+                <p class="section-label">
+                    COMMUNICATION
+                </p>
+
+                <h1>
+                    Messages
+                </h1>
+
+                <p>
+                    Communicate directly with students and companies.
+                </p>
+
+            </div>
+
+
+
+            <!-- Chat Area -->
+
+            <div
+                id="messageList"
+                style="
+                    min-height: 350px;
+                    max-height: 500px;
+                    overflow-y: auto;
+                    padding: 20px;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 12px;
+                    background: #f8fafc;
+                    margin-bottom: 20px;
+                "
+            >
+
+                <p
+                    id="messageLoading"
+                    style="
+                        text-align: center;
+                        color: #64748b;
+                        padding: 40px;
+                    "
+                >
+                    Loading messages...
+                </p>
+
+            </div>
+
+
+
+            <!-- Message Input -->
+
+            <form
+                id="messageForm"
+                style="
+                    display: flex;
+                    gap: 10px;
+                "
+            >
+
+                <input
+                    type="text"
+                    id="messageInput"
+                    placeholder="Type your message..."
+                    autocomplete="off"
+                    style="
+                        flex: 1;
+                        padding: 13px 14px;
+                        border: 1px solid #cbd5e1;
+                        border-radius: 8px;
+                        font-size: 15px;
+                        outline: none;
+                    "
+                >
+
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    Send
+                </button>
+
+            </form>
+
+
+
+            <!-- Error -->
+
+            <p
+                id="messageError"
+                class="form-error"
+                style="
+                    margin-top: 15px;
+                "
+            ></p>
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../supabase-config.js"></script>
+    
+<script>
+    // =========================================
+    // GET APPLICATION ID FROM URL
+    // =========================================
+
+    const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const applicationId =
+    urlParams.get("application_id");
+
+const academicApplicationId =
+    urlParams.get("academic_application_id");
+
+    // =========================================
+    // ELEMENTS
+    // =========================================
+
+    const messageList =
+        document.getElementById(
+            "messageList"
+        );
+
+    const messageForm =
+        document.getElementById(
+            "messageForm"
+        );
+
+    const messageInput =
+        document.getElementById(
+            "messageInput"
+        );
+
+    const messageError =
+        document.getElementById(
+            "messageError"
+        );
+
+    const messageLoading =
+        document.getElementById(
+            "messageLoading"
+        );
+
+
+    // =========================================
+    // CHAT VARIABLES
+    // =========================================
+
+    let currentUser = null;
+
+    let currentApplication = null;
+
+    let currentAcademicApplication = null;
+
+    let currentOpportunity = null;
+
+    let receiverId = null;
+
+    let realtimeChannel = null;
+
+
+    // =========================================
+    // START CHAT
+    // =========================================
+
+    async function startChat() {
+
+        try {
+
+            // =====================================
+            // CHECK LOGIN
+            // =====================================
+
+            const {
+                data: { user },
+                error: userError
+            } =
+                await supabaseClient.auth.getUser();
+
+
+            if (
+                userError ||
+                !user
+            ) {
+
+                throw new Error(
+                    "Please log in first."
+                );
+
+            }
+
+
+            currentUser = user;
+
+
+            // =====================================
+            // CHECK APPLICATION ID
+            // =====================================
+
+            if (!applicationId && !academicApplicationId) {
+
+              throw new Error(
+               "Application ID is missing."
+                  );
+
+                    }
+
+
+            // =====================================
+// GET APPLICATION
+// =====================================
+
+if (academicApplicationId) {
+
+    const {
+        data: application,
+        error: applicationError
+    } =
+        await supabaseClient
+            .from("student_academic_applications")
+            .select(`
+                id,
+                student_id,
+                opportunity_id
+            `)
+            .eq(
+                "id",
+                academicApplicationId
+            )
+            .single();
+
+
+    if (
+        applicationError ||
+        !application
+    ) {
+
+        throw new Error(
+            "Academic application not found."
+        );
+
+    }
+
+
+    currentAcademicApplication =
+        application;
+
+    currentApplication =
+        application;
+
+}
+
+else {
+
+    const {
+        data: application,
+        error: applicationError
+    } =
+        await supabaseClient
+            .from("applications")
+            .select(`
+                id,
+                student_id,
+                opportunity_id
+            `)
+            .eq(
+                "id",
+                applicationId
+            )
+            .single();
+
+
+    if (
+        applicationError ||
+        !application
+    ) {
+
+        throw new Error(
+            "Application not found."
+        );
+
+    }
+
+
+    currentApplication =
+        application;
+
+}
+
+            // =====================================
+// GET OPPORTUNITY
+// =====================================
+
+if (academicApplicationId) {
+
+    const {
+        data: opportunity,
+        error: opportunityError
+    } =
+        await supabaseClient
+            .from("academic_opportunities")
+            .select(`
+                id,
+                title,
+                academician_id
+            `)
+            .eq(
+                "id",
+                currentAcademicApplication.opportunity_id
+            )
+            .single();
+
+
+    if (
+        opportunityError ||
+        !opportunity
+    ) {
+
+        throw new Error(
+            "Academic opportunity not found."
+        );
+
+    }
+
+
+    currentOpportunity =
+        opportunity;
+
+}
+
+else {
+
+    const {
+        data: opportunity,
+        error: opportunityError
+    } =
+        await supabaseClient
+            .from("opportunities")
+            .select(`
+                id,
+                title,
+                company_id
+            `)
+            .eq(
+                "id",
+                currentApplication.opportunity_id
+            )
+            .single();
+
+
+    if (
+        opportunityError ||
+        !opportunity
+    ) {
+
+        throw new Error(
+            "Opportunity not found."
+        );
+
+    }
+
+
+    currentOpportunity =
+        opportunity;
+
+}
+
+        // =====================================
+// DETERMINE RECEIVER
+// =====================================
+
+if (academicApplicationId) {
+
+    if (
+        currentUser.id ===
+        currentAcademicApplication.student_id
+    ) {
+
+        receiverId =
+            currentOpportunity.academician_id;
+
+    }
+
+    else if (
+        currentUser.id ===
+        currentOpportunity.academician_id
+    ) {
+
+        receiverId =
+            currentAcademicApplication.student_id;
+
+    }
+
+    else {
+
+        throw new Error(
+            "You are not part of this conversation."
+        );
+
+    }
+
+}
+
+else {
+
+    if (
+        currentUser.id ===
+        currentApplication.student_id
+    ) {
+
+        receiverId =
+            currentOpportunity.company_id;
+
+    }
+
+    else if (
+        currentUser.id ===
+        currentOpportunity.company_id
+    ) {
+
+        receiverId =
+            currentApplication.student_id;
+
+    }
+
+    else {
+
+        throw new Error(
+            "You are not part of this conversation."
+        );
+
+    }
+
+}
+
+
+console.log(
+    "Current user:",
+    currentUser.id
+);
+
+console.log(
+    "Receiver:",
+    receiverId
+);
+
+console.log(
+    "Application:",
+    applicationId || academicApplicationId
+);
+
+
+            // =====================================
+            // LOAD OLD MESSAGES
+            // =====================================
+
+            await loadMessages();
+
+
+            // =====================================
+            // START REALTIME
+            // =====================================
+
+            startRealtime();
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Chat start error:",
+                error
+            );
+
+
+            messageLoading.style.display =
+                "none";
+
+
+            messageError.textContent =
+                error.message ||
+                "Unable to open chat.";
+
+        }
+
+    }
+
+
+    // =========================================
+    // LOAD EXISTING MESSAGES
+    // =========================================
+
+    async function loadMessages() {
+
+        const {
+            data: messages,
+            error
+        } =
+            await supabaseClient
+                .from("messages")
+                                .select(`
+                    id,
+                    sender_id,
+                    receiver_id,
+                    opportunity_id,
+                    academic_opportunity_id,
+                    application_id,
+                    academic_application_id,
+                    message,
+                    reply_to_message_id,
+                    created_at
+                `)
+                .eq(
+                    academicApplicationId
+                        ? "academic_application_id"
+                        : "application_id",
+                    academicApplicationId
+                        ? academicApplicationId
+                        : applicationId
+                )
+                .order(
+                    "created_at",
+                    {
+                        ascending: true
+                    }
+                );
+
+
+        if (error) {
+
+            throw error;
+
+        }
+
+
+        messageList.innerHTML = "";
+
+
+        // =====================================
+        // NO MESSAGES
+        // =====================================
+
+        if (
+            !messages ||
+            messages.length === 0
+        ) {
+
+            messageList.innerHTML = `
+
+                <p
+                    id="noMessages"
+                    style="
+                        text-align: center;
+                        color: #64748b;
+                        padding: 40px;
+                    "
+                >
+                    No messages yet.
+                    Start the conversation.
+                </p>
+
+            `;
+
+        }
+
+        else {
+
+            messages.forEach(
+                function (message) {
+
+                    displayMessage(
+                        message
+                    );
+
+                }
+            );
+
+        }
+
+
+        messageLoading.style.display =
+            "none";
+
+
+        scrollToBottom();
+
+    }
+
+
+    // =========================================
+    // DISPLAY MESSAGE
+    // =========================================
+
+    function displayMessage(message) {
+
+        // =====================================
+        // REMOVE "NO MESSAGES" TEXT
+        // =====================================
+
+        const noMessages =
+            document.getElementById(
+                "noMessages"
+            );
+
+
+        if (noMessages) {
+
+            noMessages.remove();
+
+        }
+
+
+        // =====================================
+        // PREVENT DUPLICATE MESSAGE
+        // =====================================
+
+        const existingMessage =
+            document.querySelector(
+                `[data-message-id="${message.id}"]`
+            );
+
+
+        if (existingMessage) {
+
+            return;
+
+        }
+
+
+        // =====================================
+        // CREATE MESSAGE CONTAINER
+        // =====================================
+
+        const messageDiv =
+            document.createElement(
+                "div"
+            );
+
+
+        messageDiv.dataset.messageId =
+            message.id;
+
+
+        // =====================================
+        // CHECK SENDER
+        // =====================================
+
+        const isMine =
+            message.sender_id ===
+            currentUser.id;
+
+
+        // =====================================
+        // MESSAGE ALIGNMENT
+        // =====================================
+
+        messageDiv.style.cssText = `
+            display: flex;
+            justify-content: ${
+                isMine
+                    ? "flex-end"
+                    : "flex-start"
+            };
+            margin-bottom: 12px;
+        `;
+
+
+        // =====================================
+        // MESSAGE HTML
+        // =====================================
+
+        messageDiv.innerHTML = `
+
+            <div
+                style="
+                    max-width: 70%;
+                    padding: 10px 14px;
+                    border-radius: 12px;
+
+                    background: ${
+                        isMine
+                            ? "#2563eb"
+                            : "#ffffff"
+                    };
+
+                    color: ${
+                        isMine
+                            ? "#ffffff"
+                            : "#1e293b"
+                    };
+
+                    border: ${
+                        isMine
+                            ? "none"
+                            : "1px solid #e2e8f0"
+                    };
+                "
+            >
+
+                <div
+                    style="
+                        line-height: 1.5;
+                        word-break: break-word;
+                    "
+                >
+                    ${escapeHtml(message.message)}
+                </div>
+
+
+                <div
+                    style="
+                        font-size: 11px;
+                        margin-top: 5px;
+                        opacity: 0.7;
+                    "
+                >
+                    ${
+                        new Date(
+                            message.created_at
+                        ).toLocaleString()
+                    }
+                </div>
+
+            </div>
+
+        `;
+
+
+        messageList.appendChild(
+            messageDiv
+        );
+
+    }
+
+
+    // =========================================
+    // SEND MESSAGE
+    // =========================================
+
+    messageForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            const text =
+                messageInput.value.trim();
+
+
+            // =====================================
+            // EMPTY MESSAGE
+            // =====================================
+
+            if (!text) {
+
+                return;
+
+            }
+
+
+            // =====================================
+            // CHECK CHAT
+            // =====================================
+
+            if (
+                !currentUser ||
+                !receiverId ||
+                !currentApplication ||
+                !currentOpportunity
+            ) {
+
+                messageError.textContent =
+                    "Chat is not ready.";
+
+                return;
+
+            }
+
+
+            // Clear previous error
+
+            messageError.textContent =
+                "";
+
+
+            // Disable input while sending
+
+            messageInput.disabled =
+                true;
+
+
+            try {
+
+                // =================================
+                // INSERT MESSAGE
+                // =================================
+
+                const {
+                    data: insertedMessage,
+                    error
+                } =
+                    await supabaseClient
+                   .from("messages")
+.insert({
+
+    sender_id:
+        currentUser.id,
+
+    receiver_id:
+        receiverId,
+
+    opportunity_id:
+        academicApplicationId
+            ? null
+            : currentOpportunity.id,
+
+    academic_opportunity_id:
+        academicApplicationId
+            ? currentOpportunity.id
+            : null,
+
+    application_id:
+        academicApplicationId
+            ? null
+            : currentApplication.id,
+
+    academic_application_id:
+        academicApplicationId
+            ? currentApplication.id
+            : null,
+
+    message:
+        text
+
+})
+                        .select()
+                        .single();
+
+
+                if (error) {
+
+                    throw error;
+
+                }
+
+
+                console.log(
+                    "Message sent:",
+                    insertedMessage
+                );
+
+
+                // =================================
+                // DO NOT DISPLAY HERE
+                // =================================
+                //
+                // Supabase Realtime will receive
+                // the INSERT event and display it.
+                //
+                // This prevents duplicate messages.
+                // =================================
+
+
+                messageInput.value =
+                    "";
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Send message error:",
+                    error
+                );
+
+
+                messageError.textContent =
+                    error.message ||
+                    "Unable to send message.";
+
+            }
+
+            finally {
+
+                messageInput.disabled =
+                    false;
+
+                messageInput.focus();
+
+            }
+
+        }
+    );
+
+
+  // =========================================
+// REALTIME
+// =========================================
+
+function startRealtime() {
+
+    // =====================================
+    // CREATE UNIQUE CHANNEL NAME
+    // =====================================
+
+    const conversationId =
+        academicApplicationId ||
+        applicationId;
+
+    const channelName =
+        academicApplicationId
+            ? "academic-messages-" + academicApplicationId
+            : "company-messages-" + applicationId;
+
+
+    // =====================================
+    // REMOVE PREVIOUS CHANNEL
+    // =====================================
+
+    if (realtimeChannel) {
+
+        supabaseClient.removeChannel(
+            realtimeChannel
+        );
+
+    }
+
+
+    // =====================================
+    // CREATE CHANNEL
+    // =====================================
+
+    realtimeChannel =
+        supabaseClient
+            .channel(channelName);
+
+
+    // =====================================
+    // LISTEN FOR NEW MESSAGES
+    // =====================================
+
+    realtimeChannel
+        .on(
+            "postgres_changes",
+            {
+                event: "INSERT",
+
+                schema: "public",
+
+                table: "messages",
+
+                filter:
+                    academicApplicationId
+                        ? "academic_application_id=eq." +
+                          academicApplicationId
+                        : "application_id=eq." +
+                          applicationId
+            },
+
+            function (payload) {
+
+                console.log(
+                    "Realtime message received:",
+                    payload.new
+                );
+
+
+                const newMessage =
+                    payload.new;
+
+
+                // =================================
+                // CHECK CURRENT CONVERSATION
+                // =================================
+
+                if (academicApplicationId) {
+
+                    if (
+                        newMessage.academic_application_id !==
+                        academicApplicationId
+                    ) {
+
+                        return;
+
+                    }
+
+                }
+
+                else {
+
+                    if (
+                        newMessage.application_id !==
+                        applicationId
+                    ) {
+
+                        return;
+
+                    }
+
+                }
+
+
+                // =================================
+                // CHECK PARTICIPANTS
+                // =================================
+
+                if (
+                    newMessage.sender_id !==
+                        currentUser.id
+                    &&
+                    newMessage.receiver_id !==
+                        currentUser.id
+                ) {
+
+                    return;
+
+                }
+
+
+                // =================================
+                // DISPLAY MESSAGE
+                // =================================
+
+                displayMessage(
+                    newMessage
+                );
+
+
+                scrollToBottom();
+
+            }
+        )
+        .subscribe(
+            function (status) {
+
+                console.log(
+                    "Realtime status:",
+                    status
+                );
+
+            }
+        );
+
+}
+
+
+    // =========================================
+    // ESCAPE HTML
+    // =========================================
+
+    function escapeHtml(text) {
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+
+        div.textContent =
+            text;
+
+
+        return div.innerHTML;
+
+    }
+
+
+    // =========================================
+    // SCROLL TO BOTTOM
+    // =========================================
+
+    function scrollToBottom() {
+
+        messageList.scrollTop =
+            messageList.scrollHeight;
+
+    }
+
+
+    // =========================================
+    // START CHAT
+    // =========================================
+
+    startChat();
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Applications | AcademicMatch</title>
+
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+</head>
+
+
+<body class="auth-page">
+
+
+    <!-- Navigation -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <a
+                href="../index.html"
+                class="logo"
+            >
+                AcademicMatch
+            </a>
+
+            <div class="nav-buttons">
+
+                <a
+                    href="student-dashboard.html"
+                    class="btn btn-outline"
+                >
+                    ← Dashboard
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- Main -->
+
+    <main class="section">
+
+
+        <!-- Heading -->
+
+        <div class="section-heading">
+
+            <p class="section-label">
+                APPLICATIONS
+            </p>
+
+            <h2>
+                My Applications
+            </h2>
+
+            <span>
+                Track the opportunities you have applied for.
+            </span>
+
+        </div>
+
+
+
+        <!-- Applications -->
+
+        <div
+            id="studentApplicationsList"
+            style="
+                max-width: 900px;
+                margin: 0 auto;
+            "
+        >
+
+            <p
+                id="applicationsLoading"
+                style="
+                    text-align: center;
+                    color: #64748b;
+                    padding: 40px;
+                "
+            >
+                Loading applications...
+            </p>
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../supabase-config.js"></script>
+
+
+    <script>
+
+        // =========================================
+        // ELEMENTS
+        // =========================================
+
+        const applicationsList =
+            document.getElementById(
+                "studentApplicationsList"
+            );
+
+
+
+        // =========================================
+        // LOAD APPLICATIONS
+        // =========================================
+
+        async function loadStudentApplications() {
+
+            try {
+
+                // =================================
+                // GET CURRENT USER
+                // =================================
+
+                const {
+                    data: { user },
+                    error: userError
+                } =
+                    await supabaseClient.auth.getUser();
+
+
+                if (userError || !user) {
+
+                    throw new Error(
+                        "Please log in first."
+                    );
+
+                }
+
+
+
+                // =================================
+                // GET APPLICATIONS
+                // =================================
+
+                const {
+                    data: applications,
+                    error: applicationsError
+                } =
+                    await supabaseClient
+                        .from("applications")
+                        .select(`
+                            id,
+                            opportunity_id,
+                            status,
+                            cover_message,
+                            created_at
+                        `)
+                        .eq(
+                            "student_id",
+                            user.id
+                        )
+                        .order(
+                            "created_at",
+                            {
+                                ascending: false
+                            }
+                        );
+
+
+                if (applicationsError) {
+
+                    throw applicationsError;
+
+                }
+
+
+
+                // =================================
+                // NO APPLICATIONS
+                // =================================
+
+                if (
+                    !applications ||
+                    applications.length === 0
+                ) {
+
+                    applicationsList.innerHTML = `
+
+                        <div
+                            class="auth-card"
+                            style="
+                                text-align: center;
+                            "
+                        >
+
+                            <h2>
+                                No Applications Yet
+                            </h2>
+
+                            <p style="
+                                color: #64748b;
+                                margin-top: 10px;
+                            ">
+                                You haven't applied
+                                to any opportunities yet.
+                            </p>
+
+
+                            <a
+                                href="student-dashboard.html"
+                                class="btn btn-primary"
+                                style="
+                                    margin-top: 20px;
+                                "
+                            >
+                                Find Opportunities
+                            </a>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+
+                // =================================
+                // GET OPPORTUNITY IDS
+                // =================================
+
+                const opportunityIds =
+                    applications.map(
+                        function (application) {
+
+                            return application.opportunity_id;
+
+                        }
+                    );
+
+
+
+                // =================================
+                // GET OPPORTUNITIES
+                // =================================
+
+                const {
+                    data: opportunities,
+                    error: opportunitiesError
+                } =
+                    await supabaseClient
+                        .from("opportunities")
+                        .select(`
+                            id,
+                            title,
+                            opportunity_type,
+                            sector,
+                            company_id,
+                            location,
+                            work_mode
+                        `)
+                        .in(
+                            "id",
+                            opportunityIds
+                        );
+
+
+                if (opportunitiesError) {
+
+                    throw opportunitiesError;
+
+                }
+
+
+
+                // =================================
+                // DISPLAY
+                // =================================
+
+                applicationsList.innerHTML = "";
+
+
+                applications.forEach(
+                    function (application) {
+
+                        const opportunity =
+                            opportunities.find(
+                                function (item) {
+
+                                    return (
+                                        item.id ===
+                                        application.opportunity_id
+                                    );
+
+                                }
+                            );
+
+
+                        const card =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        card.className =
+                            "auth-card";
+
+
+                        card.style.cssText = `
+                            max-width: 900px;
+                            margin: 0 auto 20px;
+                        `;
+
+
+
+                        const status =
+                            application.status ||
+                            "pending";
+
+
+
+                        let statusBackground =
+                            "#fef3c7";
+
+                        let statusColor =
+                            "#92400e";
+
+
+                        if (
+                            status ===
+                            "shortlisted"
+                        ) {
+
+                            statusBackground =
+                                "#dcfce7";
+
+                            statusColor =
+                                "#166534";
+
+                        }
+
+
+                        if (
+                            status ===
+                            "rejected"
+                        ) {
+
+                            statusBackground =
+                                "#fee2e2";
+
+                            statusColor =
+                                "#991b1b";
+
+                        }
+
+
+
+                        card.innerHTML = `
+
+                            <div style="
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: flex-start;
+                                gap: 20px;
+                            ">
+
+                                <div>
+
+                                    <h2 style="
+                                        font-size: 21px;
+                                        margin-bottom: 6px;
+                                    ">
+                                        ${
+                                            opportunity?.title ||
+                                            "Opportunity"
+                                        }
+                                    </h2>
+
+
+                                    <p style="
+                                        color: #64748b;
+                                        font-size: 14px;
+                                    ">
+                                        ${
+                                            opportunity?.opportunity_type ||
+                                            "Opportunity"
+                                        }
+
+                                        •
+
+                                        ${
+                                            opportunity?.sector ||
+                                            "Not specified"
+                                        }
+                                    </p>
+
+                                </div>
+
+
+                                <span style="
+                                    padding: 6px 12px;
+                                    border-radius: 20px;
+                                    background:
+                                        ${statusBackground};
+                                    color:
+                                        ${statusColor};
+                                    font-size: 12px;
+                                    font-weight: 600;
+                                    text-transform: capitalize;
+                                ">
+                                    ${status}
+                                </span>
+
+                            </div>
+
+
+
+                            <div style="
+                                margin-top: 18px;
+                                color: #64748b;
+                                font-size: 14px;
+                            ">
+
+                                <p>
+                                    <strong>
+                                        Location:
+                                    </strong>
+
+                                    ${
+                                        opportunity?.location ||
+                                        "Not specified"
+                                    }
+                                </p>
+
+
+                                <p style="
+                                    margin-top: 8px;
+                                ">
+                                    <strong>
+                                        Work Mode:
+                                    </strong>
+
+                                    ${
+                                        opportunity?.work_mode ||
+                                        "Not specified"
+                                    }
+                                </p>
+
+
+                                <p style="
+                                    margin-top: 8px;
+                                ">
+                                    <strong>
+                                        Applied On:
+                                    </strong>
+
+                                    ${
+                                        new Date(
+                                            application.created_at
+                                        ).toLocaleDateString()
+                                    }
+                                </p>
+
+                            </div>
+
+
+
+                            <div style="
+                                margin-top: 18px;
+                                padding: 15px;
+                                background: #f8fafc;
+                                border-radius: 10px;
+                            ">
+
+                                <strong>
+                                    Your Message
+                                </strong>
+
+
+                                <p style="
+                                    color: #64748b;
+                                    margin-top: 8px;
+                                    line-height: 1.6;
+                                ">
+                                    ${
+                                        application.cover_message ||
+                                        "No message provided."
+                                    }
+                                </p>
+
+                            </div>
+
+                        `;
+
+
+                        applicationsList.appendChild(
+                            card
+                        );
+
+                    }
+                );
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Student applications error:",
+                    error
+                );
+
+
+                applicationsList.innerHTML = `
+
+                    <div
+                        class="auth-card"
+                        style="
+                            text-align: center;
+                        "
+                    >
+
+                        <h2>
+                            Unable to load applications
+                        </h2>
+
+                        <p style="
+                            color: #dc2626;
+                            margin-top: 10px;
+                        ">
+                            ${
+                                error.message ||
+                                "Something went wrong."
+                            }
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+
+        // =========================================
+        // START
+        // =========================================
+
+        loadStudentApplications();
+
+    </script>
+
+
+</body>
+
+</html>

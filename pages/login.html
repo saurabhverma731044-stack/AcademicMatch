@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | AcademicMatch</title>
+
+    <link rel="stylesheet" href="../style.css">
+
+</head>
+
+
+<body class="auth-page">
+
+
+    <!-- Navigation -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <a href="../index.html" class="logo">
+                AcademicMatch
+            </a>
+
+            <div class="nav-buttons">
+
+                <a href="register.html" class="btn btn-primary">
+                    Create Account
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- Login -->
+
+    <main class="auth-container">
+
+        <div class="auth-card">
+
+            <div class="auth-header">
+
+                <p class="section-label">
+                    WELCOME BACK
+                </p>
+
+                <h1>
+                    Login to AcademicMatch
+                </h1>
+
+                <p>
+                    Continue to your academic and
+                    internship journey.
+                </p>
+
+            </div>
+
+
+            <form id="loginForm" class="auth-form">
+
+                <div class="form-group">
+
+                    <label for="loginEmail">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="loginPassword">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="auth-options">
+
+                    <label class="remember-option">
+
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                        >
+
+                        Remember me
+
+                    </label>
+
+                    <a href="#" class="forgot-link">
+                        Forgot password?
+                    </a>
+
+                </div>
+
+
+                <p
+                    id="loginError"
+                    class="form-error"
+                    aria-live="polite"
+                ></p>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-primary auth-submit"
+                >
+                    Login
+                </button>
+
+            </form>
+
+
+            <p class="auth-switch">
+
+                Don't have an account?
+
+                <a href="register.html">
+                    Create one
+                </a>
+
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../supabase-config.js"></script>
+<script src="../script.js"></script>
+
+</body>
+
+</html>

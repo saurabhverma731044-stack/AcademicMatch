@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Company Profile | AcademicMatch</title>
+
+    <link rel="stylesheet" href="../style.css">
+
+</head>
+
+
+<body class="auth-page">
+
+
+    <!-- Navigation -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <a href="../index.html" class="logo">
+                AcademicMatch
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- Company Profile -->
+
+    <main class="auth-container">
+
+        <div class="auth-card">
+
+
+            <!-- Header -->
+
+            <div class="auth-header">
+
+                <p class="section-label">
+                    COMPANY PROFILE
+                </p>
+
+                <h1>
+                    Build Your Company Profile
+                </h1>
+
+                <p>
+                    Tell students about your organization.
+                </p>
+
+            </div>
+
+
+
+            <!-- Company Profile Form -->
+
+            <form
+                id="companyProfileForm"
+                class="auth-form"
+            >
+
+
+                <!-- Company Name -->
+
+                <div class="form-group">
+
+                    <label for="companyName">
+                        Company Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="companyName"
+                        name="companyName"
+                        placeholder="Enter your company name"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- Company Type -->
+
+                <div class="form-group">
+
+                    <label for="companyType">
+                        Company Type
+                    </label>
+
+                    <input
+                        type="text"
+                        id="companyType"
+                        name="companyType"
+                        placeholder="e.g. Startup, Private Company, NGO"
+                    >
+
+                </div>
+
+
+
+                <!-- Website -->
+
+                <div class="form-group">
+
+                    <label for="website">
+                        Website
+                    </label>
+
+                    <input
+                        type="url"
+                        id="website"
+                        name="website"
+                        placeholder="https://example.com"
+                    >
+
+                </div>
+
+
+
+                <!-- Location -->
+
+                <div class="form-group">
+
+                    <label for="companyLocation">
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="companyLocation"
+                        name="companyLocation"
+                        placeholder="City, State"
+                    >
+
+                </div>
+
+
+
+                <!-- Team Size -->
+
+                <div class="form-group">
+
+                    <label for="teamSize">
+                        Team Size
+                    </label>
+
+                    <input
+                        type="text"
+                        id="teamSize"
+                        name="teamSize"
+                        placeholder="e.g. 10-50 employees"
+                    >
+
+                </div>
+
+
+
+                <!-- Description -->
+
+                <div class="form-group">
+
+                    <label for="companyDescription">
+                        About the Company
+                    </label>
+
+                    <textarea
+                        id="companyDescription"
+                        name="companyDescription"
+                        rows="5"
+                        placeholder="Tell students about your company..."
+                        style="
+                            width: 100%;
+                            padding: 13px 14px;
+                            border: 1px solid #cbd5e1;
+                            border-radius: 8px;
+                            font-size: 15px;
+                            font-family: inherit;
+                            resize: vertical;
+                            outline: none;
+                        "
+                    ></textarea>
+
+                </div>
+
+
+
+                <!-- Error -->
+
+                <p
+                    id="companyProfileError"
+                    class="form-error"
+                ></p>
+
+
+
+                <!-- Submit -->
+
+                <button
+                    type="submit"
+                    class="btn btn-primary auth-submit"
+                >
+                    Save Company Profile
+                </button>
+
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../supabase-config.js"></script>
+
+    <script src="../script.js"></script>
+
+
+</body>
+
+</html>

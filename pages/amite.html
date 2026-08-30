@@ -1,0 +1,2282 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>AMITE | AcademicMatch</title>
+
+<link
+    rel="stylesheet"
+    href="../style.css"
+>
+
+
+</head>
+
+<body class="auth-page">
+
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
+<header>
+
+    <nav class="navbar">
+
+        <a
+            href="../index.html"
+            class="logo"
+        >
+            AcademicMatch
+        </a>
+
+        <div class="nav-buttons">
+
+            <a
+                href="company-dashboard.html"
+                class="btn btn-outline"
+            >
+                ← Dashboard
+            </a>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =========================
+     AMITE
+========================= -->
+
+<main class="section">
+
+    <div
+        style="
+            max-width: 1000px;
+            margin: 0 auto;
+        "
+    >
+
+
+        <!-- HEADER -->
+
+        <div
+            class="section-heading"
+            style="
+                text-align: center;
+                margin-bottom: 30px;
+            "
+        >
+
+            <p class="section-label">
+                AMITE
+            </p>
+
+            <h1>
+                AcademicMatch Intelligence & Trust Engine
+            </h1>
+
+            <p>
+                Verify and analyze candidates who have applied
+                to your opportunity.
+            </p>
+
+        </div>
+
+
+
+        <!-- =========================
+             SEARCH CARD
+        ========================= -->
+
+        <div class="auth-card">
+
+            <div class="auth-header">
+
+                <h2>
+                    Candidate Verification
+                </h2>
+
+                <p>
+                    Enter the candidate's AMITE Application ID
+                    and registered email.
+                </p>
+
+            </div>
+
+
+            <!-- AMITE ID -->
+
+            <div class="form-group">
+
+                <label for="amiteId">
+                    AMITE Application ID
+                </label>
+
+                <input
+                    type="text"
+                    id="amiteId"
+                    placeholder="e.g. AM-26-A7K92X"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label for="studentEmail">
+                    Student Email
+                </label>
+
+                <input
+                    type="email"
+                    id="studentEmail"
+                    placeholder="Enter student's registered email"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <!-- MESSAGE -->
+
+            <p
+                id="amiteMessage"
+                style="
+                    min-height: 22px;
+                    margin-bottom: 15px;
+                "
+            ></p>
+
+
+            <!-- BUTTON -->
+
+            <button
+                type="button"
+                id="analyzeCandidateButton"
+                class="btn btn-primary auth-submit"
+            >
+                Verify & Analyze Candidate
+            </button>
+
+        </div>
+
+
+
+        <!-- =========================
+             ANALYSIS RESULT
+        ========================= -->
+
+        <div
+            id="amiteResult"
+            style="
+                display: none;
+                margin-top: 25px;
+            "
+        >
+
+            <div class="auth-card">
+
+
+                <!-- REPORT HEADER -->
+
+                <div class="auth-header">
+
+                    <p class="section-label">
+                        AMITE REPORT
+                    </p>
+
+                    <h2 id="candidateName">
+                        Candidate
+                    </h2>
+
+                    <p id="candidateApplication">
+                        Application
+                    </p>
+
+                </div>
+
+
+
+                <!-- =========================
+                     VERIFICATION STATUS
+                ========================= -->
+
+                <div
+                    id="candidateStatus"
+                    style="
+                        padding: 18px;
+                        background: #f8fafc;
+                        border: 1px solid #e2e8f0;
+                        border-radius: 10px;
+                        margin-bottom: 20px;
+                    "
+                >
+
+                    <strong>
+                        Analysis Pending
+                    </strong>
+
+                    <p style="
+                        margin-top: 8px;
+                        color: #64748b;
+                    ">
+                        AcademicMatch will analyze verified
+                        evidence, profile information, skills,
+                        portfolio, achievements and application
+                        quality.
+                    </p>
+
+                </div>
+
+
+
+                <!-- =========================
+                     SCORE
+                ========================= -->
+
+                <div
+                    id="candidateScore"
+                    style="
+                        display: none;
+                        text-align: center;
+                        padding: 25px;
+                        background: #f8fafc;
+                        border: 1px solid #e2e8f0;
+                        border-radius: 10px;
+                        margin-bottom: 20px;
+                    "
+                >
+
+                    <p class="section-label">
+                        AMITE SCORE
+                    </p>
+
+                    <div
+                        id="scoreValue"
+                        style="
+                            font-size: 42px;
+                            font-weight: 700;
+                            margin-top: 8px;
+                        "
+                    >
+                        —
+                    </div>
+
+                    <p
+                        id="scoreLabel"
+                        style="
+                            margin-top: 5px;
+                            color: #64748b;
+                        "
+                    >
+                        Trust & Relevance Score
+                    </p>
+
+                </div>
+
+
+
+                <!-- =========================
+                     CANDIDATE DETAILS
+                ========================= -->
+
+                <div
+                    id="candidateDetails"
+                    style="
+                        display: none;
+                    "
+                >
+
+                    <h3>
+                        Candidate Intelligence
+                    </h3>
+
+
+                    <!-- BASIC INFORMATION -->
+
+                    <div
+                        style="
+                            margin-top: 15px;
+                            padding: 18px;
+                            background: #f8fafc;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 10px;
+                        "
+                    >
+
+                        <h3>
+                            Student Information
+                        </h3>
+
+
+                        <div
+                            style="
+                                display: grid;
+                                grid-template-columns: repeat(2, 1fr);
+                                gap: 15px;
+                                margin-top: 15px;
+                            "
+                        >
+
+                            <div>
+
+                                <strong>
+                                    Name
+                                </strong>
+
+                                <p
+                                    id="detailName"
+                                    style="
+                                        margin-top: 5px;
+                                        color: #64748b;
+                                    "
+                                >
+                                    —
+                                </p>
+
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Email
+                                </strong>
+
+                                <p
+                                    id="detailEmail"
+                                    style="
+                                        margin-top: 5px;
+                                        color: #64748b;
+                                    "
+                                >
+                                    —
+                                </p>
+
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    College / University
+                                </strong>
+
+                                <p
+                                    id="detailCollege"
+                                    style="
+                                        margin-top: 5px;
+                                        color: #64748b;
+                                    "
+                                >
+                                    —
+                                </p>
+
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Degree
+                                </strong>
+
+                                <p
+                                    id="detailDegree"
+                                    style="
+                                        margin-top: 5px;
+                                        color: #64748b;
+                                    "
+                                >
+                                    —
+                                </p>
+
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Branch
+                                </strong>
+
+                                <p
+                                    id="detailBranch"
+                                    style="
+                                        margin-top: 5px;
+                                        color: #64748b;
+                                    "
+                                >
+                                    —
+                                </p>
+
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Graduation Year
+                                </strong>
+
+                                <p
+                                    id="detailGraduationYear"
+                                    style="
+                                        margin-top: 5px;
+                                        color: #64748b;
+                                    "
+                                >
+                                    —
+                                </p>
+
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Location
+                                </strong>
+
+                                <p
+                                    id="detailLocation"
+                                    style="
+                                        margin-top: 5px;
+                                        color: #64748b;
+                                    "
+                                >
+                                    —
+                                </p>
+
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Application Status
+                                </strong>
+
+                                <p
+                                    id="detailApplicationStatus"
+                                    style="
+                                        margin-top: 5px;
+                                        color: #64748b;
+                                    "
+                                >
+                                    —
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ABOUT -->
+
+                    <div
+                        style="
+                            margin-top: 20px;
+                            padding: 18px;
+                            background: #f8fafc;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 10px;
+                        "
+                    >
+
+                        <h3>
+                            About
+                        </h3>
+
+                        <p
+                            id="detailBio"
+                            style="
+                                margin-top: 10px;
+                                color: #64748b;
+                                line-height: 1.7;
+                            "
+                        >
+                            —
+                        </p>
+
+                    </div>
+
+
+
+                    <!-- SKILLS -->
+
+                    <div
+                        style="
+                            margin-top: 20px;
+                            padding: 18px;
+                            background: #f8fafc;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 10px;
+                        "
+                    >
+
+                        <h3>
+                            Skills
+                        </h3>
+
+                        <p
+                            id="detailSkills"
+                            style="
+                                margin-top: 10px;
+                                color: #64748b;
+                                line-height: 1.7;
+                            "
+                        >
+                            —
+                        </p>
+
+                    </div>
+
+
+
+                    <!-- DIGITAL PROFILES -->
+
+                    <div
+                        style="
+                            margin-top: 20px;
+                            padding: 18px;
+                            background: #f8fafc;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 10px;
+                        "
+                    >
+
+                        <h3>
+                            Digital Profiles
+                        </h3>
+
+
+                        <div
+                            id="digitalProfiles"
+                            style="
+                                margin-top: 12px;
+                                display: flex;
+                                gap: 10px;
+                                flex-wrap: wrap;
+                            "
+                        ></div>
+
+                    </div>
+
+
+
+                    <!-- VERIFICATION CLAIMS -->
+
+                    <div
+                        style="
+                            margin-top: 20px;
+                            padding: 18px;
+                            background: #f0fdf4;
+                            border: 1px solid #bbf7d0;
+                            border-radius: 10px;
+                        "
+                    >
+
+                        <h3>
+                            Verification Intelligence
+                        </h3>
+
+                        <p style="
+                            margin-top: 8px;
+                            color: #64748b;
+                            line-height: 1.6;
+                        ">
+                            Evidence associated with the
+                            candidate's profile.
+                        </p>
+
+                        <div
+                            id="verificationClaims"
+                            style="
+                                margin-top: 15px;
+                            "
+                        ></div>
+
+                    </div>
+
+
+
+                    <!-- PROJECTS -->
+
+                    <div
+                        style="
+                            margin-top: 20px;
+                            padding: 18px;
+                            background: #f8fafc;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 10px;
+                        "
+                    >
+
+                        <h3>
+                            Projects
+                        </h3>
+
+                        <div
+                            id="candidateProjects"
+                            style="
+                                margin-top: 12px;
+                            "
+                        ></div>
+
+                    </div>
+
+
+
+                    <!-- CERTIFICATIONS -->
+
+                    <div
+                        style="
+                            margin-top: 20px;
+                            padding: 18px;
+                            background: #f8fafc;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 10px;
+                        "
+                    >
+
+                        <h3>
+                            Certifications
+                        </h3>
+
+                        <div
+                            id="candidateCertifications"
+                            style="
+                                margin-top: 12px;
+                            "
+                        ></div>
+
+                    </div>
+
+
+
+                    <!-- ACHIEVEMENTS -->
+
+                    <div
+                        style="
+                            margin-top: 20px;
+                            padding: 18px;
+                            background: #f8fafc;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 10px;
+                        "
+                    >
+
+                        <h3>
+                            Achievements
+                        </h3>
+
+                        <div
+                            id="candidateAchievements"
+                            style="
+                                margin-top: 12px;
+                            "
+                        ></div>
+
+                    </div>
+
+
+
+                    <!-- APPLICATION MESSAGE -->
+
+                    <div
+                        style="
+                            margin-top: 20px;
+                            padding: 18px;
+                            background: #f8fafc;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 10px;
+                        "
+                    >
+
+                        <h3>
+                            Application Message
+                        </h3>
+
+                        <p
+                            id="detailCoverMessage"
+                            style="
+                                margin-top: 10px;
+                                color: #64748b;
+                                line-height: 1.7;
+                            "
+                        >
+                            —
+                        </p>
+
+                    </div>
+
+
+
+                    <!-- RESUME -->
+
+                    <div
+                        style="
+                            margin-top: 20px;
+                            padding: 18px;
+                            background: #f8fafc;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 10px;
+                        "
+                    >
+
+                        <h3>
+                            Resume
+                        </h3>
+
+                        <div
+                            id="candidateResume"
+                            style="
+                                margin-top: 12px;
+                            "
+                        >
+                            —
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<!-- =========================
+     SUPABASE
+========================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="../supabase-config.js"></script>
+
+
+
+<script>
+
+    // =========================================
+    // ELEMENTS
+    // =========================================
+
+    const amiteIdInput =
+        document.getElementById(
+            "amiteId"
+        );
+
+    const studentEmailInput =
+        document.getElementById(
+            "studentEmail"
+        );
+
+    const message =
+        document.getElementById(
+            "amiteMessage"
+        );
+
+    const analyzeButton =
+        document.getElementById(
+            "analyzeCandidateButton"
+        );
+
+    const amiteResult =
+        document.getElementById(
+            "amiteResult"
+        );
+
+
+
+    // =========================================
+    // HELPER
+    // =========================================
+
+    function displayValue(value) {
+
+        return value !== null &&
+            value !== undefined &&
+            String(value).trim() !== ""
+            ? String(value)
+            : "Not provided";
+
+    }
+
+
+
+    // =========================================
+    // ANALYZE CANDIDATE
+    // =========================================
+
+    analyzeButton.addEventListener(
+        "click",
+        async function() {
+
+            message.textContent = "";
+
+            amiteResult.style.display =
+                "none";
+
+
+            const amiteId =
+                amiteIdInput.value.trim();
+
+            const studentEmail =
+                studentEmailInput.value.trim();
+
+
+            // =================================
+            // VALIDATION
+            // =================================
+
+            if (
+                !amiteId ||
+                !studentEmail
+            ) {
+
+                message.textContent =
+                    "Please enter both AMITE Application ID and student email.";
+
+                message.style.color =
+                    "#dc2626";
+
+                return;
+
+            }
+
+
+            analyzeButton.disabled =
+                true;
+
+            analyzeButton.textContent =
+                "Verifying...";
+
+
+            try {
+
+                // =================================
+                // CHECK LOGIN
+                // =================================
+
+                const {
+                    data: { user },
+                    error: userError
+                } =
+                    await supabaseClient.auth.getUser();
+
+
+                if (
+                    userError ||
+                    !user
+                ) {
+
+                    throw new Error(
+                        "Please log in first."
+                    );
+
+                }
+
+
+
+                // =================================
+                // GET AMITE APPLICATION
+                // =================================
+
+                const {
+                    data: amiteRecord,
+                    error: amiteError
+                } =
+                    await supabaseClient
+                        .from("amite_applications")
+                        .select(`
+                            id,
+                            application_id,
+                            opportunity_id,
+                            student_id,
+                            amite_id,
+                            student_email
+                        `)
+                        .eq(
+                            "amite_id",
+                            amiteId
+                        )
+                        .eq(
+                            "student_email",
+                            studentEmail
+                        )
+                        .maybeSingle();
+
+
+                if (amiteError) {
+
+                    throw amiteError;
+
+                }
+
+
+                if (!amiteRecord) {
+
+                    throw new Error(
+                        "Candidate verification failed. AMITE ID and email do not match."
+                    );
+
+                }
+
+
+
+                // =================================
+                // GET OPPORTUNITY
+                // =================================
+
+                const {
+                    data: opportunity,
+                    error: opportunityError
+                } =
+                    await supabaseClient
+                        .from("opportunities")
+                        .select(`
+                            id,
+                            title,
+                            company_id
+                        `)
+                        .eq(
+                            "id",
+                            amiteRecord.opportunity_id
+                        )
+                        .maybeSingle();
+
+
+                if (opportunityError) {
+
+                    throw opportunityError;
+
+                }
+
+
+                if (!opportunity) {
+
+                    throw new Error(
+                        "Opportunity associated with this AMITE ID was not found."
+                    );
+
+                }
+
+
+
+                // =================================
+                // SECURITY:
+                // CURRENT USER MUST OWN OPPORTUNITY
+                // =================================
+
+                if (
+                    opportunity.company_id !==
+                    user.id
+                ) {
+
+                    throw new Error(
+                        "Access denied. You can only verify applicants for your own opportunity."
+                    );
+
+                }
+
+
+
+                // =================================
+                // VERIFY APPLICATION
+                // =================================
+
+                const {
+                    data: application,
+                    error: applicationError
+                } =
+                    await supabaseClient
+                        .from("applications")
+                        .select(`
+                            id,
+                            opportunity_id,
+                            student_id,
+                            status,
+                            cover_message,
+                            resume_path,
+                            created_at
+                        `)
+                        .eq(
+                            "id",
+                            amiteRecord.application_id
+                        )
+                        .eq(
+                            "student_id",
+                            amiteRecord.student_id
+                        )
+                        .eq(
+                            "opportunity_id",
+                            amiteRecord.opportunity_id
+                        )
+                        .maybeSingle();
+
+
+                if (applicationError) {
+
+                    throw applicationError;
+
+                }
+
+
+                if (!application) {
+
+                    throw new Error(
+                        "Candidate application could not be verified."
+                    );
+
+                }
+
+
+
+                // =================================
+                // GET STUDENT PROFILE
+                // =================================
+
+                const {
+                    data: student,
+                    error: studentError
+                } =
+                    await supabaseClient
+                        .from("profiles")
+                        .select(`
+                            id,
+                            full_name,
+                            role,
+                            college,
+                            degree,
+                            branch,
+                            graduation_year,
+                            location,
+                            bio,
+                            skills,
+                            github_url,
+                            linkedin_url,
+                            leetcode_url,
+                            codeforces_url
+                        `)
+                        .eq(
+                            "id",
+                            amiteRecord.student_id
+                        )
+                        .eq(
+                            "role",
+                            "student"
+                        )
+                        .maybeSingle();
+
+
+                if (studentError) {
+
+                    throw studentError;
+
+                }
+
+
+                if (!student) {
+
+                    throw new Error(
+                        "Student profile could not be loaded."
+                    );
+
+                }
+
+                  console.log("AMITE STUDENT DATA:", student);
+                  console.log("AMITE APPLICATION DATA:", application);
+                  console.log("AMITE OPPORTUNITY DATA:", opportunity);
+
+
+
+                // =================================
+                // GET PROJECTS
+                // =================================
+
+                const {
+                    data: projects,
+                    error: projectsError
+                } =
+                    await supabaseClient
+                        .from("student_projects")
+                        .select(`
+                            id,
+                            title,
+                            description,
+                            technologies,
+                            project_link
+                        `)
+                        .eq(
+                            "student_id",
+                            student.id
+                        )
+                        .order(
+                            "created_at",
+                            {
+                                ascending: false
+                            }
+                        );
+
+
+                if (projectsError) {
+
+                    console.error(
+                        "Projects error:",
+                        projectsError
+                    );
+
+                }
+
+
+
+                // =================================
+                // GET CERTIFICATIONS
+                // =================================
+
+                const {
+                    data: certifications,
+                    error: certificationsError
+                } =
+                    await supabaseClient
+                        .from("student_certifications")
+                        .select(`
+                            id,
+                            certificate_name,
+                            issuing_organization,
+                            certificate_link,
+                            issue_date
+                        `)
+                        .eq(
+                            "student_id",
+                            student.id
+                        )
+                        .order(
+                            "issue_date",
+                            {
+                                ascending: false
+                            }
+                        );
+
+
+                if (certificationsError) {
+
+                    console.error(
+                        "Certifications error:",
+                        certificationsError
+                    );
+
+                }
+
+
+
+                // =================================
+                // GET ACHIEVEMENTS
+                // =================================
+
+                const {
+                    data: achievements,
+                    error: achievementsError
+                } =
+                    await supabaseClient
+                        .from("student_achievements")
+                        .select(`
+                            id,
+                            title,
+                            description,
+                            achievement_date
+                        `)
+                        .eq(
+                            "student_id",
+                            student.id
+                        )
+                        .order(
+                            "achievement_date",
+                            {
+                                ascending: false
+                            }
+                        );
+
+
+                if (achievementsError) {
+
+                    console.error(
+                        "Achievements error:",
+                        achievementsError
+                    );
+
+                }
+
+
+
+                // =================================
+                // GET VERIFICATION CLAIMS
+                // =================================
+
+                const {
+                    data: claims,
+                    error: claimsError
+                } =
+                    await supabaseClient
+                        .from("student_claims")
+                        .select(`
+                            id,
+                            claim_text,
+                            evidence_source,
+                            evidence_url,
+                            verification_status,
+                            confidence_score,
+                            verification_notes
+                        `)
+                        .eq(
+                            "student_id",
+                            student.id
+                        );
+
+
+                if (claimsError) {
+
+                    console.error(
+                        "Claims error:",
+                        claimsError
+                    );
+
+                }
+
+
+
+                // =================================
+                // CALCULATE TRUST SCORE
+                // =================================
+
+                const claimList =
+                    claims || [];
+
+
+                let totalConfidence = 0;
+
+                let verifiedCount = 0;
+
+                let evidenceCount = 0;
+
+                let notVerifiedCount = 0;
+
+
+                claimList.forEach(
+                    function(claim) {
+
+                        totalConfidence +=
+                            Number(
+                                claim.confidence_score
+                            ) || 0;
+
+
+                        if (
+                            claim.verification_status ===
+                            "verified"
+                        ) {
+
+                            verifiedCount++;
+
+                        }
+
+
+                        if (
+                            claim.verification_status ===
+                            "evidence_available" ||
+                            claim.verification_status ===
+                            "evidence_supported"
+                        ) {
+
+                            evidenceCount++;
+
+                        }
+
+
+                        if (
+                            claim.verification_status ===
+                            "not_verified"
+                        ) {
+
+                            notVerifiedCount++;
+
+                        }
+
+                    }
+                );
+
+
+                const trustScore =
+                    claimList.length > 0
+                        ?
+                        Math.round(
+                            totalConfidence /
+                            claimList.length
+                        )
+                        :
+                        0;
+
+
+
+                // =================================
+                // DISPLAY HEADER
+                // =================================
+
+                document.getElementById(
+                    "candidateName"
+                ).textContent =
+                    displayValue(
+                        student.full_name
+                    );
+
+
+                document.getElementById(
+                    "candidateApplication"
+                ).textContent =
+                    "AMITE ID: " +
+                    amiteRecord.amite_id +
+                    " • Opportunity: " +
+                    displayValue(
+                        opportunity.title
+                    );
+
+
+
+                // =================================
+                // STATUS
+                // =================================
+
+                document.getElementById(
+                    "candidateStatus"
+                ).innerHTML = `
+
+                    <strong style="
+                        color: #16a34a;
+                        font-size: 18px;
+                    ">
+                        ✓ Candidate Verified
+                    </strong>
+
+                    <p style="
+                        margin-top: 8px;
+                        color: #64748b;
+                        line-height: 1.6;
+                    ">
+                        The AMITE Application ID, email,
+                        opportunity and application record
+                        have been successfully verified.
+                    </p>
+
+                `;
+
+
+
+                // =================================
+                // SCORE
+                // =================================
+
+                document.getElementById(
+                    "scoreValue"
+                ).textContent =
+                    trustScore + "%";
+
+
+                document.getElementById(
+                    "scoreLabel"
+                ).textContent =
+                    "Current Evidence Trust Score";
+
+
+                document.getElementById(
+                    "candidateScore"
+                ).style.display =
+                    "block";
+
+
+
+                // =================================
+                // BASIC DETAILS
+                // =================================
+
+                document.getElementById(
+                    "detailName"
+                ).textContent =
+                    displayValue(
+                        student.full_name
+                    );
+
+
+                document.getElementById(
+                    "detailEmail"
+                ).textContent =
+                    displayValue(
+                        amiteRecord.student_email
+                    );
+
+
+                document.getElementById(
+                    "detailCollege"
+                ).textContent =
+                    displayValue(
+                        student.college
+                    );
+
+
+                document.getElementById(
+                    "detailDegree"
+                ).textContent =
+                    displayValue(
+                        student.degree
+                    );
+
+
+                document.getElementById(
+                    "detailBranch"
+                ).textContent =
+                    displayValue(
+                        student.branch
+                    );
+
+
+                document.getElementById(
+                    "detailGraduationYear"
+                ).textContent =
+                    displayValue(
+                        student.graduation_year
+                    );
+
+
+                document.getElementById(
+                    "detailLocation"
+                ).textContent =
+                    displayValue(
+                        student.location
+                    );
+
+
+                document.getElementById(
+                    "detailApplicationStatus"
+                ).textContent =
+                    displayValue(
+                        application.status
+                    );
+
+
+
+                // =================================
+                // ABOUT
+                // =================================
+
+                document.getElementById(
+                    "detailBio"
+                ).textContent =
+                    displayValue(
+                        student.bio
+                    );
+
+
+
+                // =================================
+                // SKILLS
+                // =================================
+
+                document.getElementById(
+                    "detailSkills"
+                ).textContent =
+                    displayValue(
+                        student.skills
+                    );
+
+
+
+                // =================================
+                // DIGITAL PROFILES
+                // =================================
+
+                const digitalProfiles =
+                    document.getElementById(
+                        "digitalProfiles"
+                    );
+
+
+                digitalProfiles.innerHTML =
+                    "";
+
+
+                const profileLinks = [
+
+                    {
+                        name: "GitHub",
+                        url: student.github_url
+                    },
+
+                    {
+                        name: "LinkedIn",
+                        url: student.linkedin_url
+                    },
+
+                    {
+                        name: "LeetCode",
+                        url: student.leetcode_url
+                    },
+
+                    {
+                        name: "Codeforces",
+                        url: student.codeforces_url
+                    }
+
+                ];
+
+
+                profileLinks.forEach(
+                    function(profile) {
+
+                        if (!profile.url) {
+                            return;
+                        }
+
+
+                        const link =
+                            document.createElement(
+                                "a"
+                            );
+
+
+                        link.href =
+                            profile.url;
+
+
+                        link.target =
+                            "_blank";
+
+
+                        link.rel =
+                            "noopener noreferrer";
+
+
+                        link.className =
+                            "btn btn-outline";
+
+
+                        link.textContent =
+                            profile.name;
+
+
+                        digitalProfiles.appendChild(
+                            link
+                        );
+
+                    }
+                );
+
+
+                if (
+                    digitalProfiles.children.length ===
+                    0
+                ) {
+
+                    digitalProfiles.innerHTML =
+                        `
+                        <p style="
+                            color: #64748b;
+                        ">
+                            No public digital profiles provided.
+                        </p>
+                        `;
+
+                }
+
+
+
+                // =================================
+                // VERIFICATION CLAIMS
+                // =================================
+
+                const claimsContainer =
+                    document.getElementById(
+                        "verificationClaims"
+                    );
+
+
+                claimsContainer.innerHTML =
+                    "";
+
+
+                if (
+                    claimList.length ===
+                    0
+                ) {
+
+                    claimsContainer.innerHTML =
+                        `
+                        <p style="
+                            color: #64748b;
+                        ">
+                            No verification claims available.
+                        </p>
+                        `;
+
+                } else {
+
+                    claimList.forEach(
+                        function(claim) {
+
+                            let statusLabel =
+                                "Pending";
+
+                            let statusColor =
+                                "#d97706";
+
+
+                            if (
+                                claim.verification_status ===
+                                "verified"
+                            ) {
+
+                                statusLabel =
+                                    "Verified";
+
+                                statusColor =
+                                    "#16a34a";
+
+                            }
+
+
+                            if (
+                                claim.verification_status ===
+                                "not_verified"
+                            ) {
+
+                                statusLabel =
+                                    "Not Verified";
+
+                                statusColor =
+                                    "#dc2626";
+
+                            }
+
+
+                            if (
+                                claim.verification_status ===
+                                "evidence_available" ||
+                                claim.verification_status ===
+                                "evidence_supported"
+                            ) {
+
+                                statusLabel =
+                                    "Evidence Supported";
+
+                                statusColor =
+                                    "#16a34a";
+
+                            }
+
+
+                            const item =
+                                document.createElement(
+                                    "div"
+                                );
+
+
+                            item.style.cssText = `
+                                margin-top: 12px;
+                                padding: 14px;
+                                background: white;
+                                border: 1px solid #e5e7eb;
+                                border-radius: 8px;
+                            `;
+
+
+                            item.innerHTML = `
+
+                                <strong>
+                                    ${displayValue(
+                                        claim.claim_text
+                                    )}
+                                </strong>
+
+                                <p style="
+                                    margin-top: 7px;
+                                    color: #64748b;
+                                ">
+                                    Evidence:
+                                    ${displayValue(
+                                        claim.evidence_source
+                                    )}
+                                </p>
+
+                                <p style="
+                                    margin-top: 7px;
+                                    color: #64748b;
+                                ">
+                                    Status:
+
+                                    <strong style="
+                                        color: ${statusColor};
+                                    ">
+                                        ${statusLabel}
+                                    </strong>
+                                </p>
+
+                                <p style="
+                                    margin-top: 7px;
+                                    color: #64748b;
+                                ">
+                                    Confidence:
+                                    <strong>
+                                        ${
+                                            claim.confidence_score ??
+                                            "N/A"
+                                        }%
+                                    </strong>
+                                </p>
+
+                                ${
+                                    claim.verification_notes
+                                    ?
+                                    `
+                                    <p style="
+                                        margin-top: 7px;
+                                        color: #64748b;
+                                        line-height: 1.5;
+                                    ">
+                                        ${claim.verification_notes}
+                                    </p>
+                                    `
+                                    :
+                                    ""
+                                }
+
+                                ${
+                                    claim.evidence_url
+                                    ?
+                                    `
+                                    <a
+                                        href="${claim.evidence_url}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="btn btn-outline"
+                                        style="
+                                            display: inline-block;
+                                            margin-top: 8px;
+                                        "
+                                    >
+                                        View Evidence
+                                    </a>
+                                    `
+                                    :
+                                    ""
+                                }
+
+                            `;
+
+
+                            claimsContainer.appendChild(
+                                item
+                            );
+
+                        }
+                    );
+
+                }
+
+
+
+                // =================================
+                // PROJECTS
+                // =================================
+
+                const projectsContainer =
+                    document.getElementById(
+                        "candidateProjects"
+                    );
+
+
+                projectsContainer.innerHTML =
+                    "";
+
+
+                if (
+                    !projects ||
+                    projects.length === 0
+                ) {
+
+                    projectsContainer.innerHTML =
+                        `
+                        <p style="
+                            color: #64748b;
+                        ">
+                            No projects provided.
+                        </p>
+                        `;
+
+                } else {
+
+                    projects.forEach(
+                        function(project) {
+
+                            const item =
+                                document.createElement(
+                                    "div"
+                                );
+
+
+                            item.style.cssText = `
+                                padding: 14px;
+                                margin-bottom: 12px;
+                                background: white;
+                                border: 1px solid #e5e7eb;
+                                border-radius: 8px;
+                            `;
+
+
+                            item.innerHTML = `
+
+                                <strong>
+                                    ${displayValue(
+                                        project.title
+                                    )}
+                                </strong>
+
+                                <p style="
+                                    margin-top: 7px;
+                                    color: #64748b;
+                                    line-height: 1.5;
+                                ">
+                                    ${displayValue(
+                                        project.description
+                                    )}
+                                </p>
+
+                                <p style="
+                                    margin-top: 7px;
+                                    color: #64748b;
+                                ">
+                                    Technologies:
+                                    ${displayValue(
+                                        project.technologies
+                                    )}
+                                </p>
+
+                                ${
+                                    project.project_link
+                                    ?
+                                    `
+                                    <a
+                                        href="${project.project_link}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="btn btn-outline"
+                                        style="
+                                            display: inline-block;
+                                            margin-top: 8px;
+                                        "
+                                    >
+                                        View Project
+                                    </a>
+                                    `
+                                    :
+                                    ""
+                                }
+
+                            `;
+
+
+                            projectsContainer.appendChild(
+                                item
+                            );
+
+                        }
+                    );
+
+                }
+
+
+
+                // =================================
+                // CERTIFICATIONS
+                // =================================
+
+                const certificationsContainer =
+                    document.getElementById(
+                        "candidateCertifications"
+                    );
+
+
+                certificationsContainer.innerHTML =
+                    "";
+
+
+                if (
+                    !certifications ||
+                    certifications.length === 0
+                ) {
+
+                    certificationsContainer.innerHTML =
+                        `
+                        <p style="
+                            color: #64748b;
+                        ">
+                            No certifications provided.
+                        </p>
+                        `;
+
+                } else {
+
+                    certifications.forEach(
+                        function(certification) {
+
+                            const item =
+                                document.createElement(
+                                    "div"
+                                );
+
+
+                            item.style.cssText = `
+                                padding: 14px;
+                                margin-bottom: 12px;
+                                background: white;
+                                border: 1px solid #e5e7eb;
+                                border-radius: 8px;
+                            `;
+
+
+                            item.innerHTML = `
+
+                                <strong>
+                                    ${displayValue(
+                                        certification.certificate_name
+                                    )}
+                                </strong>
+
+                                <p style="
+                                    margin-top: 7px;
+                                    color: #64748b;
+                                ">
+                                    Issued by:
+                                    ${displayValue(
+                                        certification.issuing_organization
+                                    )}
+                                </p>
+
+                                <p style="
+                                    margin-top: 7px;
+                                    color: #64748b;
+                                ">
+                                    Issue Date:
+                                    ${
+                                        certification.issue_date
+                                        ?
+                                        new Date(
+                                            certification.issue_date
+                                        ).toLocaleDateString()
+                                        :
+                                        "Not provided"
+                                    }
+                                </p>
+
+                                ${
+                                    certification.certificate_link
+                                    ?
+                                    `
+                                    <a
+                                        href="${certification.certificate_link}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="btn btn-outline"
+                                        style="
+                                            display: inline-block;
+                                            margin-top: 8px;
+                                        "
+                                    >
+                                        View Certificate
+                                    </a>
+                                    `
+                                    :
+                                    ""
+                                }
+
+                            `;
+
+
+                            certificationsContainer.appendChild(
+                                item
+                            );
+
+                        }
+                    );
+
+                }
+
+
+
+                // =================================
+                // ACHIEVEMENTS
+                // =================================
+
+                const achievementsContainer =
+                    document.getElementById(
+                        "candidateAchievements"
+                    );
+
+
+                achievementsContainer.innerHTML =
+                    "";
+
+
+                if (
+                    !achievements ||
+                    achievements.length === 0
+                ) {
+
+                    achievementsContainer.innerHTML =
+                        `
+                        <p style="
+                            color: #64748b;
+                        ">
+                            No achievements provided.
+                        </p>
+                        `;
+
+                } else {
+
+                    achievements.forEach(
+                        function(achievement) {
+
+                            const item =
+                                document.createElement(
+                                    "div"
+                                );
+
+
+                            item.style.cssText = `
+                                padding: 14px;
+                                margin-bottom: 12px;
+                                background: white;
+                                border: 1px solid #e5e7eb;
+                                border-radius: 8px;
+                            `;
+
+
+                            item.innerHTML = `
+
+                                <strong>
+                                    ${displayValue(
+                                        achievement.title
+                                    )}
+                                </strong>
+
+                                <p style="
+                                    margin-top: 7px;
+                                    color: #64748b;
+                                    line-height: 1.5;
+                                ">
+                                    ${displayValue(
+                                        achievement.description
+                                    )}
+                                </p>
+
+                                <p style="
+                                    margin-top: 7px;
+                                    color: #64748b;
+                                ">
+                                    Date:
+                                    ${
+                                        achievement.achievement_date
+                                        ?
+                                        new Date(
+                                            achievement.achievement_date
+                                        ).toLocaleDateString()
+                                        :
+                                        "Not provided"
+                                    }
+                                </p>
+
+                            `;
+
+
+                            achievementsContainer.appendChild(
+                                item
+                            );
+
+                        }
+                    );
+
+                }
+
+
+
+                // =================================
+                // APPLICATION MESSAGE
+                // =================================
+
+                document.getElementById(
+                    "detailCoverMessage"
+                ).textContent =
+                    displayValue(
+                        application.cover_message
+                    );
+
+
+
+                // =================================
+                // RESUME
+                // =================================
+
+                const resumeContainer =
+                    document.getElementById(
+                        "candidateResume"
+                    );
+
+
+                resumeContainer.innerHTML =
+                    "";
+
+
+                if (
+                    !application.resume_path
+                ) {
+
+                    resumeContainer.innerHTML =
+                        `
+                        <p style="
+                            color: #64748b;
+                        ">
+                            Resume not available.
+                        </p>
+                        `;
+
+                } else {
+
+                    const {
+                        data: resumeData,
+                        error: resumeError
+                    } =
+                        await supabaseClient
+                            .storage
+                            .from("Resumes")
+                            .createSignedUrl(
+                                application.resume_path,
+                                300
+                            );
+
+
+                    if (
+                        resumeError ||
+                        !resumeData ||
+                        !resumeData.signedUrl
+                    ) {
+
+                        resumeContainer.innerHTML =
+                            `
+                            <p style="
+                                color: #dc2626;
+                            ">
+                                Unable to create secure resume link.
+                            </p>
+                            `;
+
+                    } else {
+
+                        resumeContainer.innerHTML = `
+
+                            <a
+                                href="${resumeData.signedUrl}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn btn-outline"
+                            >
+                                View Resume
+                            </a>
+
+                        `;
+
+                    }
+
+                }
+
+
+
+                // =================================
+                // SHOW DETAILS
+                // =================================
+
+                document.getElementById(
+                    "candidateDetails"
+                ).style.display =
+                    "block";
+
+
+                amiteResult.style.display =
+                    "block";
+
+
+                message.textContent =
+                    "Candidate verified successfully.";
+
+                message.style.color =
+                    "#16a34a";
+
+
+            } catch (error) {
+
+                console.error(
+                    "AMITE error:",
+                    error
+                );
+
+
+                message.textContent =
+                    error.message ||
+                    "Unable to verify candidate.";
+
+
+                message.style.color =
+                    "#dc2626";
+
+            } finally {
+
+                analyzeButton.disabled =
+                    false;
+
+                analyzeButton.textContent =
+                    "Verify & Analyze Candidate";
+
+            }
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

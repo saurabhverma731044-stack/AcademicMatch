@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Student Dashboard | AcademicMatch</title>
+
+    <link rel="stylesheet" href="../style.css">
+
+    <style>
+
+        /* =========================
+           STUDENT DASHBOARD
+        ========================= */
+
+        .student-dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+
+        /* Welcome Section */
+
+        .student-welcome {
+            margin-bottom: 35px;
+        }
+
+
+        /* Academic Profile */
+
+        .academic-summary {
+            max-width: 1000px;
+            margin: 0 auto 45px;
+        }
+
+
+        .academic-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 25px;
+        }
+
+
+        .academic-item {
+            padding: 18px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            background: #f8fafc;
+        }
+
+
+        .academic-item label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 7px;
+        }
+
+
+        .academic-item p {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 500;
+            color: #0f172a;
+        }
+
+
+        /* Dashboard Cards */
+
+        .student-feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+
+        .student-feature-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 280px;
+            padding: 30px;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            background: #ffffff;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.06);
+        }
+
+
+        .student-feature-card h3 {
+            margin: 15px 0 10px;
+            font-size: 21px;
+        }
+
+
+        .student-feature-card p {
+            margin: 0;
+            line-height: 1.6;
+            color: #64748b;
+        }
+
+
+        .student-feature-card .btn {
+            margin-top: auto;
+            align-self: flex-start;
+        }
+
+
+        .student-feature-icon {
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: #eff6ff;
+            font-size: 25px;
+        }
+
+
+        /* =========================
+   APPLICATION STATUS
+========================= */
+
+.application-status-summary {
+    max-width: 1000px;
+    margin: 0 auto 45px;
+}
+
+.application-status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.application-status-item {
+    padding: 22px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f8fafc;
+    text-align: center;
+}
+
+.application-status-item h3 {
+    margin: 0 0 8px;
+    font-size: 30px;
+}
+
+.application-status-item p {
+    margin: 0;
+    color: #64748b;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+
+    .application-status-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+        /* Mobile */
+
+        @media (max-width: 768px) {
+
+            .academic-summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .student-feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .student-feature-card {
+                min-height: 250px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="auth-page">
+
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
+<header>
+
+    <nav class="navbar">
+
+        <a
+            href="../index.html"
+            class="logo"
+        >
+            AcademicMatch
+        </a>
+
+
+        <div class="nav-buttons">
+
+            <a
+                href="skill-assessment.html"
+                class="btn btn-primary"
+            >
+                Skill Assessment
+            </a>
+
+
+            <a
+                href="skill-profile.html"
+                class="btn btn-outline"
+            >
+                My Skill Profile
+            </a>
+
+
+            <button
+                type="button"
+                class="btn btn-outline"
+                id="logoutButton"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =========================
+     MAIN DASHBOARD
+========================= -->
+
+<main class="section">
+
+
+    <div class="student-dashboard">
+
+
+        <!-- =========================
+             WELCOME
+        ========================= -->
+
+        <div class="section-heading student-welcome">
+
+            <p class="section-label">
+                STUDENT DASHBOARD
+            </p>
+
+
+            <h2 id="welcomeMessage">
+                Welcome!
+            </h2>
+
+
+            <span>
+                Manage your academic profile and discover
+                opportunities.
+            </span>
+
+        </div>
+
+
+
+        <!-- =========================
+             ACADEMIC PROFILE
+        ========================= -->
+
+        <div
+            class="auth-card academic-summary"
+        >
+
+            <div class="auth-header">
+
+                <h1 style="font-size: 24px;">
+                    Academic Profile
+                </h1>
+
+
+                <p>
+                    Your current academic information
+                </p>
+
+            </div>
+
+
+            <div class="academic-summary-grid">
+
+
+                <div class="academic-item">
+
+                    <label>
+                        College / University
+                    </label>
+
+                    <p id="collegeDisplay">
+                        Loading...
+                    </p>
+
+                </div>
+
+
+                <div class="academic-item">
+
+                    <label>
+                        Degree
+                    </label>
+
+                    <p id="degreeDisplay">
+                        Loading...
+                    </p>
+
+                </div>
+
+
+                <div class="academic-item">
+
+                    <label>
+                        Branch
+                    </label>
+
+                    <p id="branchDisplay">
+                        Loading...
+                    </p>
+
+                </div>
+
+
+                <div class="academic-item">
+
+                    <label>
+                        Graduation Year
+                    </label>
+
+                    <p id="graduationYearDisplay">
+                        Loading...
+                    </p>
+
+                </div>
+
+
+                <div class="academic-item">
+
+                    <label>
+                        Location
+                    </label>
+
+                    <p id="locationDisplay">
+                        Loading...
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+     APPLICATION STATUS
+========================= -->
+
+<div class="auth-card application-status-summary">
+
+    <div class="auth-header">
+
+        <h1 style="font-size: 24px;">
+            Application Status
+        </h1>
+
+        <p>
+            Track the current status of your applications.
+        </p>
+
+    </div>
+
+
+    <div class="application-status-grid">
+
+        <div class="application-status-item">
+
+            <h3 id="totalApplications">
+                -
+            </h3>
+
+            <p>
+                Total Applications
+            </p>
+
+        </div>
+
+
+        <div class="application-status-item">
+
+            <h3 id="shortlistedApplications">
+                -
+            </h3>
+
+            <p>
+                Shortlisted
+            </p>
+
+        </div>
+
+
+        <div class="application-status-item">
+
+            <h3 id="rejectedApplications">
+                -
+            </h3>
+
+            <p>
+                Rejected
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+        <!-- =========================
+             DASHBOARD CARDS
+        ========================= -->
+
+        <div class="student-feature-grid">
+
+
+            <!-- PROFILE -->
+
+            <div class="student-feature-card">
+
+                <div class="student-feature-icon">
+                    👤
+                </div>
+
+
+                <h3>
+                    My Profile
+                </h3>
+
+
+                <p>
+                    View and update your academic information,
+                    skills and profile details.
+                </p>
+
+
+                <a
+                    href="student-profile.html"
+                    class="btn btn-primary"
+                >
+                    View Profile
+                </a>
+
+            </div>
+
+
+
+            <!-- INTERNSHIPS -->
+
+            <div class="student-feature-card">
+
+                <div class="student-feature-icon">
+                    💼
+                </div>
+
+
+                <h3>
+                    Find Internships
+                </h3>
+
+
+                <p>
+                    Discover internships and opportunities
+                    that match your academic interests.
+                </p>
+
+
+                <a
+                    href="opportunities.html"
+                    class="btn btn-primary"
+                >
+                    Explore Opportunities
+                </a>
+
+            </div>
+
+
+
+            <!-- ACADEMIC OPPORTUNITIES -->
+
+            <div class="student-feature-card">
+
+                <div class="student-feature-icon">
+                    🎓
+                </div>
+
+
+                <h3>
+                    Academic Opportunities
+                </h3>
+
+
+                <p>
+                    Explore faculty internships, industrial
+                    training, FDPs and research opportunities.
+                </p>
+
+
+                <a
+                 href="academic-opportunity-list.html"
+                 class="btn btn-primary"
+                  >
+                 Explore Academic Opportunities
+                  </a>
+
+            </div>
+
+
+
+            <!-- APPLICATIONS -->
+
+            <div class="student-feature-card">
+
+                <div class="student-feature-icon">
+                    📋
+                </div>
+
+
+                <h3>
+                    My Applications
+                </h3>
+
+
+                <p>
+                    Track the internships and opportunities
+                    you have applied for.
+                </p>
+
+
+                <a
+                    href="my-applications.html"
+                    class="btn btn-primary"
+                >
+                    View Applications
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+
+<!-- =========================
+     SUPABASE
+========================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="../supabase-config.js"></script>
+
+<script src="../script.js"></script>
+
+
+<script>
+
+    // =========================================
+    // LOAD APPLICATION STATUS
+    // =========================================
+
+    async function loadApplicationStatus() {
+
+        const totalElement =
+            document.getElementById(
+                "totalApplications"
+            );
+
+        const shortlistedElement =
+            document.getElementById(
+                "shortlistedApplications"
+            );
+
+        const rejectedElement =
+            document.getElementById(
+                "rejectedApplications"
+            );
+
+
+        try {
+
+            const {
+                data: { user },
+                error: userError
+            } = await supabaseClient.auth.getUser();
+
+
+            if (userError || !user) {
+
+                totalElement.textContent = "0";
+                shortlistedElement.textContent = "0";
+                rejectedElement.textContent = "0";
+
+                return;
+            }
+
+
+            const {
+                data: applications,
+                error
+            } = await supabaseClient
+                .from("applications")
+                .select("status")
+                .eq("student_id", user.id);
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+            const applicationList =
+                applications || [];
+
+
+            const total =
+                applicationList.length;
+
+
+            const shortlisted =
+                applicationList.filter(
+                    function (application) {
+
+                        return application.status ===
+                            "shortlisted";
+
+                    }
+                ).length;
+
+
+            const rejected =
+                applicationList.filter(
+                    function (application) {
+
+                        return application.status ===
+                            "rejected";
+
+                    }
+                ).length;
+
+
+            totalElement.textContent =
+                total;
+
+            shortlistedElement.textContent =
+                shortlisted;
+
+            rejectedElement.textContent =
+                rejected;
+
+
+        } catch (error) {
+
+            console.error(
+                "Application status error:",
+                error
+            );
+
+            totalElement.textContent = "0";
+            shortlistedElement.textContent = "0";
+            rejectedElement.textContent = "0";
+
+        }
+
+    }
+
+
+    // =========================================
+    // START
+    // =========================================
+
+    loadApplicationStatus();
+
+</script>
+
+
+</body>
+
+</html>

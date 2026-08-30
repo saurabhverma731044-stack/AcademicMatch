@@ -1,0 +1,4288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Portfolio | AcademicMatch</title>
+
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+</head>
+
+
+<body class="auth-page">
+
+
+    <!-- Navigation -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <a
+                href="../index.html"
+                class="logo"
+            >
+                AcademicMatch
+            </a>
+
+            <div class="nav-buttons">
+
+                <a
+                    href="student-dashboard.html"
+                    class="btn btn-outline"
+                >
+                    ← Dashboard
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- Main -->
+
+    <main class="section">
+
+
+        <div class="section-heading">
+
+            <p class="section-label">
+                DIGITAL PORTFOLIO
+            </p>
+
+            <h2>
+                My Portfolio
+            </h2>
+
+            <span>
+                Your academic and professional profile.
+            </span>
+
+        </div>
+
+
+
+        <div
+            id="portfolioContent"
+            style="
+                max-width: 900px;
+                margin: 0 auto;
+            "
+        >
+
+            <p
+                id="portfolioLoading"
+                style="
+                    text-align: center;
+                    color: #64748b;
+                "
+            >
+                Loading your portfolio...
+            </p>
+
+        </div>
+
+        <!-- ADD PROJECT -->
+
+<div
+    class="auth-card"
+    style="
+        max-width: 900px;
+        margin: 20px auto;
+    "
+>
+
+    <h2>
+        Add a Project
+    </h2>
+
+    <p style="
+        color: #64748b;
+        margin-top: 8px;
+        margin-bottom: 20px;
+    ">
+        Add a project to your digital portfolio.
+    </p>
+
+
+    <div class="form-group">
+
+        <label for="projectTitle">
+            Project Title
+        </label>
+
+        <input
+            type="text"
+            id="projectTitle"
+            placeholder="e.g. AcademicMatch"
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="projectDescription">
+            Description
+        </label>
+
+        <textarea
+            id="projectDescription"
+            rows="4"
+            placeholder="Describe your project..."
+            style="
+                width: 100%;
+                padding: 13px 14px;
+                border: 1px solid #cbd5e1;
+                border-radius: 8px;
+                font-size: 15px;
+                font-family: inherit;
+                resize: vertical;
+            "
+        ></textarea>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="projectTechnologies">
+            Technologies Used
+        </label>
+
+        <input
+            type="text"
+            id="projectTechnologies"
+            placeholder="e.g. HTML, CSS, JavaScript, Supabase"
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="projectLink">
+            Project Link
+        </label>
+
+        <input
+            type="url"
+            id="projectLink"
+            placeholder="https://github.com/..."
+        >
+
+    </div>
+
+
+    <p
+        id="projectMessage"
+        style="
+            min-height: 20px;
+            margin-bottom: 15px;
+        "
+    ></p>
+
+
+    <button
+        type="button"
+        id="addProjectButton"
+        class="btn btn-primary"
+    >
+        Add Project
+    </button>
+
+</div>
+<!-- ADD CERTIFICATION -->
+
+<div
+    class="auth-card"
+    style="
+        max-width: 900px;
+        margin: 20px auto;
+    "
+>
+
+    <h2>
+        Add Certification
+    </h2>
+
+    <p style="
+        color: #64748b;
+        margin-top: 8px;
+        margin-bottom: 20px;
+    ">
+        Add a certification to your digital portfolio.
+    </p>
+
+
+    <div class="form-group">
+
+        <label for="certificateName">
+            Certificate Name
+        </label>
+
+        <input
+            type="text"
+            id="certificateName"
+            placeholder="e.g. Python Programming"
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="issuingOrganization">
+            Issuing Organization
+        </label>
+
+        <input
+            type="text"
+            id="issuingOrganization"
+            placeholder="e.g. Coursera"
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="certificateDate">
+            Issue Date
+        </label>
+
+        <input
+            type="date"
+            id="certificateDate"
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="certificateLink">
+            Certificate Link
+        </label>
+
+        <input
+            type="url"
+            id="certificateLink"
+            placeholder="https://..."
+        >
+
+    </div>
+
+
+    <p
+        id="certificateMessage"
+        style="
+            min-height: 20px;
+            margin-bottom: 15px;
+        "
+    ></p>
+
+
+    <button
+        type="button"
+        id="addCertificateButton"
+        class="btn btn-primary"
+    >
+        Add Certification
+    </button>
+
+</div>
+<!-- ADD ACHIEVEMENT -->
+
+<div
+    class="auth-card"
+    style="
+        max-width: 900px;
+        margin: 20px auto;
+    "
+>
+
+    <h2>
+        Add Achievement
+    </h2>
+
+    <p style="
+        color: #64748b;
+        margin-top: 8px;
+        margin-bottom: 20px;
+    ">
+        Add an achievement to your digital portfolio.
+    </p>
+
+
+    <div class="form-group">
+
+        <label for="achievementTitle">
+            Achievement Title
+        </label>
+
+        <input
+            type="text"
+            id="achievementTitle"
+            placeholder="e.g. SIH 2026 Participant"
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="achievementDescription">
+            Description
+        </label>
+
+        <textarea
+            id="achievementDescription"
+            rows="4"
+            placeholder="Describe your achievement..."
+            style="
+                width: 100%;
+                padding: 13px 14px;
+                border: 1px solid #cbd5e1;
+                border-radius: 8px;
+                font-size: 15px;
+                font-family: inherit;
+                resize: vertical;
+            "
+        ></textarea>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="achievementDate">
+            Achievement Date
+        </label>
+
+        <input
+            type="date"
+            id="achievementDate"
+        >
+
+    </div>
+
+
+    <p
+        id="achievementMessage"
+        style="
+            min-height: 20px;
+            margin-bottom: 15px;
+        "
+    ></p>
+
+
+    <button
+        type="button"
+        id="addAchievementButton"
+        class="btn btn-primary"
+    >
+        Add Achievement
+    </button>
+
+</div>
+<!-- RESUME -->
+
+<div
+    class="auth-card"
+    style="
+        max-width: 900px;
+        margin: 20px auto;
+    "
+>
+
+    <h2>
+        Resume
+    </h2>
+
+    <p style="
+        color: #64748b;
+        margin-top: 8px;
+        margin-bottom: 20px;
+    ">
+        Upload your latest resume.
+    </p>
+
+
+    <input
+        type="file"
+        id="resumeFile"
+        accept=".pdf,.doc,.docx"
+    >
+
+
+    <p
+        id="resumeMessage"
+        style="
+            min-height: 20px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        "
+    ></p>
+
+
+    <button
+        type="button"
+        id="uploadResumeButton"
+        class="btn btn-primary"
+    >
+        Upload Resume
+    </button>
+
+</div>
+
+    </main>
+
+
+
+    <!-- Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../supabase-config.js"></script>
+
+
+    <script>
+
+        async function loadPortfolio() {
+
+            const content =
+                document.getElementById(
+                    "portfolioContent"
+                );
+
+
+            try {
+
+                // CHECK LOGIN
+
+                const {
+                    data: { user },
+                    error: userError
+                } =
+                    await supabaseClient.auth.getUser();
+
+
+                if (userError || !user) {
+
+                    throw new Error(
+                        "Please log in first."
+                    );
+
+                }
+
+
+                // GET STUDENT PROFILE
+
+                const {
+    data: profile,
+    error: profileError
+} =
+    await supabaseClient
+        .from("profiles")
+        .select(`
+            full_name,
+            role,
+            college,
+            degree,
+            branch,
+            graduation_year,
+            location,
+            bio,
+            skills,
+            github_url,
+            linkedin_url,
+            leetcode_url,
+            codeforces_url
+        `)
+        .eq(
+            "id",
+            user.id
+        )
+        .single();
+
+
+                if (profileError) {
+
+                    throw profileError;
+
+                }
+
+
+                // SAFE EXTERNAL PROFILE URLS
+
+                const githubUrl =
+                    safeExternalUrl(profile.github_url);
+
+                const linkedinUrl =
+                    safeExternalUrl(profile.linkedin_url);
+
+                const leetcodeUrl =
+                    safeExternalUrl(profile.leetcode_url);
+
+                const codeforcesUrl =
+                    safeExternalUrl(profile.codeforces_url);
+
+
+              // =========================================
+// GET SKILL ASSESSMENT
+// =========================================
+
+const {
+    data: assessment,
+    error: assessmentError
+} =
+    await supabaseClient
+        .from("skill_assessments")
+        .select(`
+            technical_score,
+            communication_score,
+            problem_solving_score,
+            teamwork_score,
+            overall_score
+        `)
+        .eq(
+            "student_id",
+            user.id
+        )
+        .maybeSingle();
+
+
+// Assessment is optional.
+// Do NOT stop the portfolio if no assessment exists.
+
+if (assessmentError) {
+
+    console.error(
+        "Assessment loading error:",
+        assessmentError
+    );
+
+}
+
+
+// Use empty values if assessment does not exist.
+
+const safeAssessment =
+    assessment || {
+        technical_score: "N/A",
+        communication_score: "N/A",
+        problem_solving_score: "N/A",
+        teamwork_score: "N/A",
+        overall_score: "N/A"
+    };
+
+
+// DISPLAY PORTFOLIO
+
+content.innerHTML = `
+
+    <!-- PROFILE -->
+
+    <div
+        class="auth-card"
+        style="
+            max-width: 900px;
+            margin: 0 auto 20px;
+        "
+    >
+
+        <p class="section-label">
+            STUDENT
+        </p>
+
+        <h1>
+            ${
+                profile.full_name ||
+                "Student"
+            }
+        </h1>
+
+        <p style="
+            color: #64748b;
+            margin-top: 8px;
+        ">
+            ${
+                profile.role ||
+                "Student"
+            }
+        </p>
+
+
+        <!-- ACADEMIC INFORMATION -->
+
+        <div style="
+            margin-top: 25px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        ">
+
+
+            <!-- COLLEGE -->
+
+            <div style="
+                padding: 15px;
+                border: 1px solid #e5e7eb;
+                border-radius: 10px;
+            ">
+
+                <strong>
+                    College / University
+                </strong>
+
+                <p style="
+                    margin-top: 6px;
+                    color: #64748b;
+                ">
+                    ${
+                        profile.college ||
+                        "Not provided"
+                    }
+                </p>
+
+            </div>
+
+
+            <!-- DEGREE -->
+
+            <div style="
+                padding: 15px;
+                border: 1px solid #e5e7eb;
+                border-radius: 10px;
+            ">
+
+                <strong>
+                    Degree
+                </strong>
+
+                <p style="
+                    margin-top: 6px;
+                    color: #64748b;
+                ">
+                    ${
+                        profile.degree ||
+                        "Not provided"
+                    }
+                </p>
+
+            </div>
+
+
+            <!-- BRANCH -->
+
+            <div style="
+                padding: 15px;
+                border: 1px solid #e5e7eb;
+                border-radius: 10px;
+            ">
+
+                <strong>
+                    Branch
+                </strong>
+
+                <p style="
+                    margin-top: 6px;
+                    color: #64748b;
+                ">
+                    ${
+                        profile.branch ||
+                        "Not provided"
+                    }
+                </p>
+
+            </div>
+
+
+            <!-- GRADUATION YEAR -->
+
+            <div style="
+                padding: 15px;
+                border: 1px solid #e5e7eb;
+                border-radius: 10px;
+            ">
+
+                <strong>
+                    Graduation Year
+                </strong>
+
+                <p style="
+                    margin-top: 6px;
+                    color: #64748b;
+                ">
+                    ${
+                        profile.graduation_year ||
+                        "Not provided"
+                    }
+                </p>
+
+            </div>
+
+
+            <!-- LOCATION -->
+
+            <div style="
+                padding: 15px;
+                border: 1px solid #e5e7eb;
+                border-radius: 10px;
+            ">
+
+                <strong>
+                    Location
+                </strong>
+
+                <p style="
+                    margin-top: 6px;
+                    color: #64748b;
+                ">
+                    ${
+                        profile.location ||
+                        "Not provided"
+                    }
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ABOUT ME -->
+
+        <div style="
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        ">
+
+            <strong>
+                About Me
+            </strong>
+
+            <p style="
+                margin-top: 8px;
+                color: #64748b;
+                line-height: 1.7;
+            ">
+                ${
+                    profile.bio ||
+                    "No bio added yet."
+                }
+            </p>
+
+        </div>
+
+
+        <!-- SKILLS -->
+
+        <div style="
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        ">
+
+            <strong>
+                Skills
+            </strong>
+
+            <p style="
+                margin-top: 8px;
+                color: #64748b;
+                line-height: 1.7;
+            ">
+                ${
+                    profile.skills ||
+                    "No skills added yet."
+                }
+            </p>
+
+        </div>
+
+
+        <!-- DIGITAL FOOTPRINT -->
+
+        <div style="
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        ">
+
+            <strong>
+                Digital Footprint
+            </strong>
+
+            <p style="
+                margin-top: 8px;
+                color: #64748b;
+                line-height: 1.7;
+            ">
+                Public coding and professional profiles.
+            </p>
+
+            <div style="
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                margin-top: 15px;
+            ">
+
+                ${
+                    githubUrl
+                    ?
+                    `
+                    <a
+                        href="${githubUrl}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn btn-outline"
+                    >
+                        GitHub
+                    </a>
+                    `
+                    :
+                    ""
+                }
+
+                ${
+                    linkedinUrl
+                    ?
+                    `
+                    <a
+                        href="${linkedinUrl}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn btn-outline"
+                    >
+                        LinkedIn
+                    </a>
+                    `
+                    :
+                    ""
+                }
+
+                ${
+                    leetcodeUrl
+                    ?
+                    `
+                    <a
+                        href="${leetcodeUrl}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn btn-outline"
+                    >
+                        LeetCode
+                    </a>
+                    `
+                    :
+                    ""
+                }
+
+                ${
+                    codeforcesUrl
+                    ?
+                    `
+                    <a
+                        href="${codeforcesUrl}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn btn-outline"
+                    >
+                        Codeforces
+                    </a>
+                    `
+                    :
+                    ""
+                }
+
+                ${
+                    !githubUrl &&
+                    !linkedinUrl &&
+                    !leetcodeUrl &&
+                    !codeforcesUrl
+                    ?
+                    `
+                    <span style="
+                        color: #64748b;
+                        margin-top: 5px;
+                    ">
+                        No external profiles added yet.
+                    </span>
+                    `
+                    :
+                    ""
+                }
+
+            </div>
+
+        </div>
+
+
+        <!-- EDIT PROFILE BUTTON -->
+
+        <div style="
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        ">
+
+            <a
+                href="student-profile.html"
+                class="btn btn-primary"
+            >
+                Edit Profile
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- SKILL ASSESSMENT -->
+
+    <div
+        class="auth-card"
+        style="
+            max-width: 900px;
+            margin: 0 auto 20px;
+        "
+    >
+
+        <h2>
+            Skill Assessment
+        </h2>
+
+
+        <div style="
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        ">
+
+
+            <p>
+
+                <strong>
+                    Technical:
+                </strong>
+
+                ${
+                    safeAssessment.technical_score
+                }/10
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Communication:
+                </strong>
+
+                ${
+                    safeAssessment.communication_score
+                }/10
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Problem Solving:
+                </strong>
+
+                ${
+                    safeAssessment.problem_solving_score
+                }/10
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Teamwork:
+                </strong>
+
+                ${
+                    safeAssessment.teamwork_score
+                }/10
+
+            </p>
+
+        </div>
+
+
+        <p style="
+            margin-top: 20px;
+        ">
+
+            <strong>
+                Overall Score:
+            </strong>
+
+            ${
+                safeAssessment.overall_score
+            }/10
+
+        </p>
+
+    </div>
+
+`;
+
+
+} catch (error) {
+
+    console.error(
+        "Portfolio error:",
+        error
+    );
+
+
+    content.innerHTML = `
+
+        <p style="
+            text-align: center;
+            color: #dc2626;
+        ">
+
+            ${
+                error.message ||
+                "Unable to load portfolio."
+            }
+
+        </p>
+
+    `;
+
+}
+
+}
+        // =========================================
+// LOAD APPLICATIONS
+// =========================================
+
+async function loadPortfolioApplications() {
+
+    const content =
+        document.getElementById(
+            "portfolioContent"
+        );
+
+    try {
+
+        const {
+            data: { user },
+            error: userError
+        } =
+            await supabaseClient.auth.getUser();
+
+
+        if (userError || !user) {
+            return;
+        }
+
+
+        // GET APPLICATIONS
+
+        const {
+            data: applications,
+            error: applicationsError
+        } =
+            await supabaseClient
+                .from("applications")
+                .select(`
+                    id,
+                    status,
+                    created_at,
+                    opportunity_id
+                `)
+                .eq(
+                    "student_id",
+                    user.id
+                )
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+        if (applicationsError) {
+            throw applicationsError;
+        }
+
+
+        // CREATE SECTION
+
+        const section =
+            document.createElement("div");
+
+        section.className =
+            "auth-card";
+
+        section.style.cssText = `
+            max-width: 900px;
+            margin: 20px auto 0;
+        `;
+
+
+        section.innerHTML = `
+
+            <h2>
+                Applications
+            </h2>
+            
+
+            <p style="
+                color: #64748b;
+                margin-top: 8px;
+            ">
+                Your internship and job applications.
+            </p>
+
+        `;
+
+
+        // NO APPLICATIONS
+
+        if (
+            !applications ||
+            applications.length === 0
+        ) {
+
+            section.innerHTML += `
+
+                <p style="
+                    color: #64748b;
+                    margin-top: 15px;
+                ">
+                    No applications yet.
+                </p>
+
+            `;
+
+            content.appendChild(section);
+
+            return;
+        }
+
+
+        // GET OPPORTUNITY IDS
+
+        const opportunityIds =
+            applications.map(
+                function (application) {
+                    return application.opportunity_id;
+                }
+            );
+
+
+        // GET OPPORTUNITIES
+
+        const {
+            data: opportunities,
+            error: opportunitiesError
+        } =
+            await supabaseClient
+                .from("opportunities")
+                .select(`
+                    id,
+                    title,
+                    opportunity_type,
+                    sector
+                `)
+                .in(
+                    "id",
+                    opportunityIds
+                );
+
+
+        if (opportunitiesError) {
+            throw opportunitiesError;
+        }
+
+
+        // DISPLAY APPLICATIONS
+
+        applications.forEach(
+            function (application) {
+
+                const opportunity =
+                    opportunities.find(
+                        function (item) {
+                            return (
+                                item.id ===
+                                application.opportunity_id
+                            );
+                        }
+                    );
+
+
+                const item =
+                    document.createElement("div");
+
+
+                item.style.cssText = `
+                    padding: 15px;
+                    margin-top: 12px;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 10px;
+                `;
+
+
+                item.innerHTML = `
+
+                    <strong>
+                        ${
+                            opportunity?.title ||
+                            "Opportunity"
+                        }
+                    </strong>
+
+
+                    <p style="
+                        margin-top: 6px;
+                        color: #64748b;
+                    ">
+                        ${
+                            opportunity?.opportunity_type ||
+                            "Opportunity"
+                        }
+
+                        •
+
+                        ${
+                            opportunity?.sector ||
+                            "Sector not specified"
+                        }
+                    </p>
+
+
+                    <p style="
+    margin-top: 10px;
+    font-weight: 600;
+">
+    Status:
+    <span style="
+        text-transform: capitalize;
+        ${
+            application.status === "shortlisted"
+                ? "color: #16a34a;"
+                : application.status === "rejected"
+                    ? "color: #dc2626;"
+                    : "color: #d97706;"
+        }
+    ">
+        ${
+            application.status || "pending"
+        }
+    </span>
+</p>
+
+
+                    <p style="
+                        margin-top: 6px;
+                        color: #64748b;
+                    ">
+                        Applied on:
+                        ${
+                            new Date(
+                                application.created_at
+                            ).toLocaleDateString()
+                        }
+                    </p>
+
+                `;
+
+
+                section.appendChild(item);
+
+            }
+        );
+
+
+        content.appendChild(section);
+
+
+    } catch (error) {
+
+        console.error(
+            "Portfolio applications error:",
+            error
+        );
+
+    }
+
+}
+
+// START
+
+loadPortfolio();
+
+loadPortfolioApplications();
+
+
+// =========================================
+// APPLICATION STATUS CHECK
+// =========================================
+
+async function checkApplicationStatus() {
+
+    const {
+        data: { user },
+        error
+    } = await supabaseClient.auth.getUser();
+
+    if (error || !user) {
+        return;
+    }
+
+    const {
+        data: applications,
+        error: applicationsError
+    } = await supabaseClient
+        .from("applications")
+        .select(`
+            id,
+            status
+        `)
+        .eq(
+            "student_id",
+            user.id
+        );
+
+    if (applicationsError) {
+
+        console.error(
+            "Status check error:",
+            applicationsError
+        );
+
+        return;
+    }
+
+    applications.forEach(
+        function (application) {
+
+            console.log(
+                "Application:",
+                application.id,
+                "Status:",
+                application.status
+            );
+
+        }
+    );
+
+}
+
+checkApplicationStatus();
+
+// =========================================
+// ADD PROJECT
+// =========================================
+
+const addProjectButton =
+    document.getElementById("addProjectButton");
+
+const projectMessage =
+    document.getElementById("projectMessage");
+
+
+addProjectButton.addEventListener(
+    "click",
+    async function () {
+
+        projectMessage.textContent = "";
+        projectMessage.style.color = "";
+
+
+        const title =
+            document.getElementById(
+                "projectTitle"
+            ).value.trim();
+
+
+        const description =
+            document.getElementById(
+                "projectDescription"
+            ).value.trim();
+
+
+        const technologies =
+            document.getElementById(
+                "projectTechnologies"
+            ).value.trim();
+
+
+        const projectLink =
+            document.getElementById(
+                "projectLink"
+            ).value.trim();
+
+
+        if (!title) {
+
+            projectMessage.textContent =
+                "Please enter a project title.";
+
+            projectMessage.style.color =
+                "#dc2626";
+
+            return;
+        }
+
+
+        try {
+
+            const {
+                data: { user },
+                error: userError
+            } =
+                await supabaseClient.auth.getUser();
+
+
+            if (userError || !user) {
+
+                throw new Error(
+                    "Please log in first."
+                );
+
+            }
+
+
+            addProjectButton.disabled = true;
+
+            addProjectButton.textContent =
+                "Saving Project...";
+
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("student_projects")
+                    .insert({
+
+                        student_id:
+                            user.id,
+
+                        title:
+                            title,
+
+                        description:
+                            description,
+
+                        technologies:
+                            technologies,
+
+                        project_link:
+                            projectLink
+
+                    });
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+            projectMessage.textContent =
+                "Project added successfully!";
+
+            projectMessage.style.color =
+                "#16a34a";
+
+
+            document.getElementById(
+                "projectTitle"
+            ).value = "";
+
+            document.getElementById(
+                "projectDescription"
+            ).value = "";
+
+            document.getElementById(
+                "projectTechnologies"
+            ).value = "";
+
+            document.getElementById(
+                "projectLink"
+            ).value = "";
+
+
+        } catch (error) {
+
+            console.error(
+                "Project error:",
+                error
+            );
+
+
+            projectMessage.textContent =
+                error.message ||
+                "Unable to add project.";
+
+            projectMessage.style.color =
+                "#dc2626";
+
+
+        } finally {
+
+            addProjectButton.disabled =
+                false;
+
+            addProjectButton.textContent =
+                "Add Project";
+
+        }
+
+    }
+);
+
+
+// =========================================
+// LOAD PROJECTS
+// =========================================
+
+async function loadStudentProjects() {
+
+    const content =
+        document.getElementById(
+            "portfolioContent"
+        );
+
+    try {
+
+        const {
+            data: { user },
+            error: userError
+        } =
+            await supabaseClient.auth.getUser();
+
+
+        if (userError || !user) {
+            return;
+        }
+
+
+        const {
+            data: projects,
+            error
+        } =
+            await supabaseClient
+                .from("student_projects")
+                .select(`
+                    id,
+                    title,
+                    description,
+                    technologies,
+                    project_link,
+                    created_at
+                `)
+                .eq(
+                    "student_id",
+                    user.id
+                )
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        const section =
+            document.createElement("div");
+
+        section.className =
+            "auth-card";
+
+        section.style.cssText = `
+            max-width: 900px;
+            margin: 20px auto 0;
+        `;
+
+
+        section.innerHTML = `
+
+            <h2>
+                Projects
+            </h2>
+
+            <p style="
+                color: #64748b;
+                margin-top: 8px;
+            ">
+                Projects included in your portfolio.
+            </p>
+
+        `;
+
+
+        if (
+            !projects ||
+            projects.length === 0
+        ) {
+
+            section.innerHTML += `
+
+                <p style="
+                    color: #64748b;
+                    margin-top: 15px;
+                ">
+                    No projects added yet.
+                </p>
+
+            `;
+
+        } else {
+
+            projects.forEach(
+                function (project) {
+
+                    const item =
+                        document.createElement("div");
+
+                    item.style.cssText = `
+                        padding: 18px;
+                        margin-top: 15px;
+                        border: 1px solid #e5e7eb;
+                        border-radius: 10px;
+                    `;
+
+
+                    item.innerHTML = `
+
+                        <h3>
+                            ${
+                                project.title
+                            }
+                        </h3>
+
+
+                        <p style="
+                            margin-top: 8px;
+                            color: #64748b;
+                            line-height: 1.6;
+                        ">
+                            ${
+                                project.description ||
+                                "No description provided."
+                            }
+                        </p>
+
+
+                        <p style="
+                            margin-top: 8px;
+                            color: #64748b;
+                        ">
+                            <strong>
+                                Technologies:
+                            </strong>
+
+                            ${
+                                project.technologies ||
+                                "Not specified"
+                            }
+                        </p>
+
+
+                        ${ 
+    project.project_link
+    ? 
+    ` 
+    <a 
+        href="${project.project_link}" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="btn btn-outline" 
+        style=" 
+            display: inline-block; 
+            margin-top: 12px; 
+        " 
+    > 
+        View Project 
+    </a>
+    `
+    : 
+    ""
+}
+
+<button
+    type="button"
+    class="btn btn-outline"
+    style="
+        display: inline-block;
+        margin-top: 12px;
+        margin-left: 8px;
+    "
+    onclick="deleteStudentProject('${project.id}')"
+>
+    Delete
+</button>
+
+<button 
+    type="button" 
+    class="btn btn-outline"
+    style="
+        display: inline-block;
+        margin-top: 12px;
+        margin-left: 8px;
+    "
+    onclick="editStudentProject('${project.id}')"
+>
+    Edit
+</button>
+
+                    `;
+
+
+                    section.appendChild(item);
+
+                }
+            );
+
+        }
+
+
+        content.appendChild(section);
+
+
+    } catch (error) {
+
+        console.error(
+            "Projects error:",
+            error
+        );
+
+    }
+
+}
+
+
+loadStudentProjects();
+// =========================================
+// ADD CERTIFICATION
+// =========================================
+
+const addCertificateButton =
+    document.getElementById("addCertificateButton");
+
+const certificateMessage =
+    document.getElementById("certificateMessage");
+
+
+addCertificateButton.addEventListener(
+    "click",
+    async function () {
+
+        certificateMessage.textContent = "";
+        certificateMessage.style.color = "";
+
+
+        const certificateName =
+            document.getElementById(
+                "certificateName"
+            ).value.trim();
+
+
+        const issuingOrganization =
+            document.getElementById(
+                "issuingOrganization"
+            ).value.trim();
+
+
+        const certificateDate =
+            document.getElementById(
+                "certificateDate"
+            ).value;
+
+
+        const certificateLink =
+            document.getElementById(
+                "certificateLink"
+            ).value.trim();
+
+
+        if (!certificateName) {
+
+            certificateMessage.textContent =
+                "Please enter the certificate name.";
+
+            certificateMessage.style.color =
+                "#dc2626";
+
+            return;
+        }
+
+
+        try {
+
+            const {
+                data: { user },
+                error: userError
+            } =
+                await supabaseClient.auth.getUser();
+
+
+            if (userError || !user) {
+
+                throw new Error(
+                    "Please log in first."
+                );
+
+            }
+
+
+            addCertificateButton.disabled = true;
+
+            addCertificateButton.textContent =
+                "Saving Certification...";
+
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("student_certifications")
+                    .insert({
+
+                        student_id:
+                            user.id,
+
+                        certificate_name:
+                            certificateName,
+
+                        issuing_organization:
+                            issuingOrganization,
+
+                        certificate_link:
+                            certificateLink,
+
+                        issue_date:
+                            certificateDate || null
+
+                    });
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+            certificateMessage.textContent =
+                "Certification added successfully!";
+
+            certificateMessage.style.color =
+                "#16a34a";
+
+
+            document.getElementById(
+                "certificateName"
+            ).value = "";
+
+            document.getElementById(
+                "issuingOrganization"
+            ).value = "";
+
+            document.getElementById(
+                "certificateDate"
+            ).value = "";
+
+            document.getElementById(
+                "certificateLink"
+            ).value = "";
+
+
+        } catch (error) {
+
+            console.error(
+                "Certification error:",
+                error
+            );
+
+
+            certificateMessage.textContent =
+                error.message ||
+                "Unable to add certification.";
+
+            certificateMessage.style.color =
+                "#dc2626";
+
+
+        } finally {
+
+            addCertificateButton.disabled =
+                false;
+
+            addCertificateButton.textContent =
+                "Add Certification";
+
+        }
+
+    }
+);
+
+// =========================================
+// LOAD CERTIFICATIONS
+// =========================================
+
+async function loadStudentCertifications() {
+
+    const content =
+        document.getElementById(
+            "portfolioContent"
+        );
+
+    try {
+
+        const {
+            data: { user },
+            error: userError
+        } =
+            await supabaseClient.auth.getUser();
+
+
+        if (userError || !user) {
+            return;
+        }
+
+
+        const {
+            data: certifications,
+            error
+        } =
+            await supabaseClient
+                .from("student_certifications")
+                .select(`
+                    id,
+                    certificate_name,
+                    issuing_organization,
+                    certificate_link,
+                    issue_date
+                `)
+                .eq(
+                    "student_id",
+                    user.id
+                )
+                .order(
+                    "issue_date",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        const section =
+            document.createElement("div");
+
+        section.className =
+            "auth-card";
+
+        section.style.cssText = `
+            max-width: 900px;
+            margin: 20px auto 0;
+        `;
+
+
+        section.innerHTML = `
+
+            <h2>
+                Certifications
+            </h2>
+
+            <p style="
+                color: #64748b;
+                margin-top: 8px;
+            ">
+                Certifications included in your portfolio.
+            </p>
+
+        `;
+
+
+        if (
+            !certifications ||
+            certifications.length === 0
+        ) {
+
+            section.innerHTML += `
+
+                <p style="
+                    color: #64748b;
+                    margin-top: 15px;
+                ">
+                    No certifications added yet.
+                </p>
+
+            `;
+
+        } else {
+
+            certifications.forEach(
+                function (certification) {
+
+                    const item =
+                        document.createElement("div");
+
+                    item.style.cssText = `
+                        padding: 18px;
+                        margin-top: 15px;
+                        border: 1px solid #e5e7eb;
+                        border-radius: 10px;
+                    `;
+
+
+                    item.innerHTML = `
+
+                        <h3>
+                            ${
+                                certification.certificate_name
+                            }
+                        </h3>
+
+
+                        <p style="
+                            margin-top: 8px;
+                            color: #64748b;
+                        ">
+                            <strong>
+                                Issued by:
+                            </strong>
+
+                            ${
+                                certification.issuing_organization ||
+                                "Not specified"
+                            }
+                        </p>
+
+
+                        <p style="
+                            margin-top: 8px;
+                            color: #64748b;
+                        ">
+                            <strong>
+                                Issue Date:
+                            </strong>
+
+                            ${
+                                certification.issue_date
+                                ?
+                                new Date(
+                                    certification.issue_date
+                                ).toLocaleDateString()
+                                :
+                                "Not specified"
+                            }
+                        </p>
+
+
+                                               ${
+                            certification.certificate_link
+                            ?
+                            `
+                            <a
+                                href="${certification.certificate_link}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn btn-outline"
+                                style="
+                                    display: inline-block;
+                                    margin-top: 12px;
+                                "
+                            >
+                                View Certificate
+                            </a>
+                            `
+                            :
+                            ""
+                        }
+
+                        <button
+                            type="button"
+                            class="btn btn-outline"
+                            style="
+                                display: inline-block;
+                                margin-top: 12px;
+                                margin-left: 8px;
+                            "
+                            onclick="deleteStudentCertification('${certification.id}')"
+                        >
+                            Delete
+                        </button>
+
+                        <button 
+    type="button" 
+    class="btn btn-outline"
+    style="
+        display: inline-block;
+        margin-top: 12px;
+        margin-left: 8px;
+    "
+    onclick="editStudentCertification('${certification.id}')"
+>
+    Edit
+</button>
+
+                    `;
+
+
+                    section.appendChild(item);
+
+                }
+            );
+
+        }
+
+
+        content.appendChild(section);
+
+
+    } catch (error) {
+
+        console.error(
+            "Certifications error:",
+            error
+        );
+
+    }
+
+}
+
+
+loadStudentCertifications();
+
+// =========================================
+// ADD ACHIEVEMENT
+// =========================================
+
+const addAchievementButton =
+    document.getElementById("addAchievementButton");
+
+const achievementMessage =
+    document.getElementById("achievementMessage");
+
+
+addAchievementButton.addEventListener(
+    "click",
+    async function () {
+
+        achievementMessage.textContent = "";
+        achievementMessage.style.color = "";
+
+
+        const title =
+            document.getElementById(
+                "achievementTitle"
+            ).value.trim();
+
+
+        const description =
+            document.getElementById(
+                "achievementDescription"
+            ).value.trim();
+
+
+        const achievementDate =
+            document.getElementById(
+                "achievementDate"
+            ).value;
+
+
+        if (!title) {
+
+            achievementMessage.textContent =
+                "Please enter an achievement title.";
+
+            achievementMessage.style.color =
+                "#dc2626";
+
+            return;
+        }
+
+
+        try {
+
+            const {
+                data: { user },
+                error: userError
+            } =
+                await supabaseClient.auth.getUser();
+
+
+            if (userError || !user) {
+
+                throw new Error(
+                    "Please log in first."
+                );
+
+            }
+
+
+            addAchievementButton.disabled = true;
+
+            addAchievementButton.textContent =
+                "Saving Achievement...";
+
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("student_achievements")
+                    .insert({
+
+                        student_id:
+                            user.id,
+
+                        title:
+                            title,
+
+                        description:
+                            description,
+
+                        achievement_date:
+                            achievementDate || null
+
+                    });
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+            achievementMessage.textContent =
+                "Achievement added successfully!";
+
+            achievementMessage.style.color =
+                "#16a34a";
+
+
+            document.getElementById(
+                "achievementTitle"
+            ).value = "";
+
+            document.getElementById(
+                "achievementDescription"
+            ).value = "";
+
+            document.getElementById(
+                "achievementDate"
+            ).value = "";
+
+
+        } catch (error) {
+
+            console.error(
+                "Achievement error:",
+                error
+            );
+
+
+            achievementMessage.textContent =
+                error.message ||
+                "Unable to add achievement.";
+
+            achievementMessage.style.color =
+                "#dc2626";
+
+
+        } finally {
+
+            addAchievementButton.disabled =
+                false;
+
+            addAchievementButton.textContent =
+                "Add Achievement";
+
+        }
+
+    }
+);
+
+// =========================================
+// LOAD ACHIEVEMENTS
+// =========================================
+
+async function loadStudentAchievements() {
+
+    const content =
+        document.getElementById(
+            "portfolioContent"
+        );
+
+    try {
+
+        const {
+            data: { user },
+            error: userError
+        } =
+            await supabaseClient.auth.getUser();
+
+
+        if (userError || !user) {
+            return;
+        }
+
+
+        const {
+            data: achievements,
+            error
+        } =
+            await supabaseClient
+                .from("student_achievements")
+                .select(`
+                    id,
+                    title,
+                    description,
+                    achievement_date
+                `)
+                .eq(
+                    "student_id",
+                    user.id
+                )
+                .order(
+                    "achievement_date",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        const section =
+            document.createElement("div");
+
+        section.className =
+            "auth-card";
+
+        section.style.cssText = `
+            max-width: 900px;
+            margin: 20px auto 0;
+        `;
+
+
+        section.innerHTML = `
+
+            <h2>
+                Achievements
+            </h2>
+
+            <p style="
+                color: #64748b;
+                margin-top: 8px;
+            ">
+                Your achievements and accomplishments.
+            </p>
+
+        `;
+
+
+        if (
+            !achievements ||
+            achievements.length === 0
+        ) {
+
+            section.innerHTML += `
+
+                <p style="
+                    color: #64748b;
+                    margin-top: 15px;
+                ">
+                    No achievements added yet.
+                </p>
+
+            `;
+
+        } else {
+
+            achievements.forEach(
+                function (achievement) {
+
+                    const item =
+                        document.createElement("div");
+
+                    item.style.cssText = `
+                        padding: 18px;
+                        margin-top: 15px;
+                        border: 1px solid #e5e7eb;
+                        border-radius: 10px;
+                    `;
+
+
+                    item.innerHTML = `
+
+                        <h3>
+                            ${
+                                achievement.title
+                            }
+                        </h3>
+
+
+                        <p style="
+                            margin-top: 8px;
+                            color: #64748b;
+                            line-height: 1.6;
+                        ">
+                            ${
+                                achievement.description ||
+                                "No description provided."
+                            }
+                        </p>
+
+
+                        <p style="
+                            margin-top: 8px;
+                            color: #64748b;
+                        ">
+                            <strong>
+                                Date:
+                            </strong>
+
+                            ${
+                                achievement.achievement_date
+                                ?
+                                new Date(
+                                    achievement.achievement_date
+                                ).toLocaleDateString()
+                                :
+                                "Not specified"
+                            }
+                        </p>
+                                                <button
+                            type="button"
+                            class="btn btn-outline"
+                            style="
+                                display: inline-block;
+                                margin-top: 12px;
+                                margin-left: 8px;
+                            "
+                            onclick="deleteStudentAchievement('${achievement.id}')"
+                        >
+                            Delete
+                        </button>
+
+                        <button
+                        type="button"
+                         class="btn btn-outline"
+                          style="
+                             display: inline-block;
+                           margin-top: 12px;
+                          margin-left: 8px;
+                         "
+                        onclick="editStudentAchievement('${achievement.id}')"
+                       >
+                      Edit
+                         </button>
+
+                    `;
+
+
+                    section.appendChild(item);
+
+                }
+            );
+
+        }
+
+
+        content.appendChild(section);
+
+
+    } catch (error) {
+
+        console.error(
+            "Achievements error:",
+            error
+        );
+
+    }
+
+}
+
+
+loadStudentAchievements();
+
+
+// =========================================
+// UPLOAD RESUME
+// =========================================
+
+const uploadResumeButton =
+    document.getElementById("uploadResumeButton");
+
+const resumeMessage =
+    document.getElementById("resumeMessage");
+
+const resumeFile =
+    document.getElementById("resumeFile");
+
+
+uploadResumeButton.addEventListener(
+    "click",
+    async function () {
+
+        resumeMessage.textContent = "";
+        resumeMessage.style.color = "";
+
+
+        if (!resumeFile.files.length) {
+
+            resumeMessage.textContent =
+                "Please select a resume first.";
+
+            resumeMessage.style.color =
+                "#dc2626";
+
+            return;
+        }
+
+
+        const file =
+            resumeFile.files[0];
+
+
+        try {
+
+            const {
+                data: { user },
+                error: userError
+            } =
+                await supabaseClient.auth.getUser();
+
+
+            if (userError || !user) {
+
+                throw new Error(
+                    "Please log in first."
+                );
+
+            }
+
+
+            uploadResumeButton.disabled =
+                true;
+
+            uploadResumeButton.textContent =
+                "Uploading...";
+
+
+            const fileExtension =
+                file.name
+                    .split(".")
+                    .pop();
+
+
+            const filePath =
+                user.id +
+                "/resume." +
+                fileExtension;
+
+
+            const {
+                error: uploadError
+            } =
+                await supabaseClient.storage
+                    .from("Resumes")
+                    .upload(
+                        filePath,
+                        file,
+                        {
+                            upsert: true
+                        }
+                    );
+
+
+            if (uploadError) {
+
+                throw uploadError;
+
+            }
+
+
+            resumeMessage.textContent =
+                "Resume uploaded successfully!";
+
+            resumeMessage.style.color =
+                "#16a34a";
+
+
+            resumeFile.value = "";
+
+
+        } catch (error) {
+
+            console.error(
+                "Resume upload error:",
+                error
+            );
+
+
+            resumeMessage.textContent =
+                error.message ||
+                "Unable to upload resume.";
+
+            resumeMessage.style.color =
+                "#dc2626";
+
+
+        } finally {
+
+            uploadResumeButton.disabled =
+                false;
+
+            uploadResumeButton.textContent =
+                "Upload Resume";
+
+        }
+
+    }
+);
+
+
+// =========================================
+// LOAD RESUME
+// =========================================
+
+async function loadStudentResume() {
+
+    const content =
+        document.getElementById(
+            "portfolioContent"
+        );
+
+    try {
+
+        const {
+            data: { user },
+            error: userError
+        } =
+            await supabaseClient.auth.getUser();
+
+
+        if (userError || !user) {
+            return;
+        }
+
+
+        const {
+            data: files,
+            error
+        } =
+            await supabaseClient.storage
+                .from("Resumes")
+                .list(
+                    user.id,
+                    {
+                        limit: 10
+                    }
+                );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        const resumeFile =
+            files.find(
+                function (file) {
+
+                    return file.name
+                        .toLowerCase()
+                        .startsWith("resume.");
+
+                }
+            );
+
+
+        const section =
+            document.createElement("div");
+
+        section.className =
+            "auth-card";
+
+        section.style.cssText = `
+            max-width: 900px;
+            margin: 20px auto 0;
+        `;
+
+
+        section.innerHTML = `
+
+            <h2>
+                Resume
+            </h2>
+
+            <p style="
+                color: #64748b;
+                margin-top: 8px;
+            ">
+                Your latest uploaded resume.
+            </p>
+
+        `;
+
+
+        if (!resumeFile) {
+
+            section.innerHTML += `
+
+                <p style="
+                    color: #64748b;
+                    margin-top: 15px;
+                ">
+                    No resume uploaded yet.
+                </p>
+
+            `;
+
+        } else {
+
+            const {
+                data: signedUrlData,
+                error: signedUrlError
+            } =
+                await supabaseClient.storage
+                    .from("Resumes")
+                    .createSignedUrl(
+                        user.id +
+                        "/" +
+                        resumeFile.name,
+                        3600
+                    );
+
+
+            if (signedUrlError) {
+                throw signedUrlError;
+            }
+
+
+            section.innerHTML += `
+
+                <div style="
+                    margin-top: 18px;
+                    padding: 15px;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 10px;
+                ">
+
+                    <strong>
+                        ${resumeFile.name}
+                    </strong>
+
+
+                    <br>
+
+
+                    <a
+                        href="${signedUrlData.signedUrl}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn btn-outline"
+                        style="
+                            display: inline-block;
+                            margin-top: 12px;
+                        "
+                    >
+                        View Resume
+                    </a>
+
+                </div>
+
+            `;
+
+        }
+
+
+        content.appendChild(section);
+
+
+    } catch (error) {
+
+        console.error(
+            "Resume loading error:",
+            error
+        );
+
+    }
+
+}
+
+
+loadStudentResume();
+
+
+// =========================================
+// EDIT PROJECT
+// =========================================
+
+async function editStudentProject(projectId) {
+
+    const newTitle = prompt("Enter new project title:");
+
+    if (newTitle === null) {
+        return;
+    }
+
+    const newDescription = prompt("Enter new project description:");
+
+    if (newDescription === null) {
+        return;
+    }
+
+    const newTechnologies = prompt("Enter technologies used:");
+
+    if (newTechnologies === null) {
+        return;
+    }
+
+    const newProjectLink = prompt("Enter project link:");
+
+    if (newProjectLink === null) {
+        return;
+    }
+
+    const { error } = await supabaseClient
+        .from("student_projects")
+        .update({
+            title: newTitle.trim(),
+            description: newDescription.trim(),
+            technologies: newTechnologies.trim(),
+            project_link: newProjectLink.trim()
+        })
+        .eq("id", projectId);
+
+    if (error) {
+
+        console.error("Project update error:", error);
+
+        alert(error.message);
+
+        return;
+    }
+
+    alert("Project updated successfully!");
+
+    window.location.reload();
+}
+
+
+// =========================================
+// DELETE ACHIEVEMENT
+// =========================================
+
+async function deleteStudentAchievement(achievementId) {
+
+    const confirmDelete = confirm(
+        "Are you sure you want to delete this achievement?"
+    );
+
+    if (!confirmDelete) {
+        return;
+    }
+
+
+    try {
+
+        const {
+            data: { user },
+            error: userError
+        } =
+            await supabaseClient.auth.getUser();
+
+
+        if (userError || !user) {
+
+            alert("Please log in first.");
+
+            return;
+        }
+
+
+        const {
+            data: deletedAchievements,
+            error
+        } =
+            await supabaseClient
+                .from("student_achievements")
+                .delete()
+                .eq(
+                    "id",
+                    achievementId
+                )
+                .eq(
+                    "student_id",
+                    user.id
+                )
+                .select("id");
+
+
+        if (error) {
+
+            throw error;
+
+        }
+
+
+        // CHECK WHETHER A ROW WAS ACTUALLY DELETED
+
+        if (
+            !deletedAchievements ||
+            deletedAchievements.length === 0
+        ) {
+
+            alert(
+                "Achievement was not deleted. Please check the database policy."
+            );
+
+            return;
+        }
+
+
+        alert(
+            "Achievement deleted successfully!"
+        );
+
+
+        window.location.reload();
+
+    } catch (error) {
+
+        console.error(
+            "Delete achievement error:",
+            error
+        );
+
+
+        alert(
+            error.message ||
+            "Unable to delete achievement."
+        );
+
+    }
+
+}
+
+// =========================================
+// DELETE PROJECT
+// =========================================
+
+async function deleteStudentProject(projectId) {
+
+    const confirmDelete = confirm(
+        "Are you sure you want to delete this project?"
+    );
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    try {
+
+        const {
+            data: { user },
+            error: userError
+        } = await supabaseClient.auth.getUser();
+
+
+        if (userError || !user) {
+
+            alert("Please log in first.");
+
+            return;
+
+        }
+
+
+        const {
+            error
+        } = await supabaseClient
+            .from("student_projects")
+            .delete()
+            .eq("id", projectId)
+            .eq("student_id", user.id);
+
+
+        if (error) {
+
+            throw error;
+
+        }
+
+
+        alert("Project deleted successfully!");
+
+        window.location.reload();
+
+
+    } catch (error) {
+
+        console.error(
+            "Delete project error:",
+            error
+        );
+
+        alert(
+            error.message ||
+            "Unable to delete project."
+        );
+
+    }
+
+}
+
+// =========================================
+// DELETE CERTIFICATION
+// =========================================
+
+async function deleteStudentCertification(certificationId) {
+
+    const confirmDelete = confirm(
+        "Are you sure you want to delete this certification?"
+    );
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    try {
+
+        const {
+            data: { user },
+            error: userError
+        } = await supabaseClient.auth.getUser();
+
+        if (userError || !user) {
+            alert("Please log in first.");
+            return;
+        }
+
+        const { error } = await supabaseClient
+            .from("student_certifications")
+            .delete()
+            .eq("id", certificationId)
+            .eq("student_id", user.id);
+
+        if (error) {
+            throw error;
+        }
+
+        alert("Certification deleted successfully!");
+
+        window.location.reload();
+
+    } catch (error) {
+
+        console.error(
+            "Delete certification error:",
+            error
+        );
+
+        alert(
+            error.message ||
+            "Unable to delete certification."
+        );
+    }
+}
+
+// =========================================
+// EDIT CERTIFICATION
+// =========================================
+
+async function editStudentCertification(certificationId) {
+
+    const newName = prompt("Enter certificate name:");
+
+    if (newName === null) {
+        return;
+    }
+
+    const newOrganization = prompt("Enter issuing organization:");
+
+    if (newOrganization === null) {
+        return;
+    }
+
+    const newDate = prompt("Enter issue date (YYYY-MM-DD):");
+
+    if (newDate === null) {
+        return;
+    }
+
+    const newLink = prompt("Enter certificate link:");
+
+    if (newLink === null) {
+        return;
+    }
+
+    const { error } = await supabaseClient
+        .from("student_certifications")
+        .update({
+            certificate_name: newName.trim(),
+            issuing_organization: newOrganization.trim(),
+            issue_date: newDate || null,
+            certificate_link: newLink.trim()
+        })
+        .eq("id", certificationId);
+
+    if (error) {
+
+        console.error(
+            "Certification update error:",
+            error
+        );
+
+        alert(error.message);
+
+        return;
+    }
+
+    alert("Certification updated successfully!");
+
+    window.location.reload();
+}
+
+// =========================================
+// EDIT ACHIEVEMENT
+// =========================================
+
+async function editStudentAchievement(achievementId) {
+
+    const newTitle = prompt(
+        "Enter achievement title:"
+    );
+
+    if (newTitle === null) {
+        return;
+    }
+
+    const newDescription = prompt(
+        "Enter achievement description:"
+    );
+
+    if (newDescription === null) {
+        return;
+    }
+
+    const newDate = prompt(
+        "Enter achievement date (YYYY-MM-DD):"
+    );
+
+    if (newDate === null) {
+        return;
+    }
+
+
+    const {
+        data: { user },
+        error: userError
+    } =
+        await supabaseClient.auth.getUser();
+
+
+    if (userError || !user) {
+
+        alert("Please log in first.");
+
+        return;
+    }
+
+
+    try {
+
+        const {
+            error
+        } =
+            await supabaseClient
+                .from("student_achievements")
+                .update({
+
+                    title:
+                        newTitle.trim(),
+
+                    description:
+                        newDescription.trim(),
+
+                    achievement_date:
+                        newDate || null
+
+                })
+                .eq(
+                    "id",
+                    achievementId
+                )
+                .eq(
+                    "student_id",
+                    user.id
+                );
+
+
+        if (error) {
+
+            throw error;
+
+        }
+
+
+        alert(
+            "Achievement updated successfully!"
+        );
+
+
+        window.location.reload();
+
+
+    } catch (error) {
+
+        console.error(
+            "Achievement update error:",
+            error
+        );
+
+
+        alert(
+            error.message ||
+            "Unable to update achievement."
+        );
+
+    }
+
+}
+
+// =========================================
+// SAFE EXTERNAL URL
+// =========================================
+
+function safeExternalUrl(value) {
+
+    if (!value) {
+        return "";
+    }
+
+    try {
+
+        const url = new URL(value);
+
+        if (
+            url.protocol !== "https:" &&
+            url.protocol !== "http:"
+        ) {
+            return "";
+        }
+
+        return url.href;
+
+    } catch (error) {
+
+        return "";
+
+    }
+
+}
+
+// =========================================
+// CREATE AUTOMATIC PROFILE CLAIMS
+// =========================================
+
+async function createProfileClaims() {
+
+    try {
+
+        const {
+            data: { user },
+            error: userError
+        } = await supabaseClient.auth.getUser();
+
+
+        if (userError || !user) {
+            return;
+        }
+
+
+        // GET CURRENT PROFILE
+
+        const {
+            data: profile,
+            error: profileError
+        } = await supabaseClient
+            .from("profiles")
+            .select(`
+                skills,
+                github_url,
+                linkedin_url
+            `)
+            .eq(
+                "id",
+                user.id
+            )
+            .single();
+
+
+        if (profileError) {
+            throw profileError;
+        }
+
+
+        // =========================================
+        // GITHUB CLAIM
+        // =========================================
+
+        if (profile.github_url) {
+
+            const githubUrl =
+                safeExternalUrl(
+                    profile.github_url
+                );
+
+
+            if (githubUrl) {
+
+                const {
+                    data: existingGithubClaim,
+                    error: githubCheckError
+                } = await supabaseClient
+                    .from("student_claims")
+                    .select("id")
+                    .eq(
+                        "student_id",
+                        user.id
+                    )
+                    .eq(
+                        "claim_type",
+                        "github_profile"
+                    )
+                    .maybeSingle();
+
+
+                if (githubCheckError) {
+                    throw githubCheckError;
+                }
+
+
+                if (!existingGithubClaim) {
+
+                    const {
+                        error: githubInsertError
+                    } = await supabaseClient
+                        .from("student_claims")
+                        .insert({
+
+                            student_id:
+                                user.id,
+
+                            claim_type:
+                                "github_profile",
+
+                            claim_text:
+                                "Student has provided a GitHub profile.",
+
+                            evidence_type:
+                                "public_profile",
+
+                            evidence_source:
+                                "GitHub",
+
+                            evidence_url:
+                                githubUrl,
+
+                            verification_status:
+                                "evidence_available",
+
+                            confidence_score:
+                                50,
+
+                            verification_notes:
+                                "Public GitHub profile supplied by the student."
+
+                        });
+
+
+                    if (githubInsertError) {
+                        throw githubInsertError;
+                    }
+
+                }
+
+            }
+
+        }
+
+
+        // =========================================
+        // LINKEDIN CLAIM
+        // =========================================
+
+        if (profile.linkedin_url) {
+
+            const linkedinUrl =
+                safeExternalUrl(
+                    profile.linkedin_url
+                );
+
+
+            if (linkedinUrl) {
+
+                const {
+                    data: existingLinkedinClaim,
+                    error: linkedinCheckError
+                } = await supabaseClient
+                    .from("student_claims")
+                    .select("id")
+                    .eq(
+                        "student_id",
+                        user.id
+                    )
+                    .eq(
+                        "claim_type",
+                        "linkedin_profile"
+                    )
+                    .maybeSingle();
+
+
+                if (linkedinCheckError) {
+                    throw linkedinCheckError;
+                }
+
+
+                if (!existingLinkedinClaim) {
+
+                    const {
+                        error: linkedinInsertError
+                    } = await supabaseClient
+                        .from("student_claims")
+                        .insert({
+
+                            student_id:
+                                user.id,
+
+                            claim_type:
+                                "linkedin_profile",
+
+                            claim_text:
+                                "Student has provided a LinkedIn profile.",
+
+                            evidence_type:
+                                "public_profile",
+
+                            evidence_source:
+                                "LinkedIn",
+
+                            evidence_url:
+                                linkedinUrl,
+
+                            verification_status:
+                                "evidence_available",
+
+                            confidence_score:
+                                50,
+
+                            verification_notes:
+                                "Public LinkedIn profile supplied by the student."
+
+                        });
+
+
+                    if (linkedinInsertError) {
+                        throw linkedinInsertError;
+                    }
+
+                }
+
+            }
+
+        }
+
+
+        console.log(
+            "Profile claims generated successfully."
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Profile claim generation error:",
+            error
+        );
+
+    }
+
+}
+
+createProfileClaims();
+
+
+// =========================================
+// LOAD VERIFICATION RESULTS
+// =========================================
+
+async function loadVerificationResults() {
+
+    const content =
+        document.getElementById(
+            "portfolioContent"
+        );
+
+    try {
+
+        const {
+            data: { user },
+            error: userError
+        } = await supabaseClient.auth.getUser();
+
+
+        if (userError || !user) {
+            return;
+        }
+
+
+        // GET CLAIMS
+
+        const {
+            data: claims,
+            error: claimsError
+        } = await supabaseClient
+            .from("student_claims")
+            .select(`
+                id,
+                claim_type,
+                claim_text,
+                evidence_type,
+                evidence_source,
+                evidence_url,
+                verification_status,
+                confidence_score,
+                verification_notes,
+                verified_at
+            `)
+            .eq(
+                "student_id",
+                user.id
+            )
+            .order(
+                "created_at",
+                {
+                    ascending: true
+                }
+            );
+
+
+        if (claimsError) {
+            throw claimsError;
+        }
+
+
+        // CREATE SECTION
+
+        const section =
+            document.createElement("div");
+
+        section.className =
+            "auth-card";
+
+        section.style.cssText = `
+            max-width: 900px;
+            margin: 20px auto 0;
+        `;
+
+
+        section.innerHTML = `
+
+            <p class="section-label">
+                TRUST & VERIFICATION
+            </p>
+
+            <h2>
+                Profile Fact Check
+            </h2>
+
+            <p style="
+                color: #64748b;
+                margin-top: 8px;
+                line-height: 1.6;
+            ">
+                AcademicMatch evaluates profile claims
+                using available evidence sources.
+            </p>
+
+        `;
+
+
+        // NO CLAIMS
+
+        if (
+            !claims ||
+            claims.length === 0
+        ) {
+
+            section.innerHTML += `
+
+                <p style="
+                    color: #64748b;
+                    margin-top: 15px;
+                ">
+                    No verification evidence available yet.
+                </p>
+
+            `;
+
+            content.appendChild(section);
+
+            return;
+        }
+
+
+        // DISPLAY CLAIMS
+
+        claims.forEach(
+            function (claim) {
+
+                const item =
+                    document.createElement("div");
+
+                item.style.cssText = `
+                    margin-top: 15px;
+                    padding: 18px;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 10px;
+                `;
+
+
+                let statusLabel =
+                    "Pending";
+
+                let statusColor =
+                    "#d97706";
+
+
+                if (
+                    claim.verification_status ===
+                    "evidence_available"
+                ) {
+
+                    statusLabel =
+                        "Evidence Available";
+
+                    statusColor =
+                        "#d97706";
+
+                }
+
+
+                if (
+                    claim.verification_status ===
+                    "verified"
+                ) {
+
+                    statusLabel =
+                        "Verified";
+
+                    statusColor =
+                        "#16a34a";
+
+                }
+
+
+                if (
+                    claim.verification_status ===
+                    "not_verified"
+                ) {
+
+                    statusLabel =
+                        "Not Verified";
+
+                    statusColor =
+                        "#dc2626";
+
+                }
+
+
+                item.innerHTML = `
+
+                    <strong>
+                        ${claim.claim_text}
+                    </strong>
+
+
+                    <p style="
+                        margin-top: 10px;
+                        color: #64748b;
+                    ">
+
+                        Evidence Source:
+
+                        <strong>
+                            ${claim.evidence_source || "Not specified"}
+                        </strong>
+
+                    </p>
+
+
+                    <p style="
+                        margin-top: 8px;
+                        color: #64748b;
+                    ">
+
+                        Status:
+
+                        <span style="
+                            color: ${statusColor};
+                            font-weight: 600;
+                        ">
+                            ${statusLabel}
+                        </span>
+
+                    </p>
+
+
+                    <p style="
+                        margin-top: 8px;
+                        color: #64748b;
+                    ">
+
+                        Confidence:
+
+                        <strong>
+                            ${claim.confidence_score ?? "N/A"}%
+                        </strong>
+
+                    </p>
+
+
+                    ${
+                        claim.evidence_url
+                        ?
+                        `
+                        <a
+                            href="${safeExternalUrl(
+                                claim.evidence_url
+                            )}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="btn btn-outline"
+                            style="
+                                display: inline-block;
+                                margin-top: 12px;
+                            "
+                        >
+                            View Evidence
+                        </a>
+                        `
+                        :
+                        ""
+                    }
+
+
+                    ${
+                        claim.verification_notes
+                        ?
+                        `
+                        <p style="
+                            margin-top: 12px;
+                            color: #64748b;
+                            line-height: 1.6;
+                        ">
+                            ${claim.verification_notes}
+                        </p>
+                        `
+                        :
+                        ""
+                    }
+
+                `;
+
+
+                section.appendChild(item);
+
+            }
+        );
+
+
+        content.appendChild(section);
+
+
+    } catch (error) {
+
+        console.error(
+            "Verification loading error:",
+            error
+        );
+
+    }
+
+}
+
+
+// =========================================
+// AUTOMATIC GITHUB FACT CHECK
+// =========================================
+
+// =========================================
+// AUTOMATIC PROFILE VERIFICATION
+// =========================================
+
+// =========================================
+// GITHUB FACT CHECK
+// =========================================
+
+async function verifyGitHubClaim() {
+
+    try {
+
+        const {
+            data: { user },
+            error: userError
+        } = await supabaseClient.auth.getUser();
+
+        if (userError || !user) {
+            return;
+        }
+
+
+        // GET GITHUB CLAIM
+
+        const {
+            data: claim,
+            error: claimError
+        } = await supabaseClient
+            .from("student_claims")
+            .select(`
+                id,
+                evidence_url
+            `)
+            .eq("student_id", user.id)
+            .eq("claim_type", "github_profile")
+            .maybeSingle();
+
+        if (claimError) {
+            throw claimError;
+        }
+
+        if (!claim || !claim.evidence_url) {
+            return;
+        }
+
+
+        // CHECK URL
+
+        let githubUrl;
+
+        try {
+            githubUrl = new URL(claim.evidence_url);
+        } catch (error) {
+
+            await supabaseClient
+                .from("student_claims")
+                .update({
+                    verification_status: "not_verified",
+                    confidence_score: 0,
+                    verification_notes:
+                        "The supplied GitHub URL is not valid."
+                })
+                .eq("id", claim.id);
+
+            return;
+        }
+
+
+        // MAKE SURE IT IS GITHUB
+
+        if (
+            githubUrl.hostname !== "github.com" &&
+            githubUrl.hostname !== "www.github.com"
+        ) {
+            return;
+        }
+
+
+        const pathParts =
+            githubUrl.pathname
+                .split("/")
+                .filter(Boolean);
+
+        if (!pathParts.length) {
+            return;
+        }
+
+
+        const username = pathParts[0];
+
+
+        // =========================================
+        // CHECK GITHUB PUBLIC API
+        // =========================================
+
+        const response = await fetch(
+            "https://api.github.com/users/" +
+            encodeURIComponent(username)
+        );
+
+
+        // PROFILE NOT FOUND
+
+        if (!response.ok) {
+
+            await supabaseClient
+                .from("student_claims")
+                .update({
+                    verification_status: "not_verified",
+                    confidence_score: 0,
+                    verification_notes:
+                        "GitHub could not confirm the supplied public profile.",
+                    verified_at:
+                        new Date().toISOString()
+                })
+                .eq("id", claim.id);
+
+            return;
+        }
+
+
+        // GET GITHUB DATA
+
+        const githubProfile =
+            await response.json();
+
+
+        const publicRepos =
+            githubProfile.public_repos || 0;
+
+        const followers =
+            githubProfile.followers || 0;
+
+        const accountCreated =
+            githubProfile.created_at
+                ? new Date(
+                    githubProfile.created_at
+                ).toLocaleDateString()
+                : "Unknown";
+
+
+        // =========================================
+        // CALCULATE CONFIDENCE
+        // =========================================
+
+        let confidence = 60;
+
+        if (publicRepos >= 1) {
+            confidence += 10;
+        }
+
+        if (publicRepos >= 5) {
+            confidence += 10;
+        }
+
+        if (publicRepos >= 10) {
+            confidence += 5;
+        }
+
+        if (followers >= 1) {
+            confidence += 5;
+        }
+
+        if (followers >= 10) {
+            confidence += 5;
+        }
+
+        if (confidence > 95) {
+            confidence = 95;
+        }
+
+
+        // =========================================
+        // SAVE RESULT
+        // =========================================
+
+        const {
+            error: updateError
+        } = await supabaseClient
+            .from("student_claims")
+            .update({
+
+                verification_status:
+                    "evidence_supported",
+
+                confidence_score:
+                    confidence,
+
+                verification_notes:
+                    "GitHub publicly confirmed the profile. " +
+                    "Public repositories: " +
+                    publicRepos +
+                    ". Followers: " +
+                    followers +
+                    ". Account created: " +
+                    accountCreated +
+                    ". This confirms the existence of the GitHub account, " +
+                    "but does not by itself verify every skill claimed by the student.",
+
+                verified_at:
+                    new Date().toISOString()
+
+            })
+            .eq("id", claim.id);
+
+
+        if (updateError) {
+            throw updateError;
+        }
+
+
+        console.log(
+            "GitHub fact check completed."
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "GitHub verification error:",
+            error
+        );
+
+    }
+
+}
+
+
+// =========================================
+// LINKEDIN EVIDENCE CHECK
+// =========================================
+
+async function verifyLinkedInClaim() {
+
+    try {
+
+        const {
+            data: { user },
+            error: userError
+        } = await supabaseClient.auth.getUser();
+
+        if (userError || !user) {
+            return;
+        }
+
+
+        // GET LINKEDIN CLAIM
+
+        const {
+            data: claim,
+            error: claimError
+        } = await supabaseClient
+            .from("student_claims")
+            .select(`
+                id,
+                evidence_url
+            `)
+            .eq("student_id", user.id)
+            .eq("claim_type", "linkedin_profile")
+            .maybeSingle();
+
+
+        if (claimError) {
+            throw claimError;
+        }
+
+
+        if (!claim || !claim.evidence_url) {
+            return;
+        }
+
+
+        // CHECK URL
+
+        let linkedinUrl;
+
+        try {
+            linkedinUrl =
+                new URL(claim.evidence_url);
+        } catch (error) {
+
+            await supabaseClient
+                .from("student_claims")
+                .update({
+                    verification_status:
+                        "not_verified",
+
+                    confidence_score:
+                        0,
+
+                    verification_notes:
+                        "The supplied LinkedIn URL is not valid."
+                })
+                .eq("id", claim.id);
+
+            return;
+        }
+
+
+        // MAKE SURE IT IS LINKEDIN
+
+        if (
+            linkedinUrl.hostname !== "linkedin.com" &&
+            linkedinUrl.hostname !== "www.linkedin.com"
+        ) {
+
+            await supabaseClient
+                .from("student_claims")
+                .update({
+                    verification_status:
+                        "not_verified",
+
+                    confidence_score:
+                        0,
+
+                    verification_notes:
+                        "The supplied URL is not a valid LinkedIn profile."
+                })
+                .eq("id", claim.id);
+
+            return;
+        }
+
+
+        // =========================================
+        // LINKEDIN EVIDENCE
+        // =========================================
+
+        await supabaseClient
+            .from("student_claims")
+            .update({
+
+                verification_status:
+                    "evidence_available",
+
+                confidence_score:
+                    50,
+
+                verification_notes:
+                    "A public LinkedIn profile was supplied by the student. " +
+                    "This confirms that LinkedIn evidence has been provided, " +
+                    "but does not independently verify every academic or professional claim.",
+
+                verified_at:
+                    new Date().toISOString()
+
+            })
+            .eq("id", claim.id);
+
+
+        console.log(
+            "LinkedIn evidence check completed."
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "LinkedIn verification error:",
+            error
+        );
+
+    }
+
+}
+
+
+// =========================================
+// START VERIFICATION
+// =========================================
+
+async function startVerification() {
+
+    try {
+
+        // FIRST: CREATE CLAIMS
+
+        await createProfileClaims();
+
+
+        // SECOND: VERIFY GITHUB
+
+        await verifyGitHubClaim();
+
+
+        // THIRD: CHECK LINKEDIN
+
+        await verifyLinkedInClaim();
+
+
+        // FOURTH: LOAD FINAL RESULTS
+
+        await loadVerificationResults();
+
+
+        console.log(
+            "Profile verification completed."
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Verification startup error:",
+            error
+        );
+
+    }
+
+}
+
+
+// =========================================
+// START
+// =========================================
+
+startVerification();
+    </script>
+
+
+</body>
+
+</html>

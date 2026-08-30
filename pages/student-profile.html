@@ -1,0 +1,878 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Student Profile | AcademicMatch</title>
+
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+</head>
+
+
+<body class="auth-page">
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <a
+                href="../index.html"
+                class="logo"
+            >
+                AcademicMatch
+            </a>
+
+
+            <div class="nav-buttons">
+
+                <a
+                    href="student-portfolio.html"
+                    class="btn btn-outline"
+                >
+                    ← Portfolio
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =========================
+         STUDENT PROFILE
+    ========================= -->
+
+    <main class="auth-container">
+
+        <div class="auth-card">
+
+
+            <!-- HEADER -->
+
+            <div class="auth-header">
+
+                <p class="section-label">
+                    STUDENT PROFILE
+                </p>
+
+                <h1>
+                    Edit Your Academic Profile
+                </h1>
+
+                <p>
+                    Update your academic and personal information.
+                </p>
+
+            </div>
+
+
+
+            <!-- =========================
+                 PROFILE FORM
+            ========================= -->
+
+            <form
+                id="studentProfileForm"
+                class="auth-form"
+            >
+
+
+                <!-- COLLEGE -->
+
+                <div class="form-group">
+
+                    <label for="college">
+                        College / University
+                    </label>
+
+                    <input
+                        type="text"
+                        id="college"
+                        name="college"
+                        placeholder="Enter your college or university"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- DEGREE -->
+
+                <div class="form-group">
+
+                    <label for="degree">
+                        Degree
+                    </label>
+
+                    <input
+                        type="text"
+                        id="degree"
+                        name="degree"
+                        placeholder="e.g. B.Tech"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- BRANCH -->
+
+                <div class="form-group">
+
+                    <label for="branch">
+                        Branch / Specialization
+                    </label>
+
+                    <input
+                        type="text"
+                        id="branch"
+                        name="branch"
+                        placeholder="e.g. Computer Science and Engineering"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- GRADUATION YEAR -->
+
+                <div class="form-group">
+
+                    <label for="graduationYear">
+                        Expected Graduation Year
+                    </label>
+
+                    <input
+                        type="number"
+                        id="graduationYear"
+                        name="graduationYear"
+                        placeholder="e.g. 2030"
+                        min="2020"
+                        max="2100"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- LOCATION -->
+
+                <div class="form-group">
+
+                    <label for="location">
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        name="location"
+                        placeholder="City, State"
+                    >
+
+                </div>
+
+
+
+                <!-- BIO -->
+
+                <div class="form-group">
+
+                    <label for="bio">
+                        About You
+                    </label>
+
+                    <textarea
+                        id="bio"
+                        name="bio"
+                        rows="5"
+                        placeholder="Tell companies a little about yourself..."
+                        style="
+                            width: 100%;
+                            padding: 13px 14px;
+                            border: 1px solid #cbd5e1;
+                            border-radius: 8px;
+                            font-size: 15px;
+                            font-family: inherit;
+                            resize: vertical;
+                            outline: none;
+                        "
+                    ></textarea>
+
+                </div>
+
+
+
+                <!-- SKILLS -->
+
+                <div class="form-group">
+
+                    <label for="skills">
+                        Skills
+                    </label>
+
+                    <input
+                        type="text"
+                        id="skills"
+                        name="skills"
+                        placeholder="e.g. Python, C++, HTML, CSS, SQL"
+                    >
+
+                    <small style="
+                        display: block;
+                        margin-top: 6px;
+                        color: #64748b;
+                    ">
+                        Separate multiple skills with commas.
+                    </small>
+
+                </div>
+
+
+
+                <!-- =========================
+                     DIGITAL FOOTPRINT
+                ========================= -->
+
+                <div
+                    style="
+                        margin-top: 30px;
+                        margin-bottom: 10px;
+                    "
+                >
+
+                    <p class="section-label">
+                        DIGITAL FOOTPRINT
+                    </p>
+
+                    <h2
+                        style="
+                            font-size: 22px;
+                            margin-top: 5px;
+                        "
+                    >
+                        Professional & Coding Profiles
+                    </h2>
+
+                    <p style="
+                        color: #64748b;
+                        margin-top: 8px;
+                        line-height: 1.6;
+                    ">
+                        Add your public profiles. These links will later
+                        be used as evidence sources for profile verification.
+                    </p>
+
+                </div>
+
+
+
+                <!-- GITHUB -->
+
+                <div class="form-group">
+
+                    <label for="githubUrl">
+                        GitHub Profile
+                    </label>
+
+                    <input
+                        type="url"
+                        id="githubUrl"
+                        name="githubUrl"
+                        placeholder="https://github.com/username"
+                    >
+
+                </div>
+
+
+
+                <!-- LINKEDIN -->
+
+                <div class="form-group">
+
+                    <label for="linkedinUrl">
+                        LinkedIn Profile
+                    </label>
+
+                    <input
+                        type="url"
+                        id="linkedinUrl"
+                        name="linkedinUrl"
+                        placeholder="https://www.linkedin.com/in/username"
+                    >
+
+                </div>
+
+
+
+                <!-- LEETCODE -->
+
+                <div class="form-group">
+
+                    <label for="leetcodeUrl">
+                        LeetCode Profile
+                    </label>
+
+                    <input
+                        type="url"
+                        id="leetcodeUrl"
+                        name="leetcodeUrl"
+                        placeholder="https://leetcode.com/u/username/"
+                    >
+
+                </div>
+
+
+
+                <!-- CODEFORCES -->
+
+                <div class="form-group">
+
+                    <label for="codeforcesUrl">
+                        Codeforces Profile
+                    </label>
+
+                    <input
+                        type="url"
+                        id="codeforcesUrl"
+                        name="codeforcesUrl"
+                        placeholder="https://codeforces.com/profile/username"
+                    >
+
+                </div>
+
+
+
+                <!-- MESSAGE -->
+
+                <p
+                    id="profileMessage"
+                    style="
+                        min-height: 20px;
+                        margin-bottom: 15px;
+                    "
+                ></p>
+
+
+
+                <!-- SAVE -->
+
+                <button
+                    type="submit"
+                    id="saveProfileButton"
+                    class="btn btn-primary auth-submit"
+                >
+                    Save Profile
+                </button>
+
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =========================
+         SUPABASE
+    ========================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../supabase-config.js"></script>
+
+
+    <script>
+
+
+    // =========================================
+    // LOAD EXISTING PROFILE
+    // =========================================
+
+    async function loadExistingProfile() {
+
+        const message =
+            document.getElementById(
+                "profileMessage"
+            );
+
+
+        try {
+
+            const {
+                data: { user },
+                error: userError
+            } =
+                await supabaseClient.auth.getUser();
+
+
+            if (
+                userError ||
+                !user
+            ) {
+
+                throw new Error(
+                    "Please log in first."
+                );
+
+            }
+
+
+            const {
+                data: profile,
+                error
+            } =
+                await supabaseClient
+                    .from("profiles")
+                    .select(`
+                        college,
+                        degree,
+                        branch,
+                        graduation_year,
+                        location,
+                        bio,
+                        skills,
+                        github_url,
+                        linkedin_url,
+                        leetcode_url,
+                        codeforces_url
+                    `)
+                    .eq(
+                        "id",
+                        user.id
+                    )
+                    .single();
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+            // =================================
+            // FILL EXISTING DATA
+            // =================================
+
+            document.getElementById(
+                "college"
+            ).value =
+                profile.college ||
+                "";
+
+
+            document.getElementById(
+                "degree"
+            ).value =
+                profile.degree ||
+                "";
+
+
+            document.getElementById(
+                "branch"
+            ).value =
+                profile.branch ||
+                "";
+
+
+            document.getElementById(
+                "graduationYear"
+            ).value =
+                profile.graduation_year ||
+                "";
+
+
+            document.getElementById(
+                "location"
+            ).value =
+                profile.location ||
+                "";
+
+
+            document.getElementById(
+                "bio"
+            ).value =
+                profile.bio ||
+                "";
+
+
+            document.getElementById(
+                "skills"
+            ).value =
+                profile.skills ||
+                "";
+
+
+            document.getElementById(
+                "githubUrl"
+            ).value =
+                profile.github_url ||
+                "";
+
+
+            document.getElementById(
+                "linkedinUrl"
+            ).value =
+                profile.linkedin_url ||
+                "";
+
+
+            document.getElementById(
+                "leetcodeUrl"
+            ).value =
+                profile.leetcode_url ||
+                "";
+
+
+            document.getElementById(
+                "codeforcesUrl"
+            ).value =
+                profile.codeforces_url ||
+                "";
+
+
+        } catch (error) {
+
+            console.error(
+                "Profile loading error:",
+                error
+            );
+
+
+            message.textContent =
+                error.message ||
+                "Unable to load profile.";
+
+
+            message.style.color =
+                "#dc2626";
+
+        }
+
+    }
+
+
+
+    // =========================================
+    // SAVE / UPDATE PROFILE
+    // =========================================
+
+    document
+        .getElementById(
+            "studentProfileForm"
+        )
+        .addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                const message =
+                    document.getElementById(
+                        "profileMessage"
+                    );
+
+
+                const button =
+                    document.getElementById(
+                        "saveProfileButton"
+                    );
+
+
+                message.textContent =
+                    "";
+
+
+                message.style.color =
+                    "";
+
+
+
+                try {
+
+                    const {
+                        data: { user },
+                        error: userError
+                    } =
+                        await supabaseClient.auth.getUser();
+
+
+                    if (
+                        userError ||
+                        !user
+                    ) {
+
+                        throw new Error(
+                            "Please log in first."
+                        );
+
+                    }
+
+
+
+                    // =================================
+                    // GET FORM VALUES
+                    // =================================
+
+                    const college =
+                        document.getElementById(
+                            "college"
+                        ).value.trim();
+
+
+                    const degree =
+                        document.getElementById(
+                            "degree"
+                        ).value.trim();
+
+
+                    const branch =
+                        document.getElementById(
+                            "branch"
+                        ).value.trim();
+
+
+                    const graduationYear =
+                        document.getElementById(
+                            "graduationYear"
+                        ).value;
+
+
+                    const location =
+                        document.getElementById(
+                            "location"
+                        ).value.trim();
+
+
+                    const bio =
+                        document.getElementById(
+                            "bio"
+                        ).value.trim();
+
+
+                    const skills =
+                        document.getElementById(
+                            "skills"
+                        ).value.trim();
+
+
+                    const githubUrl =
+                        document.getElementById(
+                            "githubUrl"
+                        ).value.trim();
+
+
+                    const linkedinUrl =
+                        document.getElementById(
+                            "linkedinUrl"
+                        ).value.trim();
+
+
+                    const leetcodeUrl =
+                        document.getElementById(
+                            "leetcodeUrl"
+                        ).value.trim();
+
+
+                    const codeforcesUrl =
+                        document.getElementById(
+                            "codeforcesUrl"
+                        ).value.trim();
+
+
+
+                    // =================================
+                    // VALIDATION
+                    // =================================
+
+                    if (
+                        !college ||
+                        !degree ||
+                        !branch ||
+                        !graduationYear
+                    ) {
+
+                        throw new Error(
+                            "Please fill all required fields."
+                        );
+
+                    }
+
+
+
+                    button.disabled =
+                        true;
+
+
+                    button.textContent =
+                        "Saving...";
+
+
+
+                    // =================================
+                    // UPDATE PROFILE
+                    // =================================
+
+                    const {
+                        error
+                    } =
+                        await supabaseClient
+                            .from("profiles")
+                            .update({
+
+                                college:
+                                    college,
+
+                                degree:
+                                    degree,
+
+                                branch:
+                                    branch,
+
+                                graduation_year:
+                                    parseInt(
+                                        graduationYear,
+                                        10
+                                    ),
+
+                                location:
+                                    location,
+
+                                bio:
+                                    bio,
+
+                                skills:
+                                    skills,
+
+                                github_url:
+                                    githubUrl ||
+                                    null,
+
+                                linkedin_url:
+                                    linkedinUrl ||
+                                    null,
+
+                                leetcode_url:
+                                    leetcodeUrl ||
+                                    null,
+
+                                codeforces_url:
+                                    codeforcesUrl ||
+                                    null
+
+                            })
+                            .eq(
+                                "id",
+                                user.id
+                            );
+
+
+                    if (error) {
+
+                        throw error;
+
+                    }
+
+
+
+                    // =================================
+                    // SUCCESS
+                    // =================================
+
+                    message.textContent =
+                        "Profile updated successfully!";
+
+                    message.style.color =
+                        "#16a34a";
+
+
+                    button.textContent =
+                        "Saved ✓";
+
+
+
+                    // =================================
+                    // RETURN TO PORTFOLIO
+                    // =================================
+
+                    setTimeout(
+                        function() {
+
+                            window.location.href =
+                                "student-portfolio.html";
+
+                        },
+                        1000
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Profile update error:",
+                        error
+                    );
+
+
+                    message.textContent =
+                        error.message ||
+                        "Unable to update profile.";
+
+
+                    message.style.color =
+                        "#dc2626";
+
+
+                    button.disabled =
+                        false;
+
+
+                    button.textContent =
+                        "Save Profile";
+
+                }
+
+            }
+        );
+
+
+
+    // =========================================
+    // START
+    // =========================================
+
+    loadExistingProfile();
+
+    </script>
+
+
+</body>
+
+</html>
+

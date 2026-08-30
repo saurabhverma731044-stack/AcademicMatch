@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Academician Profile | AcademicMatch</title>
+
+    <link rel="stylesheet" href="../style.css">
+
+</head>
+
+
+<body class="auth-page">
+
+
+    <!-- Navigation -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <a href="../index.html" class="logo">
+                AcademicMatch
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- Academician Profile -->
+
+    <main class="auth-container">
+
+        <div
+            class="auth-card"
+            style="max-width: 800px;"
+        >
+
+            <div class="auth-header">
+
+                <p class="section-label">
+                    ACADEMICIAN PROFILE
+                </p>
+
+                <h1>
+                    Build Your Academic Profile
+                </h1>
+
+                <p>
+                    Add your academic and professional
+                    information to connect with students.
+                </p>
+
+            </div>
+
+
+            <form
+                id="academicianProfileForm"
+                class="auth-form"
+            >
+
+
+                <div class="form-group">
+
+                    <label for="institution">
+                        Institution / University
+                    </label>
+
+                    <input
+                        type="text"
+                        id="institution"
+                        placeholder="Enter your institution"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="designation">
+                        Designation
+                    </label>
+
+                    <input
+                        type="text"
+                        id="designation"
+                        placeholder="e.g. Professor, Assistant Professor"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="department">
+                        Department
+                    </label>
+
+                    <input
+                        type="text"
+                        id="department"
+                        placeholder="e.g. Computer Science"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="specialization">
+                        Area of Specialization
+                    </label>
+
+                    <input
+                        type="text"
+                        id="specialization"
+                        placeholder="e.g. Artificial Intelligence"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="experience">
+                        Years of Experience
+                    </label>
+
+                    <input
+                        type="number"
+                        id="experience"
+                        min="0"
+                        placeholder="e.g. 5"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="academicianLocation">
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="academicianLocation"
+                        placeholder="City, State"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="academicianBio">
+                        About You
+                    </label>
+
+                    <textarea
+                        id="academicianBio"
+                        rows="5"
+                        placeholder="Tell students about your academic background..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="researchInterests">
+                        Research Interests
+                    </label>
+
+                    <textarea
+                        id="researchInterests"
+                        rows="4"
+                        placeholder="e.g. Machine Learning, Cybersecurity, Data Science"
+                    ></textarea>
+
+                </div>
+
+
+                <p
+                    id="academicianProfileError"
+                    class="form-error"
+                    aria-live="polite"
+                ></p>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-primary auth-submit"
+                >
+                    Save Profile & Continue
+                </button>
+
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../supabase-config.js"></script>
+    <script src="../script.js"></script>
+
+</body>
+
+</html>

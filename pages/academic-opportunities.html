@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Academic Opportunities | AcademicMatch</title>
+
+    <link rel="stylesheet" href="../style.css">
+
+</head>
+
+
+<body class="auth-page">
+
+
+<header>
+
+    <nav class="navbar">
+
+        <a href="../index.html" class="logo">
+            AcademicMatch
+        </a>
+
+        <div class="nav-buttons">
+
+            <a
+                href="student-dashboard.html"
+                class="btn btn-outline"
+            >
+                ← Dashboard
+            </a>
+
+            <button
+                type="button"
+                class="btn btn-outline"
+                id="logoutButton"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+<main class="section">
+
+    <div class="section-heading">
+
+        <p class="section-label">
+            ACADEMIC OPPORTUNITIES
+        </p>
+
+        <h2>
+            Explore Academic Opportunities
+        </h2>
+
+        <span>
+            Discover internships, training, FDPs,
+            research projects and collaborations.
+        </span>
+
+    </div>
+
+
+    <div
+        class="auth-card"
+        style="
+            max-width: 900px;
+            margin: 0 auto;
+        "
+    >
+
+        <div id="academicOpportunityList">
+
+            <p
+                style="
+                    text-align: center;
+                    color: #64748b;
+                    padding: 30px;
+                "
+            >
+                Loading opportunities...
+            </p>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="../supabase-config.js"></script>
+
+
+<script>
+
+async function loadAcademicOpportunities() {
+
+    const list =
+        document.getElementById(
+            "academicOpportunityList"
+        );
+
+
+    const {
+        data: { user },
+        error: userError
+    } =
+        await supabaseClient.auth.getUser();
+
+
+    if (userError || !user) {
+
+        list.innerHTML = `
+            <p style="
+                text-align: center;
+                color: #dc2626;
+                padding: 30px;
+            ">
+                Please log in to view opportunities.
+            </p>
+        `;
+
+        return;
+
+    }
+
+
+    const {
+        data: opportunities,
+        error
+    } =
+        await supabaseClient
+            .from("academic_opportunities")
+            .select(`
+                id,
+                title,
+                opportunity_type,
+                description,
+                organization,
+                location,
+                deadline,
+                status,
+                created_at
+            `)
+            .eq("status", "open")
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
+
+
+    if (error) {
+
+        console.error(
+            "Academic opportunities error:",
+            error
+        );
+
+        list.innerHTML = `
+            <p style="
+                text-align: center;
+                color: #dc2626;
+                padding: 30px;
+            ">
+                Unable to load academic opportunities.
+            </p>
+        `;
+
+        return;
+
+    }
+
+
+    if (
+        !opportunities ||
+        opportunities.length === 0
+    ) {
+
+        list.innerHTML = `
+            <p style="
+                text-align: center;
+                color: #64748b;
+                padding: 30px;
+            ">
+                No academic opportunities available right now.
+            </p>
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML = "";
+
+
+    opportunities.forEach(
+        function(opportunity) {
+
+            const card =
+                document.createElement("div");
+
+
+            card.style.cssText = `
+                padding: 25px;
+                margin-bottom: 20px;
+                border: 1px solid #e5e7eb;
+                border-radius: 14px;
+                background: #ffffff;
+            `;
+
+
+            card.innerHTML = `
+
+                <span style="
+                    display: inline-block;
+                    padding: 5px 10px;
+                    border-radius: 20px;
+                    background: #eff6ff;
+                    color: #2563eb;
+                    font-size: 13px;
+                    margin-bottom: 10px;
+                ">
+                    ${opportunity.opportunity_type}
+                </span>
+
+
+                <h2 style="
+                    margin-bottom: 10px;
+                ">
+                    ${opportunity.title}
+                </h2>
+
+
+                <p style="
+                    color: #475569;
+                    margin-bottom: 8px;
+                ">
+                    <strong>
+                        Organization:
+                    </strong>
+
+                    ${opportunity.organization}
+                </p>
+
+
+                <p style="
+                    color: #64748b;
+                    line-height: 1.6;
+                    margin-bottom: 12px;
+                ">
+                    ${opportunity.description}
+                </p>
+
+
+                <p style="
+                    color: #475569;
+                    margin-bottom: 8px;
+                ">
+                    <strong>
+                        Location:
+                    </strong>
+
+                    ${opportunity.location || "Not specified"}
+                </p>
+
+
+                <p style="
+                    color: #475569;
+                    margin-bottom: 15px;
+                ">
+                    <strong>
+                        Deadline:
+                    </strong>
+
+                    ${opportunity.deadline || "Not specified"}
+                </p>
+
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="applyAcademicOpportunity('${opportunity.id}')"
+                >
+                    Apply
+                </button>
+
+            `;
+
+
+            list.appendChild(card);
+
+        }
+    );
+
+}
+
+
+async function applyAcademicOpportunity(
+    opportunityId
+) {
+
+    const {
+        data: { user },
+        error: userError
+    } =
+        await supabaseClient.auth.getUser();
+
+
+    if (userError || !user) {
+
+        alert("Please log in first.");
+
+        return;
+
+    }
+
+    const { data: studentProfile } =
+    await supabaseClient
+        .from("profiles")
+        .select("full_name")
+        .eq("id", user.id)
+        .single();
+
+
+    const {
+    error
+} =
+    await supabaseClient
+        .from("student_academic_applications")
+        .insert({
+
+            student_id:
+                user.id,
+
+            student_name:
+           studentProfile?.full_name || "Student",
+
+             student_email:
+             user.email || "Not available",
+
+            opportunity_id:
+                opportunityId,
+
+            status:
+                "pending"
+
+        });
+
+    if (error) {
+
+        console.error(
+            "Academic application error:",
+            error
+        );
+
+
+        if (
+            error.code === "23505"
+        ) {
+
+            alert(
+                "You have already applied for this opportunity."
+            );
+
+        } else {
+
+            alert(
+                error.message
+            );
+
+        }
+
+        return;
+
+    }
+
+
+    alert(
+        "Application submitted successfully!"
+    );
+
+}
+
+
+document
+    .getElementById("logoutButton")
+    .addEventListener(
+        "click",
+        async function() {
+
+            await supabaseClient.auth.signOut();
+
+            window.location.href =
+                "../index.html";
+
+        }
+    );
+
+
+loadAcademicOpportunities();
+
+</script>
+
+
+</body>
+
+</html>

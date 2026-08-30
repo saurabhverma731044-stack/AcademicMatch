@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Post Learning Program | AcademicMatch</title>
+
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+</head>
+
+
+<body class="auth-page">
+
+
+<header>
+
+    <nav class="navbar">
+
+        <a
+            href="../index.html"
+            class="logo"
+        >
+            AcademicMatch
+        </a>
+
+        <div class="nav-buttons">
+
+            <a
+                href="company-dashboard.html"
+                class="btn btn-outline"
+            >
+                ← Dashboard
+            </a>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+<main class="auth-container">
+
+    <div
+        class="auth-card"
+        style="max-width: 750px;"
+    >
+
+        <div class="auth-header">
+
+            <p class="section-label">
+                INDUSTRY LEARNING
+            </p>
+
+            <h1>
+                Post Learning Program
+            </h1>
+
+            <p>
+                Create a training, workshop, certification,
+                or mentorship program for students.
+            </p>
+
+        </div>
+
+
+
+        <form id="learningProgramForm">
+
+
+            <!-- Title -->
+
+            <div class="form-group">
+
+                <label>
+                    Program Title
+                </label>
+
+                <input
+                    type="text"
+                    id="title"
+                    placeholder="e.g. Full Stack Web Development"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- Program Type -->
+
+            <div class="form-group">
+
+                <label>
+                    Program Type
+                </label>
+
+                <select
+                    id="programType"
+                    required
+                >
+
+                    <option value="">
+                        Select program type
+                    </option>
+
+                    <option value="Training">
+                        Training
+                    </option>
+
+                    <option value="Certification">
+                        Certification Course
+                    </option>
+
+                    <option value="Workshop">
+                        Workshop
+                    </option>
+
+                    <option value="Mentorship">
+                        Mentorship
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- Description -->
+
+            <div class="form-group">
+
+                <label>
+                    Description
+                </label>
+
+                <textarea
+                    id="description"
+                    rows="5"
+                    placeholder="Describe the program..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+
+            <!-- Required Skills -->
+
+            <div class="form-group">
+
+                <label>
+                    Required / Relevant Skills
+                </label>
+
+                <input
+                    type="text"
+                    id="requiredSkills"
+                    placeholder="Python, SQL, JavaScript"
+                >
+
+            </div>
+
+
+
+            <!-- Duration -->
+
+            <div class="form-group">
+
+                <label>
+                    Duration
+                </label>
+
+                <input
+                    type="text"
+                    id="duration"
+                    placeholder="e.g. 4 weeks"
+                >
+
+            </div>
+
+
+
+            <!-- Mode -->
+
+            <div class="form-group">
+
+                <label>
+                    Mode
+                </label>
+
+                <select id="mode">
+
+                    <option value="">
+                        Select mode
+                    </option>
+
+                    <option value="Online">
+                        Online
+                    </option>
+
+                    <option value="Offline">
+                        Offline
+                    </option>
+
+                    <option value="Hybrid">
+                        Hybrid
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- Deadline -->
+
+            <div class="form-group">
+
+                <label>
+                    Registration Deadline
+                </label>
+
+                <input
+                    type="date"
+                    id="registrationDeadline"
+                >
+
+            </div>
+
+
+
+            <p
+                id="programMessage"
+                class="form-error"
+            ></p>
+
+
+
+            <button
+                type="submit"
+                class="btn btn-primary auth-submit"
+            >
+                Post Learning Program
+            </button>
+
+
+        </form>
+
+    </div>
+
+</main>
+
+
+
+<!-- Supabase -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="../supabase-config.js"></script>
+
+
+
+<script>
+
+// =========================================
+// POST LEARNING PROGRAM
+// =========================================
+
+document
+    .getElementById("learningProgramForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const message =
+                document.getElementById(
+                    "programMessage"
+                );
+
+            message.textContent = "";
+
+
+            // =================================
+            // CHECK LOGIN
+            // =================================
+
+            const {
+                data: { user },
+                error: userError
+            } =
+                await supabaseClient.auth.getUser();
+
+
+            if (
+                userError ||
+                !user
+            ) {
+
+                message.textContent =
+                    "Please log in first.";
+
+                return;
+
+            }
+
+
+            // =================================
+            // GET FORM DATA
+            // =================================
+
+            const title =
+                document.getElementById(
+                    "title"
+                ).value.trim();
+
+
+            const programType =
+                document.getElementById(
+                    "programType"
+                ).value;
+
+
+            const description =
+                document.getElementById(
+                    "description"
+                ).value.trim();
+
+
+            const requiredSkills =
+                document.getElementById(
+                    "requiredSkills"
+                ).value.trim();
+
+
+            const duration =
+                document.getElementById(
+                    "duration"
+                ).value.trim();
+
+
+            const mode =
+                document.getElementById(
+                    "mode"
+                ).value;
+
+
+            const registrationDeadline =
+                document.getElementById(
+                    "registrationDeadline"
+                ).value;
+
+
+            // =================================
+            // INSERT PROGRAM
+            // =================================
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("learning_programs")
+                    .insert({
+
+                        company_id:
+                            user.id,
+
+                        title:
+                            title,
+
+                        program_type:
+                            programType,
+
+                        description:
+                            description,
+
+                        required_skills:
+                            requiredSkills,
+
+                        duration:
+                            duration,
+
+                        mode:
+                            mode,
+
+                        registration_deadline:
+                            registrationDeadline ||
+                            null,
+
+                        status:
+                            "open"
+
+                    });
+
+
+            if (error) {
+
+                console.error(
+                    "Learning program error:",
+                    error
+                );
+
+                message.textContent =
+                    error.message;
+
+                return;
+
+            }
+
+
+            // =================================
+            // SUCCESS
+            // =================================
+
+            message.className = "";
+
+            message.style.color =
+                "#16a34a";
+
+            message.textContent =
+                "Learning program posted successfully.";
+
+
+            document
+                .getElementById(
+                    "learningProgramForm"
+                )
+                .reset();
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

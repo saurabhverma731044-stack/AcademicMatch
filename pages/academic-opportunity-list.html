@@ -1,0 +1,1178 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Academic Opportunities | AcademicMatch</title>
+
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+    <style>
+
+        .opportunity-card {
+            padding: 20px;
+            margin-top: 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+        }
+
+        .opportunity-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .opportunity-card p {
+            margin-top: 8px;
+            color: #64748b;
+        }
+
+        .type-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #eff6ff;
+            color: #2563eb;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .academic-filter-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 768px) {
+
+            .academic-filter-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="auth-page">
+
+
+<header>
+
+    <nav class="navbar">
+
+        <a
+            href="../index.html"
+            class="logo"
+        >
+            AcademicMatch
+        </a>
+
+
+        <div class="nav-buttons">
+
+            <a
+                href="student-dashboard.html"
+                class="btn btn-outline"
+            >
+                ← Dashboard
+            </a>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+<main class="section">
+
+
+    <!-- PAGE HEADER -->
+
+    <div class="section-heading">
+
+        <p class="section-label">
+            ACADEMIA–INDUSTRY COLLABORATION
+        </p>
+
+        <h2>
+            Academic Opportunities
+        </h2>
+
+        <span>
+            Explore faculty internships, industrial training,
+            FDPs, consultancy and research opportunities.
+        </span>
+
+    </div>
+
+
+
+    <!-- MAIN CARD -->
+
+    <div
+        class="auth-card"
+        style="
+            max-width: 900px;
+            margin: 0 auto;
+        "
+    >
+
+
+        <!-- SEARCH AND FILTERS -->
+
+        <div class="academic-filter-grid">
+
+
+            <!-- SEARCH -->
+
+            <div class="form-group">
+
+                <label for="academicSearch">
+                    Search
+                </label>
+
+                <input
+                    type="text"
+                    id="academicSearch"
+                    placeholder="Search title, organization, description..."
+                >
+
+            </div>
+
+
+
+            <!-- TYPE -->
+
+            <div class="form-group">
+
+                <label for="academicTypeFilter">
+                    Type
+                </label>
+
+                <select
+                    id="academicTypeFilter"
+                    style="
+                        width: 100%;
+                        padding: 13px 14px;
+                        border: 1px solid #cbd5e1;
+                        border-radius: 8px;
+                        font-size: 15px;
+                        background: white;
+                    "
+                >
+
+                    <option value="">
+                        All Types
+                    </option>
+
+                    <option value="Faculty Internship">
+                        Faculty Internship
+                    </option>
+
+                    <option value="Industrial Training">
+                        Industrial Training
+                    </option>
+
+                    <option value="FDP">
+                        Faculty Development Program (FDP)
+                    </option>
+
+                    <option value="Consultancy">
+                        Consultancy
+                    </option>
+
+                    <option value="Research Project">
+                        Research Project
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- LOCATION -->
+
+            <div class="form-group">
+
+                <label for="academicLocationFilter">
+                    Location
+                </label>
+
+                <input
+                    type="text"
+                    id="academicLocationFilter"
+                    placeholder="e.g. Delhi"
+                >
+
+            </div>
+
+        </div>
+
+
+
+        <!-- RESULT COUNT -->
+
+        <div
+            style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 15px;
+                flex-wrap: wrap;
+                margin-bottom: 15px;
+            "
+        >
+
+            <h3>
+                Available Opportunities
+            </h3>
+
+            <span
+                id="academicOpportunityCount"
+                style="
+                    color: #64748b;
+                    font-size: 14px;
+                "
+            >
+                Loading...
+            </span>
+
+        </div>
+
+
+
+        <!-- OPPORTUNITY LIST -->
+
+        <div id="opportunityList">
+
+            <p
+                style="
+                    text-align: center;
+                    color: #64748b;
+                    padding: 30px;
+                "
+            >
+                Loading opportunities...
+            </p>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="../supabase-config.js"></script>
+
+
+<script>
+
+    // =========================================
+    // DATA
+    // =========================================
+
+    let academicOpportunities = [];
+
+    let appliedAcademicOpportunityIds = new Set();
+
+
+
+    // =========================================
+    // ELEMENTS
+    // =========================================
+
+    const list =
+        document.getElementById(
+            "opportunityList"
+        );
+
+
+    const searchInput =
+        document.getElementById(
+            "academicSearch"
+        );
+
+
+    const typeFilter =
+        document.getElementById(
+            "academicTypeFilter"
+        );
+
+
+    const locationFilter =
+        document.getElementById(
+            "academicLocationFilter"
+        );
+
+
+    const opportunityCount =
+        document.getElementById(
+            "academicOpportunityCount"
+        );
+
+
+
+    // =========================================
+    // LOAD OPPORTUNITIES
+    // =========================================
+
+    async function loadAcademicOpportunities() {
+
+        try {
+
+            const {
+                data: { user },
+                error: userError
+            } =
+                await supabaseClient.auth.getUser();
+
+
+            if (
+                userError ||
+                !user
+            ) {
+
+                throw new Error(
+                    "Please log in first."
+                );
+
+            }
+
+
+
+            // =====================================
+            // GET ACADEMIC OPPORTUNITIES
+            // =====================================
+
+            const {
+                data: opportunities,
+                error
+            } =
+                await supabaseClient
+                    .from(
+                        "academic_opportunities"
+                    )
+                    .select(`
+                        id,
+                        title,
+                        opportunity_type,
+                        description,
+                        organization,
+                        location,
+                        deadline,
+                        status,
+                        created_at
+                    `)
+                    .eq(
+                        "status",
+                        "open"
+                    )
+                    .order(
+                        "created_at",
+                        {
+                            ascending: false
+                        }
+                    );
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+
+            // =====================================
+            // GET ALREADY APPLIED OPPORTUNITIES
+            // =====================================
+
+            const {
+                data: applications,
+                error: applicationsError
+            } =
+                await supabaseClient
+                    .from(
+                        "student_academic_applications"
+                    )
+                    .select(
+                        "opportunity_id"
+                    )
+                    .eq(
+                        "student_id",
+                        user.id
+                    );
+
+
+            if (applicationsError) {
+
+                throw applicationsError;
+
+            }
+
+
+            appliedAcademicOpportunityIds =
+                new Set(
+                    (applications || []).map(
+                        function(application) {
+
+                            return application.opportunity_id;
+
+                        }
+                    )
+                );
+
+
+            academicOpportunities =
+                opportunities || [];
+
+
+            renderAcademicOpportunities(
+                academicOpportunities
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Academic opportunities error:",
+                error
+            );
+
+
+            list.innerHTML = `
+
+                <p style="
+                    text-align: center;
+                    color: #dc2626;
+                    padding: 30px;
+                ">
+
+                    ${
+                        error.message ||
+                        "Unable to load opportunities."
+                    }
+
+                </p>
+
+            `;
+
+
+            opportunityCount.textContent =
+                "Unable to load";
+
+        }
+
+    }
+
+
+
+    // =========================================
+    // RENDER OPPORTUNITIES
+    // =========================================
+
+    function renderAcademicOpportunities(
+        opportunities
+    ) {
+
+        list.innerHTML = "";
+
+
+        opportunityCount.textContent =
+            opportunities.length +
+            (
+                opportunities.length === 1
+                    ? " opportunity"
+                    : " opportunities"
+            );
+
+
+        if (
+            !opportunities ||
+            opportunities.length === 0
+        ) {
+
+            list.innerHTML = `
+
+                <div style="
+                    text-align: center;
+                    padding: 30px;
+                ">
+
+                    <p style="
+                        color: #64748b;
+                        margin-bottom: 15px;
+                    ">
+
+                        No academic opportunities
+                        match your filters.
+
+                    </p>
+
+
+                    <button
+                        type="button"
+                        class="btn btn-outline"
+                        onclick="clearAcademicFilters()"
+                    >
+
+                        Clear Filters
+
+                    </button>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+
+        opportunities.forEach(
+            function(opportunity) {
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "opportunity-card";
+
+
+                const alreadyApplied =
+                    appliedAcademicOpportunityIds.has(
+                        opportunity.id
+                    );
+
+
+                card.innerHTML = `
+
+                    <span class="type-badge">
+
+                        ${escapeHtml(
+                            opportunity.opportunity_type ||
+                            "Academic Opportunity"
+                        )}
+
+                    </span>
+
+
+                    <h3>
+
+                        ${escapeHtml(
+                            opportunity.title ||
+                            "Untitled Opportunity"
+                        )}
+
+                    </h3>
+
+
+                    <p>
+
+                        <strong>
+                            Organization:
+                        </strong>
+
+                        ${escapeHtml(
+                            opportunity.organization ||
+                            "Not specified"
+                        )}
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>
+                            Description:
+                        </strong>
+
+                        ${escapeHtml(
+                            opportunity.description ||
+                            "No description provided."
+                        )}
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>
+                            Location:
+                        </strong>
+
+                        ${escapeHtml(
+                            opportunity.location ||
+                            "Not specified"
+                        )}
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>
+                            Deadline:
+                        </strong>
+
+                        ${escapeHtml(
+                            opportunity.deadline ||
+                            "Not specified"
+                        )}
+
+                    </p>
+
+
+                    ${
+                        alreadyApplied
+                        ?
+
+                        `
+
+                        <button
+                            type="button"
+                            class="btn btn-outline"
+                            style="margin-top: 15px;"
+                            disabled
+                        >
+
+                            Already Applied
+
+                        </button>
+
+                        `
+
+                        :
+
+                        `
+
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            style="margin-top: 15px;"
+                            onclick="applyAcademicOpportunity('${opportunity.id}')"
+                        >
+
+                            Apply
+
+                        </button>
+
+                        `
+                    }
+
+                `;
+
+
+                list.appendChild(
+                    card
+                );
+
+            }
+        );
+
+    }
+
+
+
+    // =========================================
+    // FILTER OPPORTUNITIES
+    // =========================================
+
+    function applyAcademicFilters() {
+
+        const search =
+            searchInput.value
+                .trim()
+                .toLowerCase();
+
+
+        const selectedType =
+            typeFilter.value
+                .trim()
+                .toLowerCase();
+
+
+        const location =
+            locationFilter.value
+                .trim()
+                .toLowerCase();
+
+
+        const filtered =
+            academicOpportunities.filter(
+                function(opportunity) {
+
+                    const title =
+                        (
+                            opportunity.title ||
+                            ""
+                        ).toLowerCase();
+
+
+                    const organization =
+                        (
+                            opportunity.organization ||
+                            ""
+                        ).toLowerCase();
+
+
+                    const description =
+                        (
+                            opportunity.description ||
+                            ""
+                        ).toLowerCase();
+
+
+                    const opportunityType =
+                        (
+                            opportunity.opportunity_type ||
+                            ""
+                        ).toLowerCase();
+
+
+                    const opportunityLocation =
+                        (
+                            opportunity.location ||
+                            ""
+                        ).toLowerCase();
+
+
+                    const searchMatch =
+                        !search ||
+                        title.includes(search) ||
+                        organization.includes(search) ||
+                        description.includes(search);
+
+
+                    const typeMatch =
+                        !selectedType ||
+                        opportunityType === selectedType;
+
+
+                    const locationMatch =
+                        !location ||
+                        opportunityLocation.includes(
+                            location
+                        );
+
+
+                    return (
+                        searchMatch &&
+                        typeMatch &&
+                        locationMatch
+                    );
+
+                }
+            );
+
+
+        renderAcademicOpportunities(
+            filtered
+        );
+
+    }
+
+
+
+    // =========================================
+    // CLEAR FILTERS
+    // =========================================
+
+    function clearAcademicFilters() {
+
+        searchInput.value = "";
+
+        typeFilter.value = "";
+
+        locationFilter.value = "";
+
+
+        renderAcademicOpportunities(
+            academicOpportunities
+        );
+
+    }
+
+
+
+    // =========================================
+    // FILTER EVENTS
+    // =========================================
+
+    searchInput.addEventListener(
+        "input",
+        applyAcademicFilters
+    );
+
+
+    typeFilter.addEventListener(
+        "change",
+        applyAcademicFilters
+    );
+
+
+    locationFilter.addEventListener(
+        "input",
+        applyAcademicFilters
+    );
+
+
+
+    // =========================================
+    // APPLY TO OPPORTUNITY
+    // =========================================
+
+    async function applyAcademicOpportunity(
+        opportunityId
+    ) {
+
+        try {
+
+            // =====================================
+            // GET CURRENT USER
+            // =====================================
+
+            const {
+                data: { user },
+                error: userError
+            } =
+                await supabaseClient.auth.getUser();
+
+
+            if (
+                userError ||
+                !user
+            ) {
+
+                alert(
+                    "Please log in first."
+                );
+
+                return;
+
+            }
+
+
+
+            // =====================================
+            // CHECK DUPLICATE APPLICATION
+            // =====================================
+
+            const {
+                data: existingApplication,
+                error: existingApplicationError
+            } =
+                await supabaseClient
+                    .from(
+                        "student_academic_applications"
+                    )
+                    .select("id")
+                    .eq(
+                        "student_id",
+                        user.id
+                    )
+                    .eq(
+                        "opportunity_id",
+                        opportunityId
+                    )
+                    .maybeSingle();
+
+
+            if (existingApplicationError) {
+
+                console.error(
+                    "Application check error:",
+                    existingApplicationError
+                );
+
+
+                alert(
+                    existingApplicationError.message
+                );
+
+                return;
+
+            }
+
+
+            if (existingApplication) {
+
+                alert(
+                    "You have already applied for this opportunity."
+                );
+
+                return;
+
+            }
+
+
+
+            // =====================================
+            // APPLICATION MESSAGE
+            // =====================================
+
+            const message =
+                prompt(
+                    "Enter your application message:"
+                );
+
+
+            if (message === null) {
+
+                return;
+
+            }
+
+
+            if (!message.trim()) {
+
+                alert(
+                    "Please enter an application message."
+                );
+
+                return;
+
+            }
+
+
+
+            // =====================================
+            // GET STUDENT PROFILE
+            // =====================================
+
+            const {
+                data: studentProfile,
+                error: studentProfileError
+            } =
+                await supabaseClient
+                    .from("profiles")
+                    .select("full_name")
+                    .eq(
+                        "id",
+                        user.id
+                    )
+                    .single();
+
+
+            if (studentProfileError) {
+
+                console.error(
+                    "Student profile error:",
+                    studentProfileError
+                );
+
+
+                alert(
+                    studentProfileError.message
+                );
+
+                return;
+
+            }
+
+
+
+            // =====================================
+            // INSERT APPLICATION
+            // =====================================
+
+            const {
+                data: insertedApplication,
+                error: applicationError
+            } =
+                await supabaseClient
+                    .from(
+                        "student_academic_applications"
+                    )
+                    .insert({
+
+                        opportunity_id:
+                            opportunityId,
+
+                        student_id:
+                            user.id,
+
+                        student_name:
+                            studentProfile?.full_name ||
+                            "Student",
+
+                        student_email:
+                            user.email ||
+                            "Not available",
+
+                        status:
+                            "pending",
+
+                        message:
+                            message.trim()
+
+                    })
+                    .select("id")
+                    .single();
+
+
+
+            // =====================================
+            // CHECK INSERT ERROR
+            // =====================================
+
+            if (applicationError) {
+
+                console.error(
+                    "Academic application error:",
+                    applicationError
+                );
+
+
+                if (
+                    applicationError.code ===
+                    "23505"
+                ) {
+
+                    alert(
+                        "You have already applied for this opportunity."
+                    );
+
+                } else {
+
+                    alert(
+                        applicationError.message
+                    );
+
+                }
+
+                return;
+
+            }
+
+
+
+            // =====================================
+            // CHECK GENERATED APPLICATION ID
+            // =====================================
+
+            if (
+                !insertedApplication ||
+                !insertedApplication.id
+            ) {
+
+                console.error(
+                    "Application ID was not returned:",
+                    insertedApplication
+                );
+
+
+                alert(
+                    "Application submitted, but Application ID was not returned."
+                );
+
+                return;
+
+            }
+
+
+
+            // =====================================
+            // SAVE ID IN CONSOLE
+            // =====================================
+
+            console.log(
+                "Generated Academic Application ID:",
+                insertedApplication.id
+            );
+
+
+            alert(
+                "Application submitted successfully."
+            );
+
+
+
+            // =====================================
+            // REFRESH OPPORTUNITIES
+            // =====================================
+
+            await loadAcademicOpportunities();
+
+
+        } catch (error) {
+
+            console.error(
+                "Apply academic opportunity error:",
+                error
+            );
+
+
+            alert(
+                error.message ||
+                "Unable to submit application."
+            );
+
+        }
+
+    }
+
+
+
+    // =========================================
+    // ESCAPE HTML
+    // =========================================
+
+    function escapeHtml(value) {
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+
+        div.textContent =
+            value == null
+                ? ""
+                : String(value);
+
+
+        return div.innerHTML;
+
+    }
+
+
+
+    // =========================================
+    // START
+    // =========================================
+
+    loadAcademicOpportunities();
+
+</script>
+
+
+</body>
+
+</html>
+

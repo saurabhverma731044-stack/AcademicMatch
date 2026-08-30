@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Company Dashboard | AcademicMatch</title>
+
+    <link rel="stylesheet" href="../style.css">
+
+</head>
+
+
+<body class="auth-page">
+
+
+    <!-- Navigation -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <a href="../index.html" class="logo">
+                AcademicMatch
+            </a>
+
+            <div class="nav-buttons">
+
+              
+
+                <button
+                    id="logoutButton"
+                    class="btn btn-outline"
+                    type="button"
+                >
+                    Logout
+                </button>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- Company Dashboard -->
+
+    <main class="section">
+
+
+        <!-- Dashboard Header -->
+
+        <div class="section-heading">
+
+            <p class="section-label">
+                COMPANY DASHBOARD
+            </p>
+
+            <h2 id="companyWelcomeMessage">
+                Welcome!
+            </h2>
+
+            <span>
+                Manage your company profile and discover
+                talented students.
+            </span>
+
+        </div>
+
+
+
+        <!-- Company Profile Summary -->
+
+        <div
+            class="auth-card"
+            style="
+                max-width: 900px;
+                margin: 0 auto 50px;
+            "
+        >
+
+            <div class="auth-header">
+
+                <h1 style="font-size: 24px;">
+                    Company Profile
+                </h1>
+
+                <p>
+                    Your company information
+                </p>
+
+            </div>
+
+
+            <div
+                style="
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 20px;
+                "
+            >
+
+
+                <!-- Company Name -->
+
+                <div class="form-group">
+
+                    <label>
+                        Company Name
+                    </label>
+
+                    <p id="companyNameDisplay">
+                        Loading...
+                    </p>
+
+                </div>
+
+
+
+                <!-- Company Type -->
+
+                <div class="form-group">
+
+                    <label>
+                        Company Type
+                    </label>
+
+                    <p id="companyTypeDisplay">
+                        Loading...
+                    </p>
+
+                </div>
+
+
+
+                <!-- Website -->
+
+                <div class="form-group">
+
+                    <label>
+                        Website
+                    </label>
+
+                    <p id="companyWebsiteDisplay">
+                        Loading...
+                    </p>
+
+                </div>
+
+
+
+                <!-- Location -->
+
+                <div class="form-group">
+
+                    <label>
+                        Location
+                    </label>
+
+                    <p id="companyLocationDisplay">
+                        Loading...
+                    </p>
+
+                </div>
+
+
+
+                <!-- Team Size -->
+
+                <div class="form-group">
+
+                    <label>
+                        Team Size
+                    </label>
+
+                    <p id="companyTeamSizeDisplay">
+                        Loading...
+                    </p>
+
+                </div>
+
+
+
+                <!-- Description -->
+
+                <div
+                    class="form-group"
+                    style="
+                        grid-column: 1 / -1;
+                    "
+                >
+
+                    <label>
+                        About the Company
+                    </label>
+
+                    <p id="companyDescriptionDisplay">
+                        Loading...
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- Edit Profile -->
+
+            <div
+                style="
+                    margin-top: 30px;
+                    text-align: center;
+                "
+            >
+
+                <a
+                    href="company-profile.html"
+                    class="btn btn-outline"
+                >
+                    Edit Company Profile
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+       <!-- Internship / Job Opportunities -->
+
+<div
+    class="auth-card"
+    style="
+        max-width: 900px;
+        margin: 0 auto;
+    "
+>
+
+
+    <!-- Section Header -->
+
+    <div class="auth-header">
+
+        <p class="section-label">
+            OPPORTUNITIES
+        </p>
+
+        <h1 style="font-size: 24px;">
+            Your Opportunities
+        </h1>
+
+        <p>
+            Manage the internships and jobs posted by your company.
+        </p>
+
+    </div>
+
+
+    <!-- Post New Opportunity -->
+
+    <div
+        style="
+            text-align: center;
+            margin-bottom: 30px;
+        "
+    >
+
+        <a
+            href="post-opportunity.html"
+            class="btn btn-primary"
+        >
+            + Post an Opportunity
+        </a>
+        <a
+    href="post-learning-program.html"
+    class="btn btn-outline"
+    style="margin-left: 10px;"
+>
+    + Post Learning Program
+</a>
+
+    </div>
+
+
+    <!-- Opportunity List -->
+
+    <div id="companyOpportunityList">
+
+        <p
+            id="opportunityLoadingMessage"
+            style="
+                text-align: center;
+                color: #64748b;
+            "
+        >
+            Loading your opportunities...
+        </p>
+
+    </div>
+
+
+</div>
+
+
+            <!-- <a
+    href="post-opportunity.html"
+    class="btn btn-primary"
+>
+    Post an Opportunity
+</a>
+
+
+            <p
+                style="
+                    margin-top: 15px;
+                    color: #64748b;
+                    font-size: 14px;
+                "
+            >
+                Opportunity posting will be available
+                in the next stage.
+            </p>
+
+        </div> -->
+
+
+    </main>
+
+
+
+    <!-- Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../supabase-config.js"></script>
+
+    <script src="../script.js"></script>
+
+
+    <script>
+
+// =========================================
+// LOAD COMPANY OPPORTUNITIES
+// =========================================
+
+async function loadCompanyOpportunities() {
+
+    const list =
+        document.getElementById(
+            "companyOpportunityList"
+        );
+
+    try {
+
+        // CHECK LOGIN
+
+        const {
+            data: { user },
+            error: userError
+        } =
+            await supabaseClient.auth.getUser();
+
+
+        if (userError || !user) {
+
+            list.innerHTML = `
+                <p style="
+                    text-align: center;
+                    color: #dc2626;
+                ">
+                    Please log in first.
+                </p>
+            `;
+
+            return;
+        }
+
+
+        // GET COMPANY OPPORTUNITIES
+
+        const {
+            data: opportunities,
+            error
+        } =
+            await supabaseClient
+                .from("opportunities")
+                .select(`
+                    id,
+                    title,
+                    opportunity_type,
+                    sector,
+                    required_skills,
+                    location,
+                    work_mode,
+                    stipend_or_salary,
+                    duration,
+                    application_deadline,
+                    status
+                `)
+                .eq(
+                    "company_id",
+                    user.id
+                )
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+        if (error) {
+
+            throw error;
+
+        }
+
+
+        // NO OPPORTUNITIES
+
+        if (
+            !opportunities ||
+            opportunities.length === 0
+        ) {
+
+            list.innerHTML = `
+
+                <p style="
+                    text-align: center;
+                    color: #64748b;
+                ">
+                    You have not posted any opportunities yet.
+                </p>
+
+            `;
+
+            return;
+
+        }
+
+
+        // CLEAR LOADING MESSAGE
+
+        list.innerHTML = "";
+
+
+        // DISPLAY OPPORTUNITIES
+
+        opportunities.forEach(
+            function (opportunity) {
+
+                const item =
+                    document.createElement("div");
+
+
+                item.style.cssText = `
+                    padding: 18px;
+                    margin-top: 15px;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 10px;
+                `;
+
+
+                item.innerHTML = `
+
+                    <h3>
+                        ${opportunity.title}
+                    </h3>
+
+
+                    <p style="
+                        margin-top: 8px;
+                        color: #64748b;
+                    ">
+
+                        ${opportunity.opportunity_type}
+
+                        •
+                        
+                        ${opportunity.sector}
+
+                    </p>
+
+
+                    <p style="
+                        margin-top: 8px;
+                        color: #64748b;
+                    ">
+
+                        Required Skills:
+                        ${opportunity.required_skills || "Not specified"}
+
+                    </p>
+
+
+                    <p style="
+                        margin-top: 8px;
+                        color: #64748b;
+                    ">
+
+                        Location:
+                        ${opportunity.location || "Not specified"}
+
+                    </p>
+
+
+                    <p style="
+                        margin-top: 8px;
+                        color: #64748b;
+                    ">
+
+                        Work Mode:
+                        ${opportunity.work_mode || "Not specified"}
+
+                    </p>
+
+
+                    <p style="
+                        margin-top: 8px;
+                        color: #64748b;
+                    ">
+
+                        Stipend / Salary:
+                        ${opportunity.stipend_or_salary || "Not specified"}
+
+                    </p>
+
+
+                    <p style="
+                        margin-top: 8px;
+                        color: #64748b;
+                    ">
+
+                        Duration:
+                        ${opportunity.duration || "Not specified"}
+
+                    <p style="
+    margin-top: 8px;
+    color: #64748b;
+">
+
+    Status:
+    ${opportunity.status || "open"}
+
+</p>
+
+
+<div style="
+    margin-top: 18px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+">
+
+    <a
+        href="opportunity-details.html?id=${opportunity.id}"
+        class="btn btn-outline"
+    >
+        View Opportunity
+    </a>
+
+    <a
+        href="view-applicants.html?id=${opportunity.id}"
+        class="btn btn-primary"
+    >
+        View Applicants
+    </a>
+
+</div>
+
+`;
+
+
+                list.appendChild(item);
+
+            }
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Company opportunities error:",
+            error
+        );
+
+
+        list.innerHTML = `
+
+            <p style="
+                text-align: center;
+                color: #dc2626;
+            ">
+
+                ${error.message ||
+                "Unable to load opportunities."}
+
+            </p>
+
+        `;
+
+    }
+
+}
+
+
+// =========================================
+// START
+// =========================================
+
+loadCompanyOpportunities();
+
+</script>
+
+
+</body>
+
+</html>

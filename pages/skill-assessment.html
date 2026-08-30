@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Skill Assessment | AcademicMatch</title>
+
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+</head>
+
+
+<body class="auth-page">
+
+
+    <header>
+
+        <nav class="navbar">
+
+            <a
+                href="../index.html"
+                class="logo"
+            >
+                AcademicMatch
+            </a>
+
+            <div class="nav-buttons">
+
+                <a
+                    href="student-dashboard.html"
+                    class="btn btn-outline"
+                >
+                    ← Dashboard
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+
+    <main class="auth-container">
+
+        <div
+            class="auth-card"
+            style="max-width: 750px;"
+        >
+
+            <div class="auth-header">
+
+                <p class="section-label">
+                    SKILL DEVELOPMENT
+                </p>
+
+                <h1>
+                    Skill Assessment
+                </h1>
+
+                <p>
+                    Evaluate your current technical and
+                    professional skills.
+                </p>
+
+            </div>
+
+
+            <form id="assessmentForm">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Technical Skills
+                    </label>
+
+                    <input
+                        type="range"
+                        id="technicalScore"
+                        min="0"
+                        max="100"
+                        value="50"
+                    >
+
+                    <p>
+                        Score:
+                        <span id="technicalValue">
+                            50
+                        </span>
+                    </p>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        Communication
+                    </label>
+
+                    <input
+                        type="range"
+                        id="communicationScore"
+                        min="0"
+                        max="100"
+                        value="50"
+                    >
+
+                    <p>
+                        Score:
+                        <span id="communicationValue">
+                            50
+                        </span>
+                    </p>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        Problem Solving
+                    </label>
+
+                    <input
+                        type="range"
+                        id="problemSolvingScore"
+                        min="0"
+                        max="100"
+                        value="50"
+                    >
+
+                    <p>
+                        Score:
+                        <span id="problemSolvingValue">
+                            50
+                        </span>
+                    </p>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        Teamwork
+                    </label>
+
+                    <input
+                        type="range"
+                        id="teamworkScore"
+                        min="0"
+                        max="100"
+                        value="50"
+                    >
+
+                    <p>
+                        Score:
+                        <span id="teamworkValue">
+                            50
+                        </span>
+                    </p>
+
+                </div>
+
+
+
+                <p
+                    id="assessmentMessage"
+                    class="form-error"
+                ></p>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-primary auth-submit"
+                >
+                    Save Assessment
+                </button>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../supabase-config.js"></script>
+
+
+    <script>
+
+        // =========================================
+        // SLIDER VALUES
+        // =========================================
+
+        const sliders = [
+
+            ["technicalScore", "technicalValue"],
+
+            ["communicationScore", "communicationValue"],
+
+            ["problemSolvingScore", "problemSolvingValue"],
+
+            ["teamworkScore", "teamworkValue"]
+
+        ];
+
+
+        sliders.forEach(function (item) {
+
+            const slider =
+                document.getElementById(item[0]);
+
+            const value =
+                document.getElementById(item[1]);
+
+
+            slider.addEventListener(
+                "input",
+                function () {
+
+                    value.textContent =
+                        slider.value;
+
+                }
+            );
+
+        });
+
+
+
+        // =========================================
+        // SUBMIT
+        // =========================================
+
+        document
+            .getElementById("assessmentForm")
+            .addEventListener(
+                "submit",
+                async function (event) {
+
+                    event.preventDefault();
+
+
+                    const message =
+                        document.getElementById(
+                            "assessmentMessage"
+                        );
+
+
+                    message.textContent = "";
+
+
+                    const {
+                        data: { user },
+                        error: userError
+                    } =
+                        await supabaseClient.auth.getUser();
+
+
+                    if (userError || !user) {
+
+                        message.textContent =
+                            "Please log in first.";
+
+                        return;
+
+                    }
+
+
+                    const technical =
+                        Number(
+                            document.getElementById(
+                                "technicalScore"
+                            ).value
+                        );
+
+
+                    const communication =
+                        Number(
+                            document.getElementById(
+                                "communicationScore"
+                            ).value
+                        );
+
+
+                    const problemSolving =
+                        Number(
+                            document.getElementById(
+                                "problemSolvingScore"
+                            ).value
+                        );
+
+
+                    const teamwork =
+                        Number(
+                            document.getElementById(
+                                "teamworkScore"
+                            ).value
+                        );
+
+
+                    const overall =
+                        Math.round(
+                            (
+                                technical +
+                                communication +
+                                problemSolving +
+                                teamwork
+                            ) / 4
+                        );
+
+
+                    const {
+                        error
+                    } =
+                        await supabaseClient
+                            .from(
+                                "skill_assessments"
+                            )
+                            .upsert({
+
+                                student_id:
+                                    user.id,
+
+                                technical_score:
+                                    technical,
+
+                                communication_score:
+                                    communication,
+
+                                problem_solving_score:
+                                    problemSolving,
+
+                                teamwork_score:
+                                    teamwork,
+
+                                overall_score:
+                                    overall,
+
+                                updated_at:
+                                    new Date()
+                                        .toISOString()
+
+                            }, {
+
+                                onConflict:
+                                    "student_id"
+
+                            });
+
+
+                    if (error) {
+
+                        console.error(
+                            "Assessment error:",
+                            error
+                        );
+
+                        message.textContent =
+                            error.message;
+
+                        return;
+
+                    }
+
+
+                    message.className = "";
+
+                    message.style.color =
+                        "#16a34a";
+
+                    message.textContent =
+                        "Skill assessment saved successfully.";
+
+                }
+            );
+
+    </script>
+
+
+</body>
+
+</html>

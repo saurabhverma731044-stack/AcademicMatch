@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Opportunities | AcademicMatch</title>
+
+    <link rel="stylesheet" href="../style.css">
+
+</head>
+
+
+<body class="auth-page">
+
+
+    <!-- Navigation -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <a href="../index.html" class="logo">
+                AcademicMatch
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- Opportunities Page -->
+
+    <main
+        style="
+            max-width: 1200px;
+            margin: auto;
+            padding: 70px 24px;
+        "
+    >
+
+
+        <!-- Page Header -->
+
+        <div
+            style="
+                text-align: center;
+                margin-bottom: 45px;
+            "
+        >
+
+            <p class="section-label">
+                OPPORTUNITIES
+            </p>
+
+            <h1
+                style="
+                    font-size: 40px;
+                    margin: 8px 0 12px;
+                "
+            >
+                Find Your Next Opportunity
+            </h1>
+
+            <p
+                style="
+                    color: #64748b;
+                    max-width: 650px;
+                    margin: auto;
+                "
+            >
+                Discover internships and jobs posted by
+                companies on AcademicMatch.
+            </p>
+
+        </div>
+
+
+
+        <!-- Search & Filters -->
+
+        <div
+            class="auth-card"
+            style="
+                max-width: 100%;
+                margin-bottom: 35px;
+                padding: 25px;
+            "
+        >
+
+            <div
+                style="
+                    display: grid;
+                    grid-template-columns:
+                        2fr 1fr 1fr 1fr;
+                    gap: 15px;
+                "
+            >
+
+
+                <!-- Search -->
+
+                <div class="form-group">
+
+                    <label for="opportunitySearch">
+                        Search
+                    </label>
+
+                    <input
+                        type="text"
+                        id="opportunitySearch"
+                        placeholder="Search internships, skills..."
+                    >
+
+                </div>
+
+
+
+                <!-- Type -->
+
+                <div class="form-group">
+
+                    <label for="opportunityTypeFilter">
+                        Type
+                    </label>
+
+                    <select
+                        id="opportunityTypeFilter"
+                        style="
+                            width: 100%;
+                            padding: 13px 14px;
+                            border: 1px solid #cbd5e1;
+                            border-radius: 8px;
+                            font-size: 15px;
+                            background: white;
+                        "
+                    >
+
+                        <option value="">
+                            All Types
+                        </option>
+
+                        <option value="internship">
+                            Internship
+                        </option>
+
+                        <option value="job">
+                            Job
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- Sector -->
+
+                <div class="form-group">
+
+                    <label for="opportunitySectorFilter">
+                        Sector
+                    </label>
+
+                    <select
+                        id="opportunitySectorFilter"
+                        style="
+                            width: 100%;
+                            padding: 13px 14px;
+                            border: 1px solid #cbd5e1;
+                            border-radius: 8px;
+                            font-size: 15px;
+                            background: white;
+                        "
+                    >
+
+                        <option value="">
+                            All Sectors
+                        </option>
+
+                        <option value="technology">
+                            Technology
+                        </option>
+
+                        <option value="cybersecurity">
+                            Cybersecurity
+                        </option>
+
+                        <option value="artificial-intelligence">
+                            Artificial Intelligence
+                        </option>
+
+                        <option value="data-science">
+                            Data Science
+                        </option>
+
+                        <option value="finance">
+                            Finance
+                        </option>
+
+                        <option value="healthcare">
+                            Healthcare
+                        </option>
+
+                        <option value="education">
+                            Education
+                        </option>
+
+                        <option value="agriculture">
+                            Agriculture
+                        </option>
+
+                        <option value="government">
+                            Government
+                        </option>
+
+                        <option value="other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- Work Mode -->
+
+                <div class="form-group">
+
+                    <label for="opportunityWorkModeFilter">
+                        Work Mode
+                    </label>
+
+                    <select
+                        id="opportunityWorkModeFilter"
+                        style="
+                            width: 100%;
+                            padding: 13px 14px;
+                            border: 1px solid #cbd5e1;
+                            border-radius: 8px;
+                            font-size: 15px;
+                            background: white;
+                        "
+                    >
+
+                        <option value="">
+                            All Modes
+                        </option>
+
+                        <option value="remote">
+                            Remote
+                        </option>
+
+                        <option value="hybrid">
+                            Hybrid
+                        </option>
+
+                        <option value="on-site">
+                            On-site
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Opportunity Results -->
+
+        <section>
+
+            <div
+                style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 20px;
+                "
+            >
+
+                <h2>
+                    Available Opportunities
+                </h2>
+
+                <span
+                    id="opportunityCount"
+                    style="
+                        color: #64748b;
+                        font-size: 14px;
+                    "
+                >
+                    Loading...
+                </span>
+
+            </div>
+
+
+
+            <!-- Loading -->
+
+            <div
+                id="studentOpportunityList"
+            >
+
+                <p
+                    style="
+                        text-align: center;
+                        color: #64748b;
+                        padding: 40px;
+                    "
+                >
+                    Loading opportunities...
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../supabase-config.js"></script>
+
+    <script src="../script.js"></script>
+
+
+</body>
+
+</html>

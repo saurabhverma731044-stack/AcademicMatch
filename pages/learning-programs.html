@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Learning Programs | AcademicMatch</title>
+
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+</head>
+
+
+<body class="auth-page">
+
+
+<header>
+
+    <nav class="navbar">
+
+        <a
+            href="../index.html"
+            class="logo"
+        >
+            AcademicMatch
+        </a>
+
+        <div class="nav-buttons">
+
+            <a
+                href="student-dashboard.html"
+                class="btn btn-outline"
+            >
+                ← Dashboard
+            </a>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+<main class="section">
+
+
+    <div class="section-heading">
+
+        <p class="section-label">
+            INDUSTRY LEARNING
+        </p>
+
+        <h2>
+            Learning Programs
+        </h2>
+
+        <span>
+            Explore training, certification courses,
+            workshops, and mentorship programs.
+        </span>
+
+    </div>
+
+
+
+    <div
+        id="programList"
+        style="
+            max-width: 900px;
+            margin: 0 auto;
+        "
+    >
+
+        <p
+            id="loadingMessage"
+            style="
+                text-align: center;
+                color: #64748b;
+            "
+        >
+            Loading learning programs...
+        </p>
+
+    </div>
+
+
+</main>
+
+
+
+<!-- Supabase -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="../supabase-config.js"></script>
+
+
+
+<script>
+
+// =========================================
+// LOAD LEARNING PROGRAMS
+// =========================================
+
+async function loadLearningPrograms() {
+
+    const list =
+        document.getElementById(
+            "programList"
+        );
+
+
+    try {
+
+        const {
+            data: programs,
+            error
+        } =
+            await supabaseClient
+                .from("learning_programs")
+                .select(`
+                    id,
+                    title,
+                    program_type,
+                    description,
+                    required_skills,
+                    duration,
+                    mode,
+                    registration_deadline
+                `)
+                .eq(
+                    "status",
+                    "open"
+                )
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+        if (error) {
+
+            throw error;
+
+        }
+
+
+        // =================================
+        // NO PROGRAMS
+        // =================================
+
+        if (
+            !programs ||
+            programs.length === 0
+        ) {
+
+            list.innerHTML = `
+
+                <p style="
+                    text-align: center;
+                    color: #64748b;
+                ">
+                    No learning programs are
+                    currently available.
+                </p>
+
+            `;
+
+            return;
+
+        }
+
+
+        // =================================
+        // CLEAR LOADING
+        // =================================
+
+        list.innerHTML = "";
+
+
+        // =================================
+        // DISPLAY PROGRAMS
+        // =================================
+
+        programs.forEach(
+            function(program) {
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                item.className =
+                    "auth-card";
+
+
+                item.style.cssText = `
+                    max-width: 900px;
+                    margin: 0 auto 20px;
+                `;
+
+
+                item.innerHTML = `
+
+                    <p class="section-label">
+                        ${program.program_type}
+                    </p>
+
+
+                    <h2>
+                        ${program.title}
+                    </h2>
+
+
+                    <p style="
+                        margin-top: 10px;
+                        color: #64748b;
+                        line-height: 1.6;
+                    ">
+                        ${program.description || "No description provided."}
+                    </p>
+
+
+                    <p style="
+                        margin-top: 12px;
+                        color: #64748b;
+                    ">
+                        <strong>
+                            Skills:
+                        </strong>
+
+                        ${program.required_skills || "Not specified"}
+                    </p>
+
+
+                    <p style="
+                        margin-top: 8px;
+                        color: #64748b;
+                    ">
+                        <strong>
+                            Duration:
+                        </strong>
+
+                        ${program.duration || "Not specified"}
+                    </p>
+
+
+                    <p style="
+                        margin-top: 8px;
+                        color: #64748b;
+                    ">
+                        <strong>
+                            Mode:
+                        </strong>
+
+                        ${program.mode || "Not specified"}
+                    </p>
+
+
+                    <p style="
+                        margin-top: 8px;
+                        color: #64748b;
+                    ">
+                        <strong>
+                            Registration Deadline:
+                        </strong>
+
+                        ${
+                            program.registration_deadline ||
+                            "Not specified"
+                        }
+                    </p>
+
+
+                    <div style="
+                        margin-top: 18px;
+                    ">
+
+                        <a
+                            href="learning-program-details.html?id=${program.id}"
+                            class="btn btn-primary"
+                        >
+                            View Program
+                        </a>
+
+                    </div>
+
+                `;
+
+
+                list.appendChild(item);
+
+            }
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Learning programs error:",
+            error
+        );
+
+
+        list.innerHTML = `
+
+            <p style="
+                text-align: center;
+                color: #dc2626;
+            ">
+                ${error.message ||
+                "Unable to load learning programs."}
+            </p>
+
+        `;
+
+    }
+
+}
+
+
+// =========================================
+// START
+// =========================================
+
+loadLearningPrograms();
+
+</script>
+
+
+</body>
+
+</html>

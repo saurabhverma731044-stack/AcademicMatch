@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Post Opportunity | AcademicMatch</title>
+
+    <link rel="stylesheet" href="../style.css">
+
+</head>
+
+
+<body class="auth-page">
+
+
+    <!-- Navigation -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <a href="../index.html" class="logo">
+                AcademicMatch
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- Opportunity Form -->
+
+    <main class="auth-container">
+
+        <div
+            class="auth-card"
+            style="max-width: 700px;"
+        >
+
+
+            <!-- Header -->
+
+            <div class="auth-header">
+
+                <p class="section-label">
+                    CREATE OPPORTUNITY
+                </p>
+
+                <h1>
+                    Post an Internship or Job
+                </h1>
+
+                <p>
+                    Tell students about your opportunity.
+                </p>
+
+            </div>
+
+
+
+            <!-- Opportunity Form -->
+
+            <form
+                id="opportunityForm"
+                class="auth-form"
+            >
+
+
+                <!-- Title -->
+
+                <div class="form-group">
+
+                    <label for="opportunityTitle">
+                        Opportunity Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="opportunityTitle"
+                        name="opportunityTitle"
+                        placeholder="e.g. Software Engineering Intern"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- Opportunity Type -->
+
+                <div class="form-group">
+
+                    <label for="opportunityType">
+                        Opportunity Type
+                    </label>
+
+                    <select
+                        id="opportunityType"
+                        name="opportunityType"
+                        required
+                        style="
+                            width: 100%;
+                            padding: 13px 14px;
+                            border: 1px solid #cbd5e1;
+                            border-radius: 8px;
+                            font-size: 15px;
+                            font-family: inherit;
+                            background: white;
+                            outline: none;
+                        "
+                    >
+
+                        <option value="">
+                            Select opportunity type
+                        </option>
+
+                        <option value="internship">
+                            Internship
+                        </option>
+
+                        <option value="job">
+                            Job
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- Sector -->
+
+                <div class="form-group">
+
+                    <label for="sector">
+                        Sector
+                    </label>
+
+                    <select
+                        id="sector"
+                        name="sector"
+                        required
+                        style="
+                            width: 100%;
+                            padding: 13px 14px;
+                            border: 1px solid #cbd5e1;
+                            border-radius: 8px;
+                            font-size: 15px;
+                            font-family: inherit;
+                            background: white;
+                            outline: none;
+                        "
+                    >
+
+                        <option value="">
+                            Select sector
+                        </option>
+
+                        <option value="technology">
+                            Technology
+                        </option>
+
+                        <option value="cybersecurity">
+                            Cybersecurity
+                        </option>
+
+                        <option value="artificial-intelligence">
+                            Artificial Intelligence
+                        </option>
+
+                        <option value="data-science">
+                            Data Science
+                        </option>
+
+                        <option value="finance">
+                            Finance
+                        </option>
+
+                        <option value="healthcare">
+                            Healthcare
+                        </option>
+
+                        <option value="education">
+                            Education
+                        </option>
+
+                        <option value="agriculture">
+                            Agriculture
+                        </option>
+
+                        <option value="government">
+                            Government
+                        </option>
+
+                        <option value="other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- Description -->
+
+                <div class="form-group">
+
+                    <label for="opportunityDescription">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="opportunityDescription"
+                        name="opportunityDescription"
+                        rows="6"
+                        placeholder="Describe the role, responsibilities and opportunity..."
+                        required
+                        style="
+                            width: 100%;
+                            padding: 13px 14px;
+                            border: 1px solid #cbd5e1;
+                            border-radius: 8px;
+                            font-size: 15px;
+                            font-family: inherit;
+                            resize: vertical;
+                            outline: none;
+                        "
+                    ></textarea>
+
+                </div>
+
+
+
+                <!-- Required Skills -->
+
+                <div class="form-group">
+
+                    <label for="requiredSkills">
+                        Required Skills
+                    </label>
+
+                    <input
+                        type="text"
+                        id="requiredSkills"
+                        name="requiredSkills"
+                        placeholder="e.g. Python, JavaScript, SQL"
+                    >
+
+                    <small>
+                        Separate multiple skills with commas.
+                    </small>
+
+                </div>
+
+
+
+                <!-- Location -->
+
+                <div class="form-group">
+
+                    <label for="opportunityLocation">
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="opportunityLocation"
+                        name="opportunityLocation"
+                        placeholder="e.g. Lucknow, Uttar Pradesh"
+                    >
+
+                </div>
+
+
+
+                <!-- Work Mode -->
+
+                <div class="form-group">
+
+                    <label for="workMode">
+                        Work Mode
+                    </label>
+
+                    <select
+                        id="workMode"
+                        name="workMode"
+                        style="
+                            width: 100%;
+                            padding: 13px 14px;
+                            border: 1px solid #cbd5e1;
+                            border-radius: 8px;
+                            font-size: 15px;
+                            font-family: inherit;
+                            background: white;
+                            outline: none;
+                        "
+                    >
+
+                        <option value="">
+                            Select work mode
+                        </option>
+
+                        <option value="remote">
+                            Remote
+                        </option>
+
+                        <option value="hybrid">
+                            Hybrid
+                        </option>
+
+                        <option value="on-site">
+                            On-site
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- Stipend / Salary -->
+
+                <div class="form-group">
+
+                    <label for="stipendOrSalary">
+                        Stipend / Salary
+                    </label>
+
+                    <input
+                        type="text"
+                        id="stipendOrSalary"
+                        name="stipendOrSalary"
+                        placeholder="e.g. ₹15,000/month"
+                    >
+
+                </div>
+
+
+
+                <!-- Duration -->
+
+                <div class="form-group">
+
+                    <label for="duration">
+                        Duration
+                    </label>
+
+                    <input
+                        type="text"
+                        id="duration"
+                        name="duration"
+                        placeholder="e.g. 3 months"
+                    >
+
+                </div>
+
+
+
+                <!-- Application Deadline -->
+
+                <div class="form-group">
+
+                    <label for="applicationDeadline">
+                        Application Deadline
+                    </label>
+
+                    <input
+                        type="date"
+                        id="applicationDeadline"
+                        name="applicationDeadline"
+                    >
+
+                </div>
+
+
+
+                <!-- Error Message -->
+
+                <p
+                    id="opportunityError"
+                    class="form-error"
+                ></p>
+
+
+
+                <!-- Submit -->
+
+                <button
+                    type="submit"
+                    class="btn btn-primary auth-submit"
+                >
+                    Post Opportunity
+                </button>
+
+
+            </form>
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../supabase-config.js"></script>
+
+    <script src="../script.js"></script>
+
+    <script>
+
+// =========================================
+// POST OPPORTUNITY
+// =========================================
+
+const opportunityForm =
+    document.getElementById(
+        "opportunityForm"
+    );
+
+const opportunityError =
+    document.getElementById(
+        "opportunityError"
+    );
+
+
+opportunityForm.addEventListener(
+    "submit",
+    async function (event) {
+
+        event.preventDefault();
+
+        opportunityError.textContent = "";
+        opportunityError.style.color = "";
+
+
+        try {
+
+            // CHECK LOGIN
+
+            const {
+                data: { user },
+                error: userError
+            } =
+                await supabaseClient.auth.getUser();
+
+
+            if (userError || !user) {
+
+                throw new Error(
+                    "Please log in first."
+                );
+
+            }
+
+
+            // GET FORM VALUES
+
+            const title =
+                document.getElementById(
+                    "opportunityTitle"
+                ).value.trim();
+
+
+            const opportunityType =
+                document.getElementById(
+                    "opportunityType"
+                ).value;
+
+
+            const sector =
+                document.getElementById(
+                    "sector"
+                ).value;
+
+
+            const description =
+                document.getElementById(
+                    "opportunityDescription"
+                ).value.trim();
+
+
+            const requiredSkills =
+                document.getElementById(
+                    "requiredSkills"
+                ).value.trim();
+
+
+            const location =
+                document.getElementById(
+                    "opportunityLocation"
+                ).value.trim();
+
+
+            const workMode =
+                document.getElementById(
+                    "workMode"
+                ).value;
+
+
+            const stipendOrSalary =
+                document.getElementById(
+                    "stipendOrSalary"
+                ).value.trim();
+
+
+            const duration =
+                document.getElementById(
+                    "duration"
+                ).value.trim();
+
+
+            const applicationDeadline =
+                document.getElementById(
+                    "applicationDeadline"
+                ).value;
+
+
+            // DISABLE BUTTON
+
+            const submitButton =
+                opportunityForm.querySelector(
+                    'button[type="submit"]'
+                );
+
+            submitButton.disabled = true;
+
+            submitButton.textContent =
+                "Posting...";
+
+
+            // INSERT OPPORTUNITY
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("opportunities")
+                    .insert({
+
+                        company_id:
+                            user.id,
+
+                        title:
+                            title,
+
+                        opportunity_type:
+                            opportunityType,
+
+                        sector:
+                            sector,
+
+                        description:
+                            description,
+
+                        required_skills:
+                            requiredSkills,
+
+                        location:
+                            location,
+
+                        work_mode:
+                            workMode,
+
+                        stipend_or_salary:
+                            stipendOrSalary,
+
+                        duration:
+                            duration,
+
+                        application_deadline:
+                            applicationDeadline || null,
+
+                        status:
+                            "open"
+
+                    });
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+            // SUCCESS
+
+            opportunityError.textContent =
+                "Opportunity posted successfully!";
+
+            opportunityError.style.color =
+                "#16a34a";
+
+
+            opportunityForm.reset();
+
+
+            setTimeout(
+                function () {
+
+                    window.location.href =
+                        "company-dashboard.html";
+
+                },
+                1200
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Opportunity posting error:",
+                error
+            );
+
+
+            opportunityError.textContent =
+                error.message ||
+                "Unable to post opportunity.";
+
+            opportunityError.style.color =
+                "#dc2626";
+
+
+            const submitButton =
+                opportunityForm.querySelector(
+                    'button[type="submit"]'
+                );
+
+            submitButton.disabled = false;
+
+            submitButton.textContent =
+                "Post Opportunity";
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

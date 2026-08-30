@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Student Profile | AcademicMatch</title>
+
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+    <style>
+
+        .student-view-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .student-view-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .portfolio-item {
+            margin-top: 15px;
+            padding: 18px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+        }
+
+        .skill-score-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+
+            .student-view-grid,
+            .skill-score-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="auth-page">
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <a
+                href="../index.html"
+                class="logo"
+            >
+                AcademicMatch
+            </a>
+
+            <div class="nav-buttons">
+
+                <a
+                    href="company-dashboard.html"
+                    class="btn btn-outline"
+                >
+                    ← Dashboard
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="section">
+
+
+        <!-- LOADING -->
+
+        <div
+            id="profileLoading"
+            style="
+                text-align: center;
+                padding: 50px;
+                color: #64748b;
+            "
+        >
+            Loading student profile...
+        </div>
+
+
+
+        <!-- ERROR -->
+
+        <div
+            id="profileError"
+            style="
+                display: none;
+                text-align: center;
+                padding: 50px;
+                color: #dc2626;
+            "
+        >
+            Unable to load student profile.
+        </div>
+
+
+
+        <!-- PROFILE CONTENT -->
+
+        <div
+            id="profileContent"
+            style="display: none;"
+        >
+
+            <div class="student-view-container">
+
+
+                <!-- =========================
+                     HEADER
+                ========================= -->
+
+                <div class="section-heading">
+
+                    <p class="section-label">
+                        STUDENT PORTFOLIO
+                    </p>
+
+                    <h2 id="studentName">
+                        Student
+                    </h2>
+
+                    <span id="studentBio">
+                        Loading profile...
+                    </span>
+
+                </div>
+
+
+
+                <!-- =========================
+                     ACADEMIC INFORMATION
+                ========================= -->
+
+                <div
+                    class="auth-card"
+                    style="margin-bottom: 20px;"
+                >
+
+                    <div class="auth-header">
+
+                        <h1 style="font-size: 24px;">
+                            Academic Information
+                        </h1>
+
+                    </div>
+
+
+                    <div class="student-view-grid">
+
+
+                        <div class="form-group">
+
+                            <label>
+                                College / University
+                            </label>
+
+                            <p id="studentCollege">
+                                —
+                            </p>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Degree
+                            </label>
+
+                            <p id="studentDegree">
+                                —
+                            </p>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Branch / Specialization
+                            </label>
+
+                            <p id="studentBranch">
+                                —
+                            </p>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Graduation Year
+                            </label>
+
+                            <p id="studentGraduationYear">
+                                —
+                            </p>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Location
+                            </label>
+
+                            <p id="studentLocation">
+                                —
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =========================
+                     ABOUT
+                ========================= -->
+
+                <div
+                    class="auth-card"
+                    style="margin-bottom: 20px;"
+                >
+
+                    <div class="auth-header">
+
+                        <h1 style="font-size: 24px;">
+                            About the Student
+                        </h1>
+
+                    </div>
+
+
+                    <p
+                        id="studentAbout"
+                        style="
+                            color: #64748b;
+                            line-height: 1.7;
+                        "
+                    >
+                        —
+                    </p>
+
+                </div>
+
+
+
+                <!-- =========================
+                     SKILLS
+                ========================= -->
+
+                <div
+                    class="auth-card"
+                    style="margin-bottom: 20px;"
+                >
+
+                    <div class="auth-header">
+
+                        <h1 style="font-size: 24px;">
+                            Skills
+                        </h1>
+
+                    </div>
+
+
+                    <p
+                        id="studentSkills"
+                        style="
+                            color: #64748b;
+                            line-height: 1.7;
+                        "
+                    >
+                        Not provided
+                    </p>
+
+                </div>
+
+               
+
+
+
+                <!-- =========================
+                     SKILL ASSESSMENT
+                ========================= -->
+
+                <div
+                    id="skillAssessmentSection"
+                    class="auth-card"
+                    style="
+                        margin-bottom: 20px;
+                        display: none;
+                    "
+                >
+
+                    <div class="auth-header">
+
+                        <h1 style="font-size: 24px;">
+                            Skill Assessment
+                        </h1>
+
+                    </div>
+
+
+                    <div
+                        id="skillAssessmentContent"
+                        class="skill-score-grid"
+                    ></div>
+
+
+                    <p style="
+                        margin-top: 20px;
+                    ">
+
+                        <strong>
+                            Overall Score:
+                        </strong>
+
+                        <span id="overallScore">
+                            —
+                        </span>
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- =========================
+                     PROJECTS
+                ========================= -->
+
+                <div
+                    id="projectsSection"
+                    class="auth-card"
+                    style="
+                        margin-bottom: 20px;
+                        display: none;
+                    "
+                >
+
+                    <div class="auth-header">
+
+                        <h1 style="font-size: 24px;">
+                            Projects
+                        </h1>
+
+                        <p>
+                            Projects included in the student's portfolio.
+                        </p>
+
+                    </div>
+
+
+                    <div id="projectsContent"></div>
+
+                </div>
+
+
+
+                <!-- =========================
+                     CERTIFICATIONS
+                ========================= -->
+
+                <div
+                    id="certificationsSection"
+                    class="auth-card"
+                    style="
+                        margin-bottom: 20px;
+                        display: none;
+                    "
+                >
+
+                    <div class="auth-header">
+
+                        <h1 style="font-size: 24px;">
+                            Certifications
+                        </h1>
+
+                        <p>
+                            Certifications earned by the student.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        id="certificationsContent"
+                    ></div>
+
+                </div>
+
+
+
+                <!-- =========================
+                     ACHIEVEMENTS
+                ========================= -->
+
+                <div
+                    id="achievementsSection"
+                    class="auth-card"
+                    style="
+                        margin-bottom: 20px;
+                        display: none;
+                    "
+                >
+
+                    <div class="auth-header">
+
+                        <h1 style="font-size: 24px;">
+                            Achievements
+                        </h1>
+
+                        <p>
+                            Student achievements and accomplishments.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        id="achievementsContent"
+                    ></div>
+
+                </div>
+
+
+
+                <!-- =========================
+                     RESUME
+                ========================= -->
+
+                <div
+                    id="resumeSection"
+                    class="auth-card"
+                    style="
+                        margin-bottom: 20px;
+                        display: none;
+                    "
+                >
+
+                    <div class="auth-header">
+
+                        <h1 style="font-size: 24px;">
+                            Resume
+                        </h1>
+
+                        <p>
+                            Latest uploaded resume.
+                        </p>
+
+                    </div>
+
+
+                    <div id="resumeContent"></div>
+
+                </div>
+
+
+
+                <!-- =========================
+                     MESSAGE STUDENT
+                ========================= -->
+
+                <div style="
+                    margin: 25px auto;
+                    text-align: center;
+                ">
+
+                    <button
+                        id="messageStudentButton"
+                        class="btn btn-primary"
+                        type="button"
+                        onclick="openStudentMessages()"
+                    >
+                        Message Student
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =========================
+         SUPABASE
+    ========================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../supabase-config.js"></script>
+
+
+   <script>
+
+    // =========================================
+    // GET STUDENT ID
+    // =========================================
+
+    const urlParams =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const studentId =
+        urlParams.get("id");
+
+    console.log(
+        "Student ID received:",
+        studentId
+    );
+
+
+    // =========================================
+    // ELEMENTS
+    // =========================================
+
+    const profileLoading =
+        document.getElementById(
+            "profileLoading"
+        );
+
+    const profileError =
+        document.getElementById(
+            "profileError"
+        );
+
+    const profileContent =
+        document.getElementById(
+            "profileContent"
+        );
+
+
+    // =========================================
+    // SAFE DISPLAY HELPER
+    // =========================================
+
+    function setText(id, value, fallback = "Not provided") {
+
+        const element =
+            document.getElementById(id);
+
+        if (!element) {
+            console.warn(
+                "Element not found:",
+                id
+            );
+            return;
+        }
+
+        element.textContent =
+            value || fallback;
+
+    }
+
+
+    // =========================================
+    // LOAD STUDENT PROFILE
+    // =========================================
+
+    async function loadStudentProfile() {
+
+        try {
+
+            // =================================
+            // CHECK LOGIN
+            // =================================
+
+            const {
+                data: { user },
+                error: userError
+            } =
+                await supabaseClient.auth.getUser();
+
+
+            if (userError || !user) {
+
+                throw new Error(
+                    "Please log in first."
+                );
+
+            }
+
+
+            // =================================
+            // CHECK STUDENT ID
+            // =================================
+
+            if (!studentId) {
+
+                throw new Error(
+                    "Student profile not found."
+                );
+
+            }
+
+
+            // =================================
+            // GET PROFILE
+            // =================================
+
+            const {
+                data: profile,
+                error: profileError
+            } =
+                await supabaseClient
+                    .from("profiles")
+                    .select(`
+                        id,
+                        full_name,
+                        role,
+                        college,
+                        degree,
+                        branch,
+                        graduation_year,
+                        location,
+                        bio,
+                        skills,
+                        github_url,
+                        linkedin_url,
+                        leetcode_url,
+                        codeforces_url
+                    `)
+                    .eq(
+                        "id",
+                        studentId
+                    )
+                    .maybeSingle();
+
+
+            if (profileError) {
+
+                throw profileError;
+
+            }
+
+
+            if (!profile) {
+
+                throw new Error(
+                    "Student account not found."
+                );
+
+            }
+
+
+            // =================================
+            // CHECK STUDENT ROLE
+            // =================================
+
+            if (
+                profile.role !==
+                "student"
+            ) {
+
+                throw new Error(
+                    "This user is not a student."
+                );
+
+            }
+
+
+            // =================================
+            // DISPLAY PROFILE
+            // =================================
+
+            setText(
+                "studentName",
+                profile.full_name,
+                "Student"
+            );
+
+            setText(
+                "studentBio",
+                profile.bio,
+                "No bio provided."
+            );
+
+            setText(
+                "studentCollege",
+                profile.college
+            );
+
+            setText(
+                "studentDegree",
+                profile.degree
+            );
+
+            setText(
+                "studentBranch",
+                profile.branch
+            );
+
+            setText(
+                "studentGraduationYear",
+                profile.graduation_year
+            );
+
+            setText(
+                "studentLocation",
+                profile.location
+            );
+
+            setText(
+                "studentAbout",
+                profile.bio,
+                "No information provided."
+            );
+
+            setText(
+                "studentSkills",
+                profile.skills
+            );
+
+
+            // =================================
+            // DIGITAL FOOTPRINT
+            // =================================
+
+            const digitalFootprintContent =
+                document.getElementById(
+                    "digitalFootprintContent"
+                );
+
+
+            if (digitalFootprintContent) {
+
+                digitalFootprintContent.innerHTML =
+                    "";
+
+
+                const profileLinks = [
+
+                    {
+                        name: "GitHub",
+                        url: profile.github_url
+                    },
+
+                    {
+                        name: "LinkedIn",
+                        url: profile.linkedin_url
+                    },
+
+                    {
+                        name: "LeetCode",
+                        url: profile.leetcode_url
+                    },
+
+                    {
+                        name: "Codeforces",
+                        url: profile.codeforces_url
+                    }
+
+                ];
+
+
+                profileLinks.forEach(
+                    function(profileLink) {
+
+                        if (!profileLink.url) {
+                            return;
+                        }
+
+
+                        const link =
+                            document.createElement(
+                                "a"
+                            );
+
+
+                        link.href =
+                            profileLink.url;
+
+                        link.target =
+                            "_blank";
+
+                        link.rel =
+                            "noopener noreferrer";
+
+                        link.className =
+                            "btn btn-outline";
+
+                        link.textContent =
+                            profileLink.name;
+
+
+                        digitalFootprintContent.appendChild(
+                            link
+                        );
+
+                    }
+                );
+
+
+                if (
+                    digitalFootprintContent.children.length ===
+                    0
+                ) {
+
+                    digitalFootprintContent.innerHTML =
+                        `
+                        <p style="
+                            color: #64748b;
+                        ">
+                            No public digital profiles provided.
+                        </p>
+                        `;
+
+                }
+
+            }
+
+
+            // =================================
+            // LOAD ALL PORTFOLIO DATA
+            // =================================
+
+            await Promise.all([
+
+                loadSkillAssessment(),
+
+                loadProjects(),
+
+                loadCertifications(),
+
+                loadAchievements(),
+
+                loadResume()
+
+            ]);
+
+
+            // =================================
+            // SHOW PROFILE
+            // =================================
+
+            if (profileLoading) {
+
+                profileLoading.style.display =
+                    "none";
+
+            }
+
+
+            if (profileContent) {
+
+                profileContent.style.display =
+                    "block";
+
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                "Student portfolio error:",
+                error
+            );
+
+
+            if (profileLoading) {
+
+                profileLoading.style.display =
+                    "none";
+
+            }
+
+
+            if (profileError) {
+
+                profileError.textContent =
+                    error.message ||
+                    "Unable to load student profile.";
+
+                profileError.style.display =
+                    "block";
+
+            }
+
+        }
+
+    }
+
+
+
+    // =========================================
+    // LOAD SKILL ASSESSMENT
+    // =========================================
+
+    async function loadSkillAssessment() {
+
+        const {
+            data: assessment,
+            error
+        } =
+            await supabaseClient
+                .from("skill_assessments")
+                .select(`
+                    technical_score,
+                    communication_score,
+                    problem_solving_score,
+                    teamwork_score,
+                    overall_score
+                `)
+                .eq(
+                    "student_id",
+                    studentId
+                )
+                .maybeSingle();
+
+
+        if (error) {
+
+            console.error(
+                "Skill assessment error:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        const section =
+            document.getElementById(
+                "skillAssessmentSection"
+            );
+
+        const container =
+            document.getElementById(
+                "skillAssessmentContent"
+            );
+
+        const overallScore =
+            document.getElementById(
+                "overallScore"
+            );
+
+
+        if (!section || !container) {
+
+            console.warn(
+                "Skill assessment HTML elements not found."
+            );
+
+            return;
+
+        }
+
+
+        if (!assessment) {
+
+            return;
+
+        }
+
+
+        container.innerHTML = `
+
+            <div class="portfolio-item">
+
+                <strong>
+                    Technical
+                </strong>
+
+                <p style="
+                    margin-top: 6px;
+                    color: #64748b;
+                ">
+                    ${assessment.technical_score}/10
+                </p>
+
+            </div>
+
+
+            <div class="portfolio-item">
+
+                <strong>
+                    Communication
+                </strong>
+
+                <p style="
+                    margin-top: 6px;
+                    color: #64748b;
+                ">
+                    ${assessment.communication_score}/10
+                </p>
+
+            </div>
+
+
+            <div class="portfolio-item">
+
+                <strong>
+                    Problem Solving
+                </strong>
+
+                <p style="
+                    margin-top: 6px;
+                    color: #64748b;
+                ">
+                    ${assessment.problem_solving_score}/10
+                </p>
+
+            </div>
+
+
+            <div class="portfolio-item">
+
+                <strong>
+                    Teamwork
+                </strong>
+
+                <p style="
+                    margin-top: 6px;
+                    color: #64748b;
+                ">
+                    ${assessment.teamwork_score}/10
+                </p>
+
+            </div>
+
+        `;
+
+
+        if (overallScore) {
+
+            overallScore.textContent =
+                (
+                    assessment.overall_score ??
+                    "N/A"
+                ) +
+                "/10";
+
+        }
+
+
+        section.style.display =
+            "block";
+
+    }
+
+
+
+    // =========================================
+    // LOAD PROJECTS
+    // =========================================
+
+    async function loadProjects() {
+
+        const {
+            data: projects,
+            error
+        } =
+            await supabaseClient
+                .from("student_projects")
+                .select(`
+                    id,
+                    title,
+                    description,
+                    technologies,
+                    project_link
+                `)
+                .eq(
+                    "student_id",
+                    studentId
+                )
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+        if (error) {
+
+            console.error(
+                "Projects error:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !projects ||
+            projects.length === 0
+        ) {
+
+            return;
+
+        }
+
+
+        const section =
+            document.getElementById(
+                "projectsSection"
+            );
+
+        const container =
+            document.getElementById(
+                "projectsContent"
+            );
+
+
+        if (!section || !container) {
+
+            console.warn(
+                "Projects HTML elements not found."
+            );
+
+            return;
+
+        }
+
+
+        container.innerHTML = "";
+
+
+        projects.forEach(
+            function(project) {
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                item.className =
+                    "portfolio-item";
+
+
+                item.innerHTML = `
+
+                    <h3>
+                        ${
+                            project.title ||
+                            "Project"
+                        }
+                    </h3>
+
+
+                    <p style="
+                        margin-top: 8px;
+                        color: #64748b;
+                        line-height: 1.6;
+                    ">
+                        ${
+                            project.description ||
+                            "No description provided."
+                        }
+                    </p>
+
+
+                    <p style="
+                        margin-top: 8px;
+                        color: #64748b;
+                    ">
+
+                        <strong>
+                            Technologies:
+                        </strong>
+
+                        ${
+                            project.technologies ||
+                            "Not specified"
+                        }
+
+                    </p>
+
+
+                    ${
+                        project.project_link
+                        ?
+                        `
+                        <a
+                            href="${project.project_link}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="btn btn-outline"
+                            style="
+                                display: inline-block;
+                                margin-top: 12px;
+                            "
+                        >
+                            View Project
+                        </a>
+                        `
+                        :
+                        ""
+                    }
+
+                `;
+
+
+                container.appendChild(
+                    item
+                );
+
+            }
+        );
+
+
+        section.style.display =
+            "block";
+
+    }
+
+
+
+    // =========================================
+    // LOAD CERTIFICATIONS
+    // =========================================
+
+    async function loadCertifications() {
+
+        const {
+            data: certifications,
+            error
+        } =
+            await supabaseClient
+                .from("student_certifications")
+                .select(`
+                    id,
+                    certificate_name,
+                    issuing_organization,
+                    certificate_link,
+                    issue_date
+                `)
+                .eq(
+                    "student_id",
+                    studentId
+                )
+                .order(
+                    "issue_date",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+        if (error) {
+
+            console.error(
+                "Certification error:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !certifications ||
+            certifications.length === 0
+        ) {
+
+            return;
+
+        }
+
+
+        const section =
+            document.getElementById(
+                "certificationsSection"
+            );
+
+        const container =
+            document.getElementById(
+                "certificationsContent"
+            );
+
+
+        if (!section || !container) {
+
+            console.warn(
+                "Certification HTML elements not found."
+            );
+
+            return;
+
+        }
+
+
+        container.innerHTML = "";
+
+
+        certifications.forEach(
+            function(certification) {
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                item.className =
+                    "portfolio-item";
+
+
+                item.innerHTML = `
+
+                    <h3>
+                        ${
+                            certification.certificate_name ||
+                            "Certification"
+                        }
+                    </h3>
+
+
+                    <p style="
+                        margin-top: 8px;
+                        color: #64748b;
+                    ">
+
+                        <strong>
+                            Issued by:
+                        </strong>
+
+                        ${
+                            certification.issuing_organization ||
+                            "Not specified"
+                        }
+
+                    </p>
+
+
+                    <p style="
+                        margin-top: 8px;
+                        color: #64748b;
+                    ">
+
+                        <strong>
+                            Issue Date:
+                        </strong>
+
+                        ${
+                            certification.issue_date
+                            ?
+                            new Date(
+                                certification.issue_date
+                            ).toLocaleDateString()
+                            :
+                            "Not specified"
+                        }
+
+                    </p>
+
+
+                    ${
+                        certification.certificate_link
+                        ?
+                        `
+                        <a
+                            href="${certification.certificate_link}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="btn btn-outline"
+                            style="
+                                display: inline-block;
+                                margin-top: 12px;
+                            "
+                        >
+                            View Certificate
+                        </a>
+                        `
+                        :
+                        ""
+                    }
+
+                `;
+
+
+                container.appendChild(
+                    item
+                );
+
+            }
+        );
+
+
+        section.style.display =
+            "block";
+
+    }
+
+
+
+    // =========================================
+    // LOAD ACHIEVEMENTS
+    // =========================================
+
+    async function loadAchievements() {
+
+        const {
+            data: achievements,
+            error
+        } =
+            await supabaseClient
+                .from("student_achievements")
+                .select(`
+                    id,
+                    title,
+                    description,
+                    achievement_date
+                `)
+                .eq(
+                    "student_id",
+                    studentId
+                )
+                .order(
+                    "achievement_date",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+        if (error) {
+
+            console.error(
+                "Achievements error:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !achievements ||
+            achievements.length === 0
+        ) {
+
+            return;
+
+        }
+
+
+        const section =
+            document.getElementById(
+                "achievementsSection"
+            );
+
+        const container =
+            document.getElementById(
+                "achievementsContent"
+            );
+
+
+        if (!section || !container) {
+
+            console.warn(
+                "Achievements HTML elements not found."
+            );
+
+            return;
+
+        }
+
+
+        container.innerHTML = "";
+
+
+        achievements.forEach(
+            function(achievement) {
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                item.className =
+                    "portfolio-item";
+
+
+                item.innerHTML = `
+
+                    <h3>
+                        ${
+                            achievement.title ||
+                            "Achievement"
+                        }
+                    </h3>
+
+
+                    <p style="
+                        margin-top: 8px;
+                        color: #64748b;
+                        line-height: 1.6;
+                    ">
+
+                        ${
+                            achievement.description ||
+                            "No description provided."
+                        }
+
+                    </p>
+
+
+                    <p style="
+                        margin-top: 8px;
+                        color: #64748b;
+                    ">
+
+                        <strong>
+                            Date:
+                        </strong>
+
+                        ${
+                            achievement.achievement_date
+                            ?
+                            new Date(
+                                achievement.achievement_date
+                            ).toLocaleDateString()
+                            :
+                            "Not specified"
+                        }
+
+                    </p>
+
+                `;
+
+
+                container.appendChild(
+                    item
+                );
+
+            }
+        );
+
+
+        section.style.display =
+            "block";
+
+    }
+
+
+
+    // =========================================
+    // LOAD RESUME
+    // =========================================
+
+    async function loadResume() {
+
+        const section =
+            document.getElementById(
+                "resumeSection"
+            );
+
+        const container =
+            document.getElementById(
+                "resumeContent"
+            );
+
+
+        if (!section || !container) {
+
+            console.warn(
+                "Resume HTML elements not found."
+            );
+
+            return;
+
+        }
+
+
+        const {
+            data: files,
+            error
+        } =
+            await supabaseClient.storage
+                .from("Resumes")
+                .list(
+                    studentId,
+                    {
+                        limit: 10
+                    }
+                );
+
+
+        if (error) {
+
+            console.error(
+                "Resume list error:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        const resumeFile =
+            (files || []).find(
+                function(file) {
+
+                    return file.name
+                        .toLowerCase()
+                        .startsWith("resume.");
+
+                }
+            );
+
+
+        if (!resumeFile) {
+
+            return;
+
+        }
+
+
+        const {
+            data: signedUrlData,
+            error: signedUrlError
+        } =
+            await supabaseClient.storage
+                .from("Resumes")
+                .createSignedUrl(
+                    studentId +
+                    "/" +
+                    resumeFile.name,
+                    3600
+                );
+
+
+        if (signedUrlError) {
+
+            console.error(
+                "Resume URL error:",
+                signedUrlError
+            );
+
+            return;
+
+        }
+
+
+        container.innerHTML = `
+
+            <div class="portfolio-item">
+
+                <strong>
+                    ${resumeFile.name}
+                </strong>
+
+                <br>
+
+                <a
+                    href="${signedUrlData.signedUrl}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-outline"
+                    style="
+                        display: inline-block;
+                        margin-top: 12px;
+                    "
+                >
+                    View Resume
+                </a>
+
+            </div>
+
+        `;
+
+
+        section.style.display =
+            "block";
+
+    }
+
+
+
+    // =========================================
+    // OPEN STUDENT MESSAGES
+    // =========================================
+
+    async function openStudentMessages() {
+
+        if (!studentId) {
+
+            alert(
+                "Student ID is missing."
+            );
+
+            return;
+
+        }
+
+
+        try {
+
+            // =================================
+            // GET CURRENT USER
+            // =================================
+
+            const {
+                data: { user },
+                error: userError
+            } =
+                await supabaseClient.auth.getUser();
+
+
+            if (userError || !user) {
+
+                alert(
+                    "Please log in first."
+                );
+
+                return;
+
+            }
+
+
+            // =================================
+            // GET CURRENT USER ROLE
+            // =================================
+
+            const {
+                data: currentProfile,
+                error: currentProfileError
+            } =
+                await supabaseClient
+                    .from("profiles")
+                    .select("role")
+                    .eq(
+                        "id",
+                        user.id
+                    )
+                    .maybeSingle();
+
+
+            if (currentProfileError) {
+
+                throw currentProfileError;
+
+            }
+
+
+            if (!currentProfile) {
+
+                throw new Error(
+                    "Your profile could not be loaded."
+                );
+
+            }
+
+
+            // =================================
+            // ACADEMICIAN
+            // =================================
+
+            if (
+                currentProfile.role ===
+                "academician"
+            ) {
+
+                const {
+                    data: academicApplications,
+                    error: academicError
+                } =
+                    await supabaseClient
+                        .from("student_academic_applications")
+                        .select(`
+                            id,
+                            opportunity_id,
+                            academic_opportunities!inner (
+                                academician_id
+                            )
+                        `)
+                        .eq(
+                            "student_id",
+                            studentId
+                        )
+                        .eq(
+                            "academic_opportunities.academician_id",
+                            user.id
+                        )
+                        .limit(1);
+
+
+                if (academicError) {
+
+                    throw academicError;
+
+                }
+
+
+                if (
+                    !academicApplications ||
+                    academicApplications.length === 0
+                ) {
+
+                    alert(
+                        "No academic application found for this student."
+                    );
+
+                    return;
+
+                }
+
+
+                const academicApplicationId =
+                    academicApplications[0].id;
+
+
+                window.location.href =
+                    "messages.html?academic_application_id=" +
+                    academicApplicationId;
+
+
+                return;
+
+            }
+
+
+            // =================================
+            // COMPANY
+            // =================================
+
+            const {
+                data: companyApplications,
+                error: companyError
+            } =
+                await supabaseClient
+                    .from("applications")
+                    .select("id")
+                    .eq(
+                        "student_id",
+                        studentId
+                    )
+                    .limit(1);
+
+
+            if (companyError) {
+
+                throw companyError;
+
+            }
+
+
+            if (
+                !companyApplications ||
+                companyApplications.length === 0
+            ) {
+
+                alert(
+                    "No application found for this student."
+                );
+
+                return;
+
+            }
+
+
+            const applicationId =
+                companyApplications[0].id;
+
+
+            window.location.href =
+                "messages.html?application_id=" +
+                applicationId;
+
+
+        } catch (error) {
+
+            console.error(
+                "Message error:",
+                error
+            );
+
+
+            alert(
+                error.message ||
+                "Unable to open messages."
+            );
+
+        }
+
+    }
+
+
+
+    // =========================================
+    // START
+    // =========================================
+
+    loadStudentProfile();
+
+</script>
+
+</body>
+
+</html>

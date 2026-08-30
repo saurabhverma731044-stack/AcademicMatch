@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Opportunity Details | AcademicMatch</title>
+
+    <link rel="stylesheet" href="../style.css">
+
+</head>
+
+
+<body class="auth-page">
+
+
+    <!-- Navigation -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <a href="../index.html" class="logo">
+                AcademicMatch
+            </a>
+
+            <div class="nav-buttons">
+
+                <a
+                    href="opportunities.html"
+                    class="btn btn-outline"
+                >
+                    ← Back to Opportunities
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- Opportunity Details -->
+
+    <main
+        style="
+            max-width: 1000px;
+            margin: auto;
+            padding: 70px 24px;
+        "
+    >
+
+        <!-- Loading -->
+
+        <div
+            id="opportunityLoading"
+            style="
+                text-align: center;
+                padding: 60px 20px;
+            "
+        >
+
+            <p style="color: #64748b;">
+                Loading opportunity...
+            </p>
+
+        </div>
+
+
+
+        <!-- Error -->
+
+        <div
+            id="opportunityError"
+            style="
+                display: none;
+                text-align: center;
+                padding: 60px 20px;
+            "
+        >
+
+            <h2>
+                Opportunity Not Found
+            </h2>
+
+            <p
+                style="
+                    color: #64748b;
+                    margin: 10px 0 25px;
+                "
+            >
+                This opportunity may no longer exist
+                or the link may be invalid.
+            </p>
+
+            <a
+                href="opportunities.html"
+                class="btn btn-primary"
+            >
+                View Opportunities
+            </a>
+
+        </div>
+
+
+
+        <!-- Opportunity Content -->
+
+        <div
+            id="opportunityContent"
+            style="display: none;"
+        >
+
+
+            <!-- Header Card -->
+
+            <div
+                class="auth-card"
+                style="
+                    max-width: 100%;
+                    margin-bottom: 25px;
+                "
+            >
+
+                <p
+                    class="section-label"
+                    id="detailType"
+                >
+                    OPPORTUNITY
+                </p>
+
+
+                <h1
+                    id="detailTitle"
+                    style="
+                        font-size: 38px;
+                        margin: 8px 0 12px;
+                    "
+                >
+                    Opportunity Title
+                </h1>
+
+
+                <p
+                    id="detailSector"
+                    style="
+                        color: #64748b;
+                        font-size: 16px;
+                    "
+                >
+                    Sector
+                </p>
+
+
+                <div
+                    style="
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 10px;
+                        margin-top: 20px;
+                    "
+                >
+
+                    <span
+                        id="detailStatus"
+                        style="
+                            background: #dcfce7;
+                            color: #166534;
+                            padding: 6px 12px;
+                            border-radius: 20px;
+                            font-size: 13px;
+                            font-weight: 600;
+                        "
+                    >
+                        Open
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Main Details -->
+
+            <div
+                class="auth-card"
+                style="
+                    max-width: 100%;
+                    margin-bottom: 25px;
+                "
+            >
+
+                <h2
+                    style="
+                        margin-bottom: 15px;
+                    "
+                >
+                    About This Opportunity
+                </h2>
+
+
+                <p
+                    id="detailDescription"
+                    style="
+                        color: #64748b;
+                        line-height: 1.8;
+                        white-space: pre-line;
+                    "
+                >
+                    Loading...
+                </p>
+
+            </div>
+
+
+
+            <!-- Information -->
+
+            <div
+                class="auth-card"
+                style="
+                    max-width: 100%;
+                    margin-bottom: 25px;
+                "
+            >
+
+                <h2
+                    style="
+                        margin-bottom: 20px;
+                    "
+                >
+                    Opportunity Information
+                </h2>
+
+
+                <div
+                    style="
+                        display: grid;
+                        grid-template-columns:
+                            repeat(2, 1fr);
+                        gap: 22px;
+                    "
+                >
+
+                    <div class="form-group">
+
+                        <label>
+                            Location
+                        </label>
+
+                        <p id="detailLocation">
+                            -
+                        </p>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Work Mode
+                        </label>
+
+                        <p id="detailWorkMode">
+                            -
+                        </p>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Stipend / Salary
+                        </label>
+
+                        <p id="detailStipend">
+                            -
+                        </p>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Duration
+                        </label>
+
+                        <p id="detailDuration">
+                            -
+                        </p>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Application Deadline
+                        </label>
+
+                        <p id="detailDeadline">
+                            -
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Skills -->
+
+            <div
+                class="auth-card"
+                style="
+                    max-width: 100%;
+                    margin-bottom: 25px;
+                "
+            >
+
+                <h2
+                    style="
+                        margin-bottom: 15px;
+                    "
+                >
+                    Required Skills
+                </h2>
+
+
+                <p
+                    id="detailSkills"
+                    style="
+                        color: #64748b;
+                        line-height: 1.7;
+                    "
+                >
+                    -
+                </p>
+
+            </div>
+
+
+
+            <!-- Apply Section -->
+
+            <div
+    class="auth-card"
+    style="
+        max-width: 100%;
+        text-align: center;
+    "
+>
+
+    <h2>
+        Interested in this opportunity?
+    </h2>
+
+    <p
+        style="
+            color: #64748b;
+            margin: 8px 0 20px;
+        "
+    >
+        Submit your application to this opportunity.
+    </p>
+
+
+    <textarea
+        id="coverMessage"
+        rows="5"
+        placeholder="Write a short message to the company..."
+        style="
+            width: 100%;
+            max-width: 700px;
+            padding: 13px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            resize: vertical;
+            outline: none;
+            margin-bottom: 15px;
+        "
+    ></textarea>
+    <!-- Resume Upload -->
+
+    <div
+        style="
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto 15px;
+            text-align: left;
+        "
+    >
+
+        <label
+            for="resumeFile"
+            style="
+                display: block;
+                font-weight: 600;
+                margin-bottom: 8px;
+            "
+        >
+            Resume
+        </label>
+
+        <input
+            type="file"
+            id="resumeFile"
+            accept=".pdf,application/pdf"
+            style="
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #cbd5e1;
+                border-radius: 8px;
+                font-size: 14px;
+                background: #ffffff;
+            "
+        >
+
+        <p
+            style="
+                color: #64748b;
+                font-size: 13px;
+                margin-top: 6px;
+            "
+        >
+            PDF only • Maximum size: 5 MB
+        </p>
+
+    </div>
+
+    <p
+        id="applicationMessage"
+        style="
+            min-height: 20px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        "
+    ></p>
+
+
+    <button
+        type="button"
+        id="applyButton"
+        class="btn btn-primary"
+    >
+        Apply Now
+    </button>
+
+</div>
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../supabase-config.js"></script>
+
+ <script>
+
+// =========================================
+// GET OPPORTUNITY ID
+// =========================================
+
+const urlParams = new URLSearchParams(
+    window.location.search
+);
+
+const opportunityId = urlParams.get("id");
+
+
+// =========================================
+// ELEMENTS
+// =========================================
+
+const loading =
+    document.getElementById("opportunityLoading");
+
+const errorBox =
+    document.getElementById("opportunityError");
+
+const content =
+    document.getElementById("opportunityContent");
+
+const applyButton =
+    document.getElementById("applyButton");
+
+const coverMessage =
+    document.getElementById("coverMessage");
+
+const resumeFile =
+    document.getElementById("resumeFile");
+
+const applicationMessage =
+    document.getElementById("applicationMessage");
+
+
+// =========================================
+// LOAD OPPORTUNITY
+// =========================================
+
+async function loadOpportunity() {
+
+    if (!opportunityId) {
+
+        showError();
+
+        return;
+    }
+
+
+    try {
+
+        const {
+            data: opportunity,
+            error
+        } = await supabaseClient
+            .from("opportunities")
+            .select(`
+                id,
+                title,
+                opportunity_type,
+                sector,
+                description,
+                required_skills,
+                location,
+                work_mode,
+                stipend_or_salary,
+                duration,
+                application_deadline,
+                status
+            `)
+            .eq(
+                "id",
+                opportunityId
+            )
+            .single();
+
+
+        if (error || !opportunity) {
+
+            console.error(
+                "Opportunity loading error:",
+                error
+            );
+
+            showError();
+
+            return;
+        }
+
+
+        displayOpportunity(
+            opportunity
+        );
+
+
+        // Check whether current student
+        // already has an ACTIVE application
+        await checkExistingApplication();
+
+
+    } catch (error) {
+
+        console.error(
+            "Load opportunity error:",
+            error
+        );
+
+        showError();
+
+    }
+
+}
+
+
+// =========================================
+// DISPLAY OPPORTUNITY
+// =========================================
+
+function displayOpportunity(
+    opportunity
+) {
+
+    document.getElementById(
+        "detailTitle"
+    ).textContent =
+        opportunity.title ||
+        "Untitled Opportunity";
+
+
+    document.getElementById(
+        "detailType"
+    ).textContent =
+        (
+            opportunity.opportunity_type ||
+            "OPPORTUNITY"
+        ).toUpperCase();
+
+
+    document.getElementById(
+        "detailSector"
+    ).textContent =
+        opportunity.sector ||
+        "Sector not specified";
+
+
+    document.getElementById(
+        "detailDescription"
+    ).textContent =
+        opportunity.description ||
+        "No description provided.";
+
+
+    document.getElementById(
+        "detailLocation"
+    ).textContent =
+        opportunity.location ||
+        "Not specified";
+
+
+    document.getElementById(
+        "detailWorkMode"
+    ).textContent =
+        opportunity.work_mode ||
+        "Not specified";
+
+
+    document.getElementById(
+        "detailStipend"
+    ).textContent =
+        opportunity.stipend_or_salary ||
+        "Not specified";
+
+
+    document.getElementById(
+        "detailDuration"
+    ).textContent =
+        opportunity.duration ||
+        "Not specified";
+
+
+    document.getElementById(
+        "detailDeadline"
+    ).textContent =
+        opportunity.application_deadline ||
+        "Not specified";
+
+
+    document.getElementById(
+        "detailSkills"
+    ).textContent =
+        opportunity.required_skills ||
+        "Not specified";
+
+
+    document.getElementById(
+        "detailStatus"
+    ).textContent =
+        opportunity.status ||
+        "open";
+
+
+    loading.style.display =
+        "none";
+
+    content.style.display =
+        "block";
+
+}
+
+
+// =========================================
+// CHECK EXISTING APPLICATION
+// =========================================
+
+async function checkExistingApplication() {
+
+    try {
+
+        const {
+            data: { user },
+            error: userError
+        } = await supabaseClient.auth.getUser();
+
+
+        // Not logged in
+        if (userError || !user) {
+
+            return;
+
+        }
+
+
+        // =====================================
+        // GET ALL APPLICATIONS
+        // =====================================
+
+        const {
+            data: applications,
+            error
+        } = await supabaseClient
+            .from("applications")
+            .select(`
+                id,
+                status
+            `)
+            .eq(
+                "opportunity_id",
+                opportunityId
+            )
+            .eq(
+                "student_id",
+                user.id
+            );
+
+
+        if (error) {
+
+            console.error(
+                "Existing application check error:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        console.log(
+            "APPLICATIONS FOUND:",
+            applications
+        );
+
+
+        // =====================================
+        // FIND ACTIVE APPLICATION
+        // =====================================
+
+        const activeApplication =
+            (applications || []).find(
+                function(application) {
+
+                    const status =
+                        (
+                            application.status ||
+                            ""
+                        ).toLowerCase();
+
+
+                    return (
+                        status !== "withdrawn" &&
+                        status !== "cancelled"
+                    );
+
+                }
+            );
+
+
+        // =====================================
+        // ACTIVE APPLICATION EXISTS
+        // =====================================
+
+        if (activeApplication) {
+
+            console.log(
+                "ACTIVE APPLICATION:",
+                activeApplication
+            );
+
+
+            applicationMessage.textContent =
+                "You have already applied to this opportunity.";
+
+            applicationMessage.style.color =
+                "#dc2626";
+
+
+            applyButton.disabled =
+                true;
+
+            applyButton.textContent =
+                "Already Applied";
+
+
+            return;
+
+        }
+
+
+        // =====================================
+        // NO ACTIVE APPLICATION
+        // =====================================
+
+        console.log(
+            "No active application. Student can apply."
+        );
+
+
+        applyButton.disabled =
+            false;
+
+        applyButton.textContent =
+            "Apply Now";
+
+
+    } catch (error) {
+
+        console.error(
+            "Application status error:",
+            error
+        );
+
+    }
+
+}
+
+
+// =========================================
+// APPLY TO OPPORTUNITY
+// =========================================
+
+if (applyButton) {
+
+    applyButton.addEventListener(
+        "click",
+        async function() {
+
+            applicationMessage.textContent =
+                "";
+
+            applicationMessage.style.color =
+                "";
+
+
+            try {
+
+                // =================================
+                // CHECK LOGIN
+                // =================================
+
+                const {
+                    data: { user },
+                    error: userError
+                } = await supabaseClient.auth.getUser();
+
+
+                if (userError || !user) {
+
+                    applicationMessage.textContent =
+                        "Please log in before applying.";
+
+                    applicationMessage.style.color =
+                        "#dc2626";
+
+                    return;
+
+                }
+
+
+                // =================================
+                // CHECK EXISTING APPLICATION AGAIN
+                // =================================
+
+                const {
+                    data: applications,
+                    error: existingError
+                } = await supabaseClient
+                    .from("applications")
+                    .select(`
+                        id,
+                        status
+                    `)
+                    .eq(
+                        "opportunity_id",
+                        opportunityId
+                    )
+                    .eq(
+                        "student_id",
+                        user.id
+                    );
+
+
+                if (existingError) {
+
+                    console.error(
+                        "Application check error:",
+                        existingError
+                    );
+
+                    applicationMessage.textContent =
+                        "Unable to check application status.";
+
+                    applicationMessage.style.color =
+                        "#dc2626";
+
+                    return;
+
+                }
+
+
+                // =================================
+                // ONLY ACTIVE APPLICATION BLOCKS
+                // =================================
+
+                const activeApplication =
+                    (applications || []).find(
+                        function(application) {
+
+                            const status =
+                                (
+                                    application.status ||
+                                    ""
+                                ).toLowerCase();
+
+
+                            return (
+                                status !== "withdrawn" &&
+                                status !== "cancelled"
+                            );
+
+                        }
+                    );
+
+
+                if (activeApplication) {
+
+                    applicationMessage.textContent =
+                        "You have already applied to this opportunity.";
+
+                    applicationMessage.style.color =
+                        "#dc2626";
+
+                    applyButton.disabled =
+                        true;
+
+                    applyButton.textContent =
+                        "Already Applied";
+
+                    return;
+
+                }
+
+
+                // =================================
+                // CHECK MESSAGE
+                // =================================
+
+                const message =
+                    coverMessage.value.trim();
+
+
+                if (!message) {
+
+                    applicationMessage.textContent =
+                        "Please write a short message before applying.";
+
+                    applicationMessage.style.color =
+                        "#dc2626";
+
+                    return;
+
+                }
+
+
+                // =================================
+                // CHECK RESUME
+                // =================================
+
+                const file =
+                    resumeFile.files[0];
+
+
+                if (!file) {
+
+                    applicationMessage.textContent =
+                        "Please select your resume.";
+
+                    applicationMessage.style.color =
+                        "#dc2626";
+
+                    return;
+
+                }
+
+
+                // =================================
+                // CHECK PDF
+                // =================================
+
+                if (
+                    file.type !==
+                    "application/pdf" &&
+                    !file.name
+                        .toLowerCase()
+                        .endsWith(".pdf")
+                ) {
+
+                    applicationMessage.textContent =
+                        "Please upload your resume as a PDF file.";
+
+                    applicationMessage.style.color =
+                        "#dc2626";
+
+                    return;
+
+                }
+
+
+                // =================================
+                // CHECK FILE SIZE
+                // =================================
+
+                const maxFileSize =
+                    5 * 1024 * 1024;
+
+
+                if (
+                    file.size >
+                    maxFileSize
+                ) {
+
+                    applicationMessage.textContent =
+                        "Resume must be smaller than 5 MB.";
+
+                    applicationMessage.style.color =
+                        "#dc2626";
+
+                    return;
+
+                }
+
+
+                // =================================
+                // DISABLE BUTTON
+                // =================================
+
+                applyButton.disabled =
+                    true;
+
+                applyButton.textContent =
+                    "Uploading Resume...";
+
+
+                // =================================
+                // CREATE FILE PATH
+                // =================================
+
+                const filePath =
+                    user.id +
+                    "/" +
+                    opportunityId +
+                    "_" +
+                    Date.now() +
+                    ".pdf";
+
+
+                // =================================
+                // UPLOAD RESUME
+                // =================================
+
+                const {
+                    error: uploadError
+                } = await supabaseClient
+                    .storage
+                    .from("Resumes")
+                    .upload(
+                        filePath,
+                        file,
+                        {
+                            cacheControl: "3600",
+                            upsert: false,
+                            contentType:
+                                "application/pdf"
+                        }
+                    );
+
+
+                if (uploadError) {
+
+                    console.error(
+                        "Resume upload error:",
+                        uploadError
+                    );
+
+                    throw uploadError;
+
+                }
+
+
+                // =================================
+                // INSERT APPLICATION
+                // =================================
+
+                applyButton.textContent =
+                    "Submitting Application...";
+
+
+                const {
+                    data: application,
+                    error: applicationError
+                } = await supabaseClient
+                    .from("applications")
+                    .insert({
+
+                        opportunity_id:
+                            opportunityId,
+
+                        student_id:
+                            user.id,
+
+                        cover_message:
+                            message,
+
+                        resume_path:
+                            filePath,
+
+                        status:
+                            "pending"
+
+                    })
+                    .select()
+                    .single();
+
+
+                // =================================
+                // APPLICATION INSERT ERROR
+                // =================================
+
+                if (applicationError) {
+
+                    console.error(
+                        "Application insert error:",
+                        applicationError
+                    );
+
+
+                    // Delete uploaded resume
+                    await supabaseClient
+                        .storage
+                        .from("Resumes")
+                        .remove([
+                            filePath
+                        ]);
+
+
+                    throw applicationError;
+
+                }
+
+
+                console.log(
+                    "APPLICATION CREATED:",
+                    application
+                );
+
+
+                // =================================
+                // CREATE AMITE ID
+                // =================================
+
+                const amiteId =
+                    "AM-" +
+                    new Date()
+                        .getFullYear()
+                        .toString()
+                        .slice(-2) +
+                    "-" +
+                    crypto
+                        .randomUUID()
+                        .replace(
+                            /-/g,
+                            ""
+                        )
+                        .substring(
+                            0,
+                            6
+                        )
+                        .toUpperCase();
+
+
+                // =================================
+                // INSERT AMITE APPLICATION
+                // =================================
+
+                const {
+                    error: amiteError
+                } = await supabaseClient
+                    .from("amite_applications")
+                    .insert({
+
+                        application_id:
+                            application.id,
+
+                        opportunity_id:
+                            opportunityId,
+
+                        student_id:
+                            user.id,
+
+                        amite_id:
+                            amiteId,
+
+                        student_email:
+                            user.email
+
+                    });
+
+
+                if (amiteError) {
+
+                    console.error(
+                        "AMITE creation error:",
+                        amiteError
+                    );
+
+                    /*
+                     IMPORTANT:
+                     Application remains valid.
+                     AMITE record can be created later.
+                    */
+
+                } else {
+
+                    console.log(
+                        "AMITE ID CREATED:",
+                        amiteId
+                    );
+
+                }
+
+
+                // =================================
+                // SUCCESS
+                // =================================
+
+                applicationMessage.textContent =
+                    "Application submitted successfully!";
+
+                applicationMessage.style.color =
+                    "#16a34a";
+
+
+                coverMessage.disabled =
+                    true;
+
+                resumeFile.disabled =
+                    true;
+
+                applyButton.disabled =
+                    true;
+
+                applyButton.textContent =
+                    "Application Submitted";
+
+
+            } catch (error) {
+
+                console.error(
+                    "APPLICATION ERROR:",
+                    error
+                );
+
+
+                applicationMessage.textContent =
+                    error.message ||
+                    "Something went wrong. Please try again.";
+
+                applicationMessage.style.color =
+                    "#dc2626";
+
+
+                applyButton.disabled =
+                    false;
+
+                applyButton.textContent =
+                    "Apply Now";
+
+            }
+
+        }
+    );
+
+}
+
+
+// =========================================
+// SHOW ERROR
+// =========================================
+
+function showError() {
+
+    loading.style.display =
+        "none";
+
+    content.style.display =
+        "none";
+
+    errorBox.style.display =
+        "block";
+
+}
+
+
+// =========================================
+// START
+// =========================================
+
+loadOpportunity();
+
+</script>
+
+</body>
+
+</html>

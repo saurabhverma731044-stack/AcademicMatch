@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Skill Profile | AcademicMatch</title>
+
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+</head>
+
+
+<body class="auth-page">
+
+
+    <header>
+
+        <nav class="navbar">
+
+            <a
+                href="../index.html"
+                class="logo"
+            >
+                AcademicMatch
+            </a>
+
+            <div class="nav-buttons">
+
+                <a
+                    href="student-dashboard.html"
+                    class="btn btn-outline"
+                >
+                    ← Dashboard
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+
+    <main class="section">
+
+        <div class="section-heading">
+
+            <p class="section-label">
+                SKILL PROFILE
+            </p>
+
+            <h2>
+                My Skills
+            </h2>
+
+            <span>
+                Your current skill assessment results.
+            </span>
+
+        </div>
+
+
+        <div
+            id="skillProfile"
+            style="
+                max-width: 800px;
+                margin: 0 auto;
+            "
+        >
+
+            <p
+                id="loadingMessage"
+                style="
+                    text-align: center;
+                    color: #64748b;
+                "
+            >
+                Loading your skill profile...
+            </p>
+
+        </div>
+
+    </main>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../supabase-config.js"></script>
+
+
+    <script>
+
+        async function loadSkillProfile() {
+
+            const profile =
+                document.getElementById(
+                    "skillProfile"
+                );
+
+
+            try {
+
+                const {
+                    data: { user },
+                    error: userError
+                } =
+                    await supabaseClient.auth.getUser();
+
+
+                if (userError || !user) {
+
+                    throw new Error(
+                        "Please log in first."
+                    );
+
+                }
+
+
+                const {
+                    data: assessment,
+                    error
+                } =
+                    await supabaseClient
+                        .from("skill_assessments")
+                       .select(`
+    technical_score,
+    communication_score,
+    problem_solving_score,
+    teamwork_score,
+    overall_score
+`)
+                        .eq(
+                            "student_id",
+                            user.id
+                        )
+                        .single();
+
+
+                if (error) {
+
+                    throw error;
+
+                }
+
+                const skillGaps = [];
+
+if (assessment.technical_score < 6) {
+    skillGaps.push("Technical Skills");
+}
+
+if (assessment.communication_score < 6) {
+    skillGaps.push("Communication");
+}
+
+if (assessment.problem_solving_score < 6) {
+    skillGaps.push("Problem Solving");
+}
+
+if (assessment.teamwork_score < 6) {
+    skillGaps.push("Teamwork");
+}
+
+const gapMessage =
+    skillGaps.length > 0
+        ? skillGaps.join(", ")
+        : "No major skill gaps identified.";
+
+
+                profile.innerHTML = `
+
+                    <div
+                        class="auth-card"
+                        style="
+                            max-width: 800px;
+                            margin: auto;
+                        "
+                    >
+
+                        <h2>
+                            Your Skill Assessment
+                        </h2>
+
+
+                        <div style="
+                            margin-top: 25px;
+                        ">
+
+
+                            <div style="
+                                margin-bottom: 22px;
+                            ">
+
+                                <strong>
+                                    Technical Skill
+                                </strong>
+
+                                <p style="
+                                    margin-top: 6px;
+                                    color: #64748b;
+                                ">
+                                    ${assessment.technical_score}/10
+                                </p>
+
+                            </div>
+
+
+                            <div style="
+                                margin-bottom: 22px;
+                            ">
+
+                                <strong>
+                                    Communication
+                                </strong>
+
+                                <p style="
+                                    margin-top: 6px;
+                                    color: #64748b;
+                                ">
+                                    ${assessment.communication_score}/10
+                                </p>
+
+                            </div>
+
+
+                            <div style="
+                                margin-bottom: 22px;
+                            ">
+
+                                <strong>
+                                    Problem Solving
+                                </strong>
+
+                                <p style="
+                                    margin-top: 6px;
+                                    color: #64748b;
+                                ">
+                                    ${assessment.problem_solving_score}/10
+                                </p>
+
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Teamwork
+                                </strong>
+
+                                <p style="
+                                    margin-top: 6px;
+                                    color: #64748b;
+                                ">
+                                    ${assessment.teamwork_score}/10
+                                </p>
+
+                            </div>
+
+                            <div style="
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #e5e7eb;
+">
+
+    <strong>
+        Overall Score
+    </strong>
+
+    <p style="
+        margin-top: 6px;
+        color: #64748b;
+    ">
+        ${assessment.overall_score}/10
+    </p>
+
+</div>
+
+
+                        </div>
+
+                    </div>
+
+                `;
+
+
+            } catch (error) {
+
+                console.error(
+                    "Skill profile error:",
+                    error
+                );
+
+
+                profile.innerHTML = `
+
+                    <p style="
+                        text-align: center;
+                        color: #dc2626;
+                    ">
+                        ${
+                            error.message ||
+                            "Unable to load skill profile."
+                        }
+                    </p>
+
+                `;
+
+            }
+
+        }
+
+       async function loadRecommendedOpportunities() {
+
+    const profile =
+        document.getElementById("skillProfile");
+
+    try {
+
+        const {
+            data: { user }
+        } = await supabaseClient.auth.getUser();
+
+        if (!user) {
+            return;
+        }
+
+
+        // GET STUDENT SKILL ASSESSMENT
+
+        const {
+            data: assessment,
+            error: assessmentError
+        } =
+            await supabaseClient
+                .from("skill_assessments")
+                .select(`
+                    technical_score,
+                    communication_score,
+                    problem_solving_score,
+                    teamwork_score
+                `)
+                .eq(
+                    "student_id",
+                    user.id
+                )
+                .single();
+
+
+        if (assessmentError) {
+
+            console.error(
+                "Assessment error:",
+                assessmentError
+            );
+
+            return;
+        }
+
+
+        // GET OPEN OPPORTUNITIES
+
+        const {
+            data: opportunities,
+            error
+        } =
+            await supabaseClient
+                .from("opportunities")
+                .select(`
+                    id,
+                    title,
+                    sector,
+                    required_skills,
+                    location,
+                    opportunity_type
+                `)
+                .eq(
+                    "status",
+                    "open"
+                )
+                .limit(10);
+
+
+        if (error) {
+
+            console.error(
+                "Recommendation error:",
+                error
+            );
+
+            return;
+        }
+
+
+        if (
+            !opportunities ||
+            opportunities.length === 0
+        ) {
+
+            return;
+
+        }
+
+
+        // STUDENT SKILLS
+
+        const studentSkills = [];
+
+
+        if (
+            assessment.technical_score >= 6
+        ) {
+
+            studentSkills.push(
+                "python",
+                "javascript",
+                "sql",
+                "programming",
+                "technology"
+            );
+
+        }
+
+
+        if (
+            assessment.problem_solving_score >= 6
+        ) {
+
+            studentSkills.push(
+                "problem solving",
+                "problem-solving",
+                "algorithms",
+                "data structures"
+            );
+
+        }
+
+
+        if (
+            assessment.communication_score >= 6
+        ) {
+
+            studentSkills.push(
+                "communication",
+                "presentation"
+            );
+
+        }
+
+
+        if (
+            assessment.teamwork_score >= 6
+        ) {
+
+            studentSkills.push(
+                "teamwork",
+                "team work",
+                "collaboration"
+            );
+
+        }
+
+
+        // CREATE RECOMMENDATION SECTION
+
+        const section =
+            document.createElement("div");
+
+        section.className =
+            "auth-card";
+
+        section.style.cssText = `
+            max-width: 800px;
+            margin: 25px auto 0;
+        `;
+
+
+        section.innerHTML = `
+
+            <h2>
+                Recommended Opportunities
+            </h2>
+
+            <p style="
+                color: #64748b;
+                margin: 8px 0 20px;
+            ">
+                Opportunities matching your assessed skills.
+            </p>
+
+        `;
+
+
+        let matchCount = 0;
+
+
+        // CHECK EACH OPPORTUNITY
+
+        opportunities.forEach(
+            function (opportunity) {
+
+                const requiredSkills =
+                    (opportunity.required_skills || "")
+                        .toLowerCase()
+                        .split(",")
+                        .map(
+                            function (skill) {
+                                return skill.trim();
+                            }
+                        )
+                        .filter(Boolean);
+
+
+                const isMatch =
+                    requiredSkills.length === 0 ||
+                    requiredSkills.some(
+                        function (requiredSkill) {
+
+                            return studentSkills.some(
+                                function (studentSkill) {
+
+                                    return (
+                                        requiredSkill.includes(
+                                            studentSkill
+                                        ) ||
+                                        studentSkill.includes(
+                                            requiredSkill
+                                        )
+                                    );
+
+                                }
+                            );
+
+                        }
+                    );
+
+
+                if (!isMatch) {
+                    return;
+                }
+
+
+                matchCount++;
+
+
+                const item =
+                    document.createElement("div");
+
+
+                item.style.cssText = `
+                    padding: 15px;
+                    margin-bottom: 12px;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 10px;
+                `;
+
+
+                item.innerHTML = `
+
+                    <strong>
+                        ${opportunity.title}
+                    </strong>
+
+                    <p style="
+                        margin-top: 6px;
+                        color: #64748b;
+                    ">
+                        ${opportunity.sector || "Sector not specified"}
+                    </p>
+
+                    <p style="
+                        margin-top: 6px;
+                        color: #64748b;
+                    ">
+                        Required Skills:
+                        ${opportunity.required_skills || "Not specified"}
+                    </p>
+
+                    <p style="
+                        margin-top: 6px;
+                        color: #64748b;
+                    ">
+                        ${opportunity.location || "Location not specified"}
+                    </p>
+
+                    <a
+                        href="opportunity-details.html?id=${opportunity.id}"
+                        class="btn btn-outline"
+                        style="
+                            display: inline-block;
+                            margin-top: 10px;
+                        "
+                    >
+                        View Opportunity
+                    </a>
+
+                `;
+
+
+                section.appendChild(item);
+
+            }
+        );
+
+
+        // NO MATCHES
+
+        if (matchCount === 0) {
+
+            const noMatch =
+                document.createElement("p");
+
+            noMatch.style.cssText = `
+                color: #64748b;
+                margin-top: 15px;
+            `;
+
+            noMatch.textContent =
+                "No opportunities currently match your assessed skills.";
+
+            section.appendChild(noMatch);
+
+        }
+
+
+        profile.appendChild(section);
+
+
+    } catch (error) {
+
+        console.error(
+            "Recommendation error:",
+            error
+        );
+
+    }
+
+}
+
+
+        loadSkillProfile();
+loadRecommendedOpportunities();
+
+    </script>
+
+
+</body>
+
+</html>

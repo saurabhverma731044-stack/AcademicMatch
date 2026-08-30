@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Applicants | AcademicMatch</title>
+
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+</head>
+
+
+<body class="auth-page">
+
+
+    <!-- Navigation -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <a
+                href="../index.html"
+                class="logo"
+            >
+                AcademicMatch
+            </a>
+
+            <div class="nav-buttons">
+
+                <a
+                    href="company-dashboard.html"
+                    class="btn btn-outline"
+                >
+                    ← Dashboard
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- Main -->
+
+    <main class="section">
+
+
+        <!-- Loading -->
+
+        <div
+            id="loadingMessage"
+            style="
+                text-align: center;
+                padding: 50px;
+                color: #64748b;
+            "
+        >
+            Loading applicants...
+        </div>
+
+
+        <!-- Error -->
+
+        <div
+            id="errorMessage"
+            style="
+                display: none;
+                text-align: center;
+                padding: 50px;
+                color: #dc2626;
+            "
+        >
+            Unable to load applicants.
+        </div>
+
+
+        <!-- Content -->
+
+        <div
+            id="applicantContent"
+            style="display: none;"
+        >
+
+            <div class="section-heading">
+
+                <p class="section-label">
+                    APPLICATIONS
+                </p>
+
+                <h2 id="opportunityTitle">
+                    Applicants
+                </h2>
+
+                <span>
+                    Students who have applied to this opportunity.
+                </span>
+
+            </div>
+
+
+            <div id="applicantList">
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../supabase-config.js"></script>
+
+
+    <script>
+
+        // =========================================
+        // GET OPPORTUNITY ID
+        // =========================================
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const opportunityId =
+            urlParams.get("id");
+            console.log(
+    "Opportunity ID received:",
+    opportunityId
+);
+
+
+
+        // =========================================
+        // ELEMENTS
+        // =========================================
+
+        const loadingMessage =
+            document.getElementById(
+                "loadingMessage"
+            );
+
+
+        const errorMessage =
+            document.getElementById(
+                "errorMessage"
+            );
+
+
+        const applicantContent =
+            document.getElementById(
+                "applicantContent"
+            );
+
+
+        const applicantList =
+            document.getElementById(
+                "applicantList"
+            );
+
+
+        const opportunityTitle =
+            document.getElementById(
+                "opportunityTitle"
+            );
+
+
+
+        // =========================================
+        // LOAD APPLICANTS
+        // =========================================
+
+        async function loadApplicants() {
+
+            try {
+
+                // =================================
+                // CHECK LOGIN
+                // =================================
+
+                const {
+                    data: { user },
+                    error: userError
+                } =
+                    await supabaseClient.auth.getUser();
+
+
+                if (userError || !user) {
+
+                    throw new Error(
+                        "Please log in first."
+                    );
+
+                }
+
+
+                // =================================
+                // CHECK OPPORTUNITY
+                // =================================
+
+                if (!opportunityId) {
+
+                    throw new Error(
+                        "Opportunity not found."
+                    );
+
+                }
+
+
+                // =================================
+                // GET OPPORTUNITY
+                // =================================
+
+                const {
+                    data: opportunity,
+                    error: opportunityError
+                } =
+                    await supabaseClient
+                        .from("opportunities")
+                        .select(`
+                            id,
+                            title,
+                            company_id
+                        `)
+                        .eq(
+                            "id",
+                            opportunityId
+                        )
+                        .single();
+
+
+                if (opportunityError) {
+
+    console.error(
+        "OPPORTUNITY QUERY ERROR:",
+        opportunityError
+    );
+
+    throw new Error(
+        "Database error while loading opportunity: " +
+        opportunityError.message
+    );
+
+}
+
+if (!opportunity) {
+
+    console.error(
+        "NO OPPORTUNITY FOUND FOR ID:",
+        opportunityId
+    );
+
+    throw new Error(
+        "No opportunity exists with this ID."
+    );
+
+}
+
+                // =================================
+                // SECURITY CHECK
+                // =================================
+
+                if (
+                    opportunity.company_id !==
+                    user.id
+                ) {
+
+                    throw new Error(
+                        "You are not allowed to view these applications."
+                    );
+
+                }
+
+
+                opportunityTitle.textContent =
+                    opportunity.title ||
+                    "Applicants";
+
+
+                // =================================
+                // GET APPLICATIONS
+                // =================================
+
+                const {
+                    data: applications,
+                    error: applicationsError
+                } =
+                    await supabaseClient
+                        .from("applications")
+                        .select(`
+                            id,
+                            status,
+                            cover_message,
+                            resume_path,
+                            created_at,
+                            student_id
+                        `)
+                        .eq(
+                            "opportunity_id",
+                            opportunityId
+                        )
+                        .order(
+                            "created_at",
+                            {
+                                ascending: false
+                            }
+                        );
+
+
+                if (applicationsError) {
+
+                    throw applicationsError;
+
+                }
+
+
+                // =================================
+                // NO APPLICATIONS
+                // =================================
+
+                if (
+                    !applications ||
+                    applications.length === 0
+                ) {
+
+                    applicantList.innerHTML = `
+
+                        <div
+                            class="auth-card"
+                            style="
+                                max-width: 900px;
+                                margin: auto;
+                                text-align: center;
+                            "
+                        >
+
+                            <h2>
+                                No Applications Yet
+                            </h2>
+
+                            <p
+                                style="
+                                    color: #64748b;
+                                    margin-top: 10px;
+                                "
+                            >
+                                No students have applied
+                                to this opportunity yet.
+                            </p>
+
+                        </div>
+
+                    `;
+
+
+                    showContent();
+
+                    return;
+
+                }
+
+
+                // =================================
+                // GET STUDENT PROFILES
+                // =================================
+
+                const studentIds =
+                    applications.map(
+                        function (application) {
+                            return application.student_id;
+                        }
+                    );
+                    console.log(
+    "APPLICATIONS:",
+    applications
+);
+
+console.log(
+    "STUDENT IDS:",
+    studentIds
+);
+
+
+                const {
+                    data: students,
+                    error: studentsError
+                } =
+                    await supabaseClient
+                        .from("profiles")
+                        .select(`
+                            id,
+                            full_name
+                        `)
+                        .in(
+                            "id",
+                            studentIds
+                        );
+
+
+                if (studentsError) {
+
+                    throw studentsError;
+
+                }
+
+
+                // =================================
+                // DISPLAY APPLICATIONS
+                // =================================
+
+                // =================================
+// =========================================
+// GET VERIFICATION CLAIMS
+// =========================================
+
+// =========================================
+// GET AMITE APPLICATION IDS
+// =========================================
+
+const {
+    data: amiteApplications,
+    error: amiteApplicationsError
+} = await supabaseClient
+    .from("amite_applications")
+    .select(`
+        application_id,
+        amite_id
+    `)
+    .in(
+        "application_id",
+        applications.map(function(application) {
+            return application.id;
+        })
+    );
+
+if (amiteApplicationsError) {
+    throw amiteApplicationsError;
+}
+
+const {
+    data: verificationClaims,
+    error: verificationError
+} = await supabaseClient
+    .from("student_claims")
+    .select(`
+        student_id,
+        claim_text,
+        evidence_source,
+        evidence_url,
+        verification_status,
+        confidence_score,
+        verification_notes
+    `)
+    .in(
+        "student_id",
+        studentIds
+    );
+
+if (verificationError) {
+    throw verificationError;
+}
+// =========================================
+// ACADEMICMATCH TRUST ENGINE DATA
+// =========================================
+
+// PROJECTS
+
+const {
+    data: studentProjects,
+    error: projectsError
+} = await supabaseClient
+    .from("student_projects")
+    .select(`
+        student_id,
+        title,
+        description,
+        technologies,
+        project_link
+    `)
+    .in(
+        "student_id",
+        studentIds
+    );
+
+if (projectsError) {
+    throw projectsError;
+}
+
+
+// =========================================
+// CERTIFICATIONS
+// =========================================
+
+const {
+    data: studentCertifications,
+    error: certificationsError
+} = await supabaseClient
+    .from("student_certifications")
+    .select(`
+        student_id,
+        certificate_name,
+        issuing_organization,
+        certificate_link,
+        issue_date
+    `)
+    .in(
+        "student_id",
+        studentIds
+    );
+
+if (certificationsError) {
+    throw certificationsError;
+}
+
+
+// =========================================
+// ACHIEVEMENTS
+// =========================================
+
+const {
+    data: studentAchievements,
+    error: achievementsError
+} = await supabaseClient
+    .from("student_achievements")
+    .select(`
+        student_id,
+        title,
+        description,
+        achievement_date
+    `)
+    .in(
+        "student_id",
+        studentIds
+    );
+
+if (achievementsError) {
+    throw achievementsError;
+}
+
+applicantList.innerHTML = "";
+
+
+// =========================================
+// DISPLAY APPLICATIONS
+// =========================================
+
+applications.forEach(
+    function (application) {
+
+
+        // =========================================
+        // FIND STUDENT
+        // =========================================
+
+        const student =
+            students.find(
+                function (item) {
+
+                    return (
+                        item.id ===
+                        application.student_id
+                    );
+
+                }
+            );
+
+
+        // =========================================
+        // GET STUDENT CLAIMS
+        // =========================================
+
+        const studentClaims =
+            verificationClaims.filter(
+                function (claim) {
+
+                    return (
+                        claim.student_id ===
+                        application.student_id
+                    );
+
+                }
+            );
+
+
+        // =========================================
+        // CALCULATE VERIFICATION
+        // =========================================
+
+        let totalConfidence = 0;
+
+        let verifiedCount = 0;
+
+        let evidenceCount = 0;
+
+        let notVerifiedCount = 0;
+
+
+        studentClaims.forEach(
+            function (claim) {
+
+
+                totalConfidence +=
+                    Number(
+                        claim.confidence_score
+                    ) || 0;
+
+
+                if (
+                    claim.verification_status ===
+                    "verified"
+                ) {
+
+                    verifiedCount++;
+
+                }
+
+
+                if (
+                    claim.verification_status ===
+                    "evidence_available" ||
+                    claim.verification_status ===
+                    "evidence_supported"
+                ) {
+
+                    evidenceCount++;
+
+                }
+
+
+                if (
+                    claim.verification_status ===
+                    "not_verified"
+                ) {
+
+                    notVerifiedCount++;
+
+                }
+
+            }
+        );
+
+
+        const overallConfidence =
+            studentClaims.length > 0
+                ?
+                Math.round(
+                    totalConfidence /
+                    studentClaims.length
+                )
+                :
+                0;
+
+
+                // =========================================
+// ACADEMICMATCH TRUST & INTELLIGENCE SCORE
+// =========================================
+
+// Get this student's portfolio data
+
+const studentProjectsForScore =
+    (studentProjects || []).filter(
+        function (project) {
+
+            return (
+                project.student_id ===
+                application.student_id
+            );
+
+        }
+    );
+
+
+const studentCertificationsForScore =
+    (studentCertifications || []).filter(
+        function (certification) {
+
+            return (
+                certification.student_id ===
+                application.student_id
+            );
+
+        }
+    );
+
+
+const studentAchievementsForScore =
+    (studentAchievements || []).filter(
+        function (achievement) {
+
+            return (
+                achievement.student_id ===
+                application.student_id
+            );
+
+        }
+    );
+
+
+// =========================================
+// 1. VERIFICATION SCORE — 40%
+// =========================================
+
+let verificationScore = 0;
+
+if (studentClaims.length > 0) {
+
+    verificationScore =
+        Math.round(
+            (
+                verifiedCount +
+                (evidenceCount * 0.6)
+            )
+            /
+            studentClaims.length
+            *
+            100
+        );
+
+}
+
+
+// =========================================
+// 2. PROFILE SCORE — 15%
+// =========================================
+
+let profileScore = 0;
+
+if (student) {
+    profileScore += 25;
+}
+
+if (student?.college) {
+    profileScore += 15;
+}
+
+if (student?.degree) {
+    profileScore += 15;
+}
+
+if (student?.branch) {
+    profileScore += 15;
+}
+
+if (student?.graduation_year) {
+    profileScore += 10;
+}
+
+if (student?.location) {
+    profileScore += 5;
+}
+
+if (student?.bio) {
+    profileScore += 5;
+}
+
+if (student?.skills) {
+    profileScore += 10;
+}
+
+
+// =========================================
+// 3. PORTFOLIO SCORE — 15%
+// =========================================
+
+let portfolioScore = 0;
+
+if (studentProjectsForScore.length > 0) {
+
+    portfolioScore += 60;
+
+}
+
+if (studentProjectsForScore.length >= 2) {
+
+    portfolioScore += 20;
+
+}
+
+if (studentProjectsForScore.length >= 3) {
+
+    portfolioScore += 20;
+
+}
+
+portfolioScore =
+    Math.min(
+        portfolioScore,
+        100
+    );
+
+
+// =========================================
+// 4. CERTIFICATION & ACHIEVEMENT SCORE — 10%
+// =========================================
+
+let achievementScore = 0;
+
+if (
+    studentCertificationsForScore.length > 0
+) {
+
+    achievementScore += 50;
+
+}
+
+if (
+    studentAchievementsForScore.length > 0
+) {
+
+    achievementScore += 50;
+
+}
+
+
+// =========================================
+// 5. APPLICATION QUALITY — 10%
+// =========================================
+
+let applicationScore = 0;
+
+if (
+    application.cover_message &&
+    application.cover_message.trim().length > 0
+) {
+
+    applicationScore = 100;
+
+}
+
+
+// =========================================
+// 6. DIGITAL EVIDENCE — 10%
+// =========================================
+
+let evidenceScore = 0;
+
+if (studentClaims.length > 0) {
+
+    evidenceScore += 50;
+
+}
+
+if (verifiedCount > 0) {
+
+    evidenceScore += 50;
+
+}
+
+
+// =========================================
+// FINAL SCORE
+// =========================================
+
+const trustScore =
+    Math.round(
+
+        (
+            verificationScore * 0.40
+        ) +
+
+        (
+            profileScore * 0.15
+        ) +
+
+        (
+            portfolioScore * 0.15
+        ) +
+
+        (
+            achievementScore * 0.10
+        ) +
+
+        (
+            applicationScore * 0.10
+        ) +
+
+        (
+            evidenceScore * 0.10
+        )
+
+    );
+
+
+        // =========================================
+        // CREATE APPLICANT CARD
+        // =========================================
+
+        const amiteApplication =
+    amiteApplications.find(
+        function(item) {
+            return (
+                item.application_id ===
+                application.id
+            );
+        }
+    );
+
+const applicantAmiteId =
+    amiteApplication?.amite_id ||
+    "Not generated";
+
+        const card =
+            document.createElement(
+                "div"
+            );
+
+
+        card.className =
+            "auth-card";
+
+
+        card.style.cssText = `
+            max-width: 900px;
+            margin: 0 auto 20px;
+        `;
+
+
+        card.innerHTML = `
+
+
+            <!-- =================================
+                 STUDENT HEADER
+            ================================= -->
+
+            <div style="
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 20px;
+                margin-bottom: 15px;
+            ">
+
+                <div>
+
+                    <h2 style="
+                        font-size: 21px;
+                        margin-bottom: 5px;
+                    ">
+                        ${
+                            student?.full_name ||
+                            "Student"
+                        }
+                    </h2>
+
+                    <p style="
+                        color: #64748b;
+                        font-size: 14px;
+                    ">
+                        Applied on
+                        ${
+                            new Date(
+                                application.created_at
+                            ).toLocaleDateString()
+                        }
+                    </p>
+
+                    <p style="
+    margin-top: 6px;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 600;
+">
+    AMITE ID:
+    <span style="
+        font-family: monospace;
+        color: #2563eb;
+    ">
+        ${applicantAmiteId}
+    </span>
+</p>
+
+                </div>
+
+
+                <span style="
+                    padding: 6px 12px;
+                    border-radius: 20px;
+                    background: #eff6ff;
+                    color: #1d4ed8;
+                    font-size: 12px;
+                    font-weight: 600;
+                    text-transform: capitalize;
+                ">
+                    ${
+                        application.status
+                    }
+                </span>
+
+            </div>
+
+
+
+            <!-- =================================
+                 OVERALL VERIFICATION
+            ================================= -->
+
+            <div style="
+                padding: 18px;
+                background: #f8fafc;
+                border: 1px solid #e2e8f0;
+                border-radius: 10px;
+                margin-bottom: 20px;
+            ">
+
+                <strong style="
+                    font-size: 18px;
+                ">
+                    Overall Verification
+                </strong>
+
+                <p style="
+                    margin-top: 8px;
+                    color: #64748b;
+                ">
+                    AcademicMatch confidence based on
+                    available profile evidence.
+                </p>
+
+                <div style="
+                    margin-top: 15px;
+                    font-size: 30px;
+                    font-weight: 700;
+                ">
+                    ${overallConfidence}%
+                </div>
+
+                <p style="
+                    margin-top: 5px;
+                    color: #64748b;
+                ">
+                    Overall Confidence
+                </p>
+
+
+                <div style="
+                    margin-top: 15px;
+                    display: flex;
+                    gap: 15px;
+                    flex-wrap: wrap;
+                ">
+
+                    <span style="
+                        padding: 6px 12px;
+                        border-radius: 20px;
+                        background: #dcfce7;
+                        color: #166534;
+                        font-size: 13px;
+                        font-weight: 600;
+                    ">
+                        Verified: ${verifiedCount}
+                    </span>
+
+
+                    <span style="
+                        padding: 6px 12px;
+                        border-radius: 20px;
+                        background: #fef3c7;
+                        color: #92400e;
+                        font-size: 13px;
+                        font-weight: 600;
+                    ">
+                        Evidence Available: ${evidenceCount}
+                    </span>
+
+
+                    <span style="
+                        padding: 6px 12px;
+                        border-radius: 20px;
+                        background: #fee2e2;
+                        color: #991b1b;
+                        font-size: 13px;
+                        font-weight: 600;
+                    ">
+                        Not Verified: ${notVerifiedCount}
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+     ACADEMICMATCH TRUST & INTELLIGENCE
+================================= -->
+
+<div style="
+    padding: 18px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    margin-bottom: 20px;
+">
+
+    <div style="
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    ">
+
+        <div>
+
+            <p style="
+                margin: 0;
+                font-size: 12px;
+                font-weight: 700;
+                color: #64748b;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+            ">
+                AcademicMatch
+            </p>
+
+            <h3 style="
+                margin-top: 5px;
+                font-size: 20px;
+            ">
+                Trust & Intelligence
+            </h3>
+
+        </div>
+
+        <span style="
+            padding: 7px 12px;
+            border-radius: 20px;
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 13px;
+            font-weight: 600;
+        ">
+           ${trustScore >= 80
+    ? "Strong Match"
+    : trustScore >= 60
+        ? "Moderate Match"
+        : "Needs Review"
+}
+        </span>
+
+    </div>
+
+    <p style="
+        margin-top: 12px;
+        color: #64748b;
+        line-height: 1.6;
+    ">
+        AcademicMatch will analyze verified evidence,
+        profile information, skills, portfolio,
+        achievements and application quality to
+        generate an opportunity-specific candidate score.
+    </p>
+
+</div>
+
+
+
+            <!-- =================================
+                 PROFILE FACT CHECK
+            ================================= -->
+
+            <div style="
+                padding: 15px;
+                background: #f0fdf4;
+                border: 1px solid #bbf7d0;
+                border-radius: 10px;
+                margin-bottom: 20px;
+            ">
+
+                <strong>
+                    Profile Fact Check
+                </strong>
+
+                <p style="
+                    color: #64748b;
+                    margin-top: 8px;
+                    line-height: 1.6;
+                ">
+                    AcademicMatch verification results
+                    based on available evidence.
+                </p>
+
+
+                ${
+                    studentClaims.length === 0
+                    ?
+                    `
+                    <p style="
+                        color: #64748b;
+                        margin-top: 10px;
+                    ">
+                        No verification evidence available.
+                    </p>
+                    `
+                    :
+                    studentClaims.map(
+                        function (claim) {
+
+
+                            let statusLabel =
+                                "Pending";
+
+                            let statusColor =
+                                "#d97706";
+
+
+                            if (
+                                claim.verification_status ===
+                                "verified"
+                            ) {
+
+                                statusLabel =
+                                    "Verified";
+
+                                statusColor =
+                                    "#16a34a";
+
+                            }
+
+
+                            if (
+                                claim.verification_status ===
+                                "not_verified"
+                            ) {
+
+                                statusLabel =
+                                    "Not Verified";
+
+                                statusColor =
+                                    "#dc2626";
+
+                            }
+
+
+                            if (
+                                claim.verification_status ===
+                                "evidence_available" ||
+                                claim.verification_status ===
+                                "evidence_supported"
+                            ) {
+
+                                statusLabel =
+                                    "Evidence Supported";
+
+                                statusColor =
+                                    "#16a34a";
+
+                            }
+
+
+                            return `
+
+                                <div style="
+                                    margin-top: 12px;
+                                    padding: 12px;
+                                    background: white;
+                                    border-radius: 8px;
+                                    border: 1px solid #e5e7eb;
+                                ">
+
+                                    <strong>
+                                        ${claim.claim_text}
+                                    </strong>
+
+
+                                    <p style="
+                                        margin-top: 6px;
+                                        color: #64748b;
+                                    ">
+                                        Evidence:
+                                        <strong>
+                                            ${
+                                                claim.evidence_source ||
+                                                "Not specified"
+                                            }
+                                        </strong>
+                                    </p>
+
+
+                                    <p style="
+                                        margin-top: 6px;
+                                        color: #64748b;
+                                    ">
+                                        Status:
+
+                                        <span style="
+                                            color: ${statusColor};
+                                            font-weight: 600;
+                                        ">
+                                            ${statusLabel}
+                                        </span>
+                                    </p>
+
+
+                                    <p style="
+                                        margin-top: 6px;
+                                        color: #64748b;
+                                    ">
+                                        Confidence:
+
+                                        <strong>
+                                            ${
+                                                claim.confidence_score ??
+                                                "N/A"
+                                            }%
+                                        </strong>
+                                    </p>
+
+
+                                    ${
+                                        claim.verification_notes
+                                        ?
+                                        `
+                                        <p style="
+                                            margin-top: 6px;
+                                            color: #64748b;
+                                            line-height: 1.5;
+                                        ">
+                                            ${claim.verification_notes}
+                                        </p>
+                                        `
+                                        :
+                                        ""
+                                    }
+
+
+                                    ${
+                                        claim.evidence_url
+                                        ?
+                                        `
+                                        <a
+                                            href="${claim.evidence_url}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="btn btn-outline"
+                                            style="
+                                                display: inline-block;
+                                                margin-top: 8px;
+                                            "
+                                        >
+                                            View Evidence
+                                        </a>
+                                        `
+                                        :
+                                        ""
+                                    }
+
+                                </div>
+
+                            `;
+
+                        }
+                    ).join("")
+                }
+
+            </div>
+
+
+
+            <!-- =================================
+                 STUDENT MESSAGE
+            ================================= -->
+
+            <div style="
+                padding: 15px;
+                background: #f8fafc;
+                border-radius: 10px;
+                margin-bottom: 20px;
+            ">
+
+                <strong>
+                    Student's Message
+                </strong>
+
+                <p style="
+                    color: #64748b;
+                    margin-top: 8px;
+                    line-height: 1.6;
+                ">
+                    ${
+                        application.cover_message ||
+                        "No message provided."
+                    }
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================
+                 ACTION BUTTONS
+            ================================= -->
+
+            <div style="
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+            ">
+
+
+                <button
+                    type="button"
+                    class="btn btn-primary shortlist-button"
+                    data-application-id="${application.id}"
+                    ${
+                        application.status === "shortlisted"
+                            ? "disabled"
+                            : ""
+                    }
+                >
+                    ${
+                        application.status === "shortlisted"
+                            ? "Shortlisted"
+                            : "Shortlist"
+                    }
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-outline reject-button"
+                    data-application-id="${application.id}"
+                    ${
+                        application.status === "rejected"
+                            ? "disabled"
+                            : ""
+                    }
+                >
+                    ${
+                        application.status === "rejected"
+                            ? "Rejected"
+                            : "Reject"
+                    }
+                </button>
+
+
+                <a
+                    href="#"
+                    class="btn btn-outline resume-button"
+                    data-resume-path="${
+                        application.resume_path || ""
+                    }"
+                >
+                    View Resume
+                </a>
+
+
+                <a
+                    href="student-profile-view.html?id=${
+                        application.student_id
+                    }"
+                    class="btn btn-outline"
+                >
+                    View Profile
+                </a>
+
+
+                <button
+                    type="button"
+                    class="btn btn-outline resume-download-button"
+                    data-resume-path="${
+                        application.resume_path || ""
+                    }"
+                >
+                    Download Resume
+                </button>
+
+
+                <a
+                    href="messages.html?application_id=${
+                        application.id
+                    }"
+                    class="btn btn-primary"
+                >
+                    Message Student
+                </a>
+
+            </div>
+
+
+        `;
+
+
+        applicantList.appendChild(
+            card
+        );
+
+    }
+);
+
+                showContent();
+
+
+            } catch (error) {
+
+                console.error(
+                    "Applicants error:",
+                    error
+                );
+
+
+                loadingMessage.style.display =
+                    "none";
+
+
+                errorMessage.textContent =
+                    error.message ||
+                    "Unable to load applicants.";
+
+
+                errorMessage.style.display =
+                    "block";
+
+            }
+
+        }
+
+
+
+        // =========================================
+        // SHOW CONTENT
+        // =========================================
+
+        function showContent() {
+
+            loadingMessage.style.display =
+                "none";
+
+            errorMessage.style.display =
+                "none";
+
+            applicantContent.style.display =
+                "block";
+
+        }
+
+
+
+        // =========================================
+        // START
+        // =========================================
+
+ // =========================================
+// APPLICATION STATUS
+// =========================================
+
+async function updateApplicationStatus(applicationId, newStatus) {
+
+    try {
+
+        const {
+            data: { user },
+            error: userError
+        } = await supabaseClient.auth.getUser();
+
+        if (userError || !user) {
+            alert("Please log in first.");
+            return;
+        }
+
+        const { error } = await supabaseClient
+            .from("applications")
+            .update({
+                status: newStatus
+            })
+            .eq("id", applicationId);
+
+        if (error) {
+            throw error;
+        }
+
+        await loadApplicants();
+
+    } catch (error) {
+
+        console.error("Status update error:", error);
+
+        alert(
+            error.message ||
+            "Unable to update application status."
+        );
+    }
+}
+
+
+// =========================================
+// BUTTON CLICK
+// =========================================
+
+document.addEventListener("click", async function(event) {
+
+    if (event.target.classList.contains("shortlist-button")) {
+
+        const applicationId =
+            event.target.dataset.applicationId;
+
+        event.target.disabled = true;
+        event.target.textContent = "Updating...";
+
+        await updateApplicationStatus(
+            applicationId,
+            "shortlisted"
+        );
+
+        return;
+    }
+
+
+    if (event.target.classList.contains("reject-button")) {
+
+        const applicationId =
+            event.target.dataset.applicationId;
+
+        event.target.disabled = true;
+        event.target.textContent = "Updating...";
+
+        await updateApplicationStatus(
+            applicationId,
+            "rejected"
+        );
+
+        return;
+    }
+
+});
+
+
+// =========================================
+// RESUME DOWNLOAD
+// =========================================
+
+document.addEventListener("click", async function(event) {
+
+    if (
+        !event.target.classList.contains(
+            "resume-download-button"
+        )
+    ) {
+        return;
+    }
+
+    event.preventDefault();
+
+    const resumePath =
+        event.target.dataset.resumePath;
+
+    if (!resumePath) {
+        alert("Resume is not available.");
+        return;
+    }
+
+    try {
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .storage
+            .from("Resumes")
+            .createSignedUrl(
+                resumePath,
+                300
+            );
+
+        if (error) {
+            throw error;
+        }
+
+        if (!data || !data.signedUrl) {
+            throw new Error(
+                "Unable to create resume link."
+            );
+        }
+
+        window.open(
+            data.signedUrl,
+            "_blank"
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Resume error:",
+            error
+        );
+
+        alert(
+            error.message ||
+            "Unable to open resume."
+        );
+    }
+
+});
+
+
+// =========================================
+// START
+// =========================================
+
+loadApplicants();
+
+       
+
+
+    </script>
+
+
+</body>
+
+</html>

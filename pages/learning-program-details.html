@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Learning Program | AcademicMatch</title>
+
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+</head>
+
+
+<body class="auth-page">
+
+
+<header>
+
+    <nav class="navbar">
+
+        <a
+            href="../index.html"
+            class="logo"
+        >
+            AcademicMatch
+        </a>
+
+        <div class="nav-buttons">
+
+            <a
+                href="learning-programs.html"
+                class="btn btn-outline"
+            >
+                ← Learning Programs
+            </a>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+<main class="section">
+
+    <div
+        id="loading"
+        style="
+            text-align: center;
+            padding: 50px;
+            color: #64748b;
+        "
+    >
+        Loading program...
+    </div>
+
+
+    <div
+        id="programContent"
+        style="
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+        "
+    >
+
+        <div class="auth-card">
+
+            <p
+                id="programType"
+                class="section-label"
+            >
+                PROGRAM
+            </p>
+
+
+            <h1 id="programTitle">
+                Learning Program
+            </h1>
+
+
+            <p
+                id="programDescription"
+                style="
+                    margin-top: 15px;
+                    color: #64748b;
+                    line-height: 1.7;
+                "
+            >
+            </p>
+
+
+            <div style="
+                margin-top: 25px;
+            ">
+
+                <p>
+                    <strong>Relevant Skills:</strong>
+                    <span id="programSkills">
+                        —
+                    </span>
+                </p>
+
+
+                <p style="margin-top: 12px;">
+                    <strong>Duration:</strong>
+                    <span id="programDuration">
+                        —
+                    </span>
+                </p>
+
+
+                <p style="margin-top: 12px;">
+                    <strong>Mode:</strong>
+                    <span id="programMode">
+                        —
+                    </span>
+                </p>
+
+
+                <p style="margin-top: 12px;">
+                    <strong>Registration Deadline:</strong>
+                    <span id="programDeadline">
+                        —
+                    </span>
+                </p>
+
+            </div>
+
+
+            <div style="
+                margin-top: 30px;
+                text-align: center;
+            ">
+
+                <button
+                    id="enrollButton"
+                    class="btn btn-primary"
+                    type="button"
+                >
+                    Enroll in Program
+                </button>
+
+            </div>
+
+
+            <p
+                id="message"
+                style="
+                    margin-top: 15px;
+                    text-align: center;
+                "
+            ></p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="error"
+        style="
+            display: none;
+            text-align: center;
+            padding: 50px;
+            color: #dc2626;
+        "
+    ></div>
+
+</main>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="../supabase-config.js"></script>
+
+
+
+<script>
+
+// =========================================
+// GET PROGRAM ID
+// =========================================
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const programId =
+    urlParams.get("id");
+
+
+// =========================================
+// ELEMENTS
+// =========================================
+
+const loading =
+    document.getElementById("loading");
+
+const content =
+    document.getElementById("programContent");
+
+const errorBox =
+    document.getElementById("error");
+
+
+// =========================================
+// LOAD PROGRAM
+// =========================================
+
+async function loadProgram() {
+
+    try {
+
+        if (!programId) {
+
+            throw new Error(
+                "Learning program not found."
+            );
+
+        }
+
+
+        const {
+            data: program,
+            error
+        } =
+            await supabaseClient
+                .from("learning_programs")
+                .select(`
+                    id,
+                    title,
+                    program_type,
+                    description,
+                    required_skills,
+                    duration,
+                    mode,
+                    registration_deadline
+                `)
+                .eq(
+                    "id",
+                    programId
+                )
+                .eq(
+                    "status",
+                    "open"
+                )
+                .single();
+
+
+        if (error || !program) {
+
+            throw new Error(
+                "Learning program not found."
+            );
+
+        }
+
+
+        document.getElementById(
+            "programType"
+        ).textContent =
+            program.program_type;
+
+
+        document.getElementById(
+            "programTitle"
+        ).textContent =
+            program.title;
+
+
+        document.getElementById(
+            "programDescription"
+        ).textContent =
+            program.description ||
+            "No description provided.";
+
+
+        document.getElementById(
+            "programSkills"
+        ).textContent =
+            program.required_skills ||
+            "Not specified";
+
+
+        document.getElementById(
+            "programDuration"
+        ).textContent =
+            program.duration ||
+            "Not specified";
+
+
+        document.getElementById(
+            "programMode"
+        ).textContent =
+            program.mode ||
+            "Not specified";
+
+
+        document.getElementById(
+            "programDeadline"
+        ).textContent =
+            program.registration_deadline ||
+            "Not specified";
+
+
+        loading.style.display =
+            "none";
+
+        content.style.display =
+            "block";
+
+
+    } catch (error) {
+
+        console.error(
+            "Program error:",
+            error
+        );
+
+
+        loading.style.display =
+            "none";
+
+        errorBox.textContent =
+            error.message ||
+            "Unable to load program.";
+
+        errorBox.style.display =
+            "block";
+
+    }
+
+}
+
+
+// =========================================
+// START
+// =========================================
+
+loadProgram();
+
+</script>
+
+
+</body>
+
+</html>
