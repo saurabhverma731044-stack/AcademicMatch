@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,31 +6,43 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Login | AcademicMatch</title>
 
-    <link rel="stylesheet" href="../style.css">
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
 
 </head>
 
 
-<body class="auth-page">
+<body class="auth-page premium-login">
 
 
     <!-- Navigation -->
 
-    <header>
+    <header class="login-header">
 
         <nav class="navbar">
 
-            <a href="../index.html" class="logo">
+            <a
+                href="../index.html"
+                class="logo"
+            >
                 AcademicMatch
             </a>
 
             <div class="nav-buttons">
 
-                <a href="register.html" class="btn btn-primary">
+                <a
+                    href="register.html"
+                    class="btn btn-primary"
+                >
                     Create Account
                 </a>
 
@@ -41,122 +54,248 @@
 
 
 
-    <!-- Login -->
+    <!-- LOGIN SECTION -->
 
-    <main class="auth-container">
+    <main class="premium-login-container">
 
-        <div class="auth-card">
+        <div class="login-layout">
 
-            <div class="auth-header">
 
-                <p class="section-label">
-                    WELCOME BACK
-                </p>
+            <!-- LEFT SIDE -->
+
+            <div class="login-intro">
+
+                <div class="login-badge">
+                    <span>✦</span>
+                    ACADEMICMATCH
+                </div>
+
 
                 <h1>
-                    Login to AcademicMatch
+                    Your next
+                    <span>opportunity</span>
+                    starts here.
                 </h1>
 
+
                 <p>
-                    Continue to your academic and
-                    internship journey.
+                    Sign in to access your academic profile,
+                    discover opportunities and connect with
+                    the right companies.
                 </p>
+
+
+                <div class="login-highlights">
+
+                    <div class="login-highlight">
+
+                        <div class="highlight-icon">
+                            🎓
+                        </div>
+
+                        <div>
+                            <strong>
+                                Academic Profile
+                            </strong>
+
+                            <span>
+                                Keep your achievements and skills in one place.
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="login-highlight">
+
+                        <div class="highlight-icon">
+                            ✨
+                        </div>
+
+                        <div>
+                            <strong>
+                                Smart Opportunities
+                            </strong>
+
+                            <span>
+                                Discover internships relevant to your profile.
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="login-highlight">
+
+                        <div class="highlight-icon">
+                            💬
+                        </div>
+
+                        <div>
+                            <strong>
+                                Connect & Grow
+                            </strong>
+
+                            <span>
+                                Communicate with companies and track applications.
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 
 
-            <form id="loginForm" class="auth-form">
 
-                <div class="form-group">
+            <!-- RIGHT SIDE -->
 
-                    <label for="loginEmail">
-                        Email Address
-                    </label>
+            <div class="premium-login-card">
 
-                    <input
-                        type="email"
-                        id="loginEmail"
-                        placeholder="you@example.com"
-                        autocomplete="email"
-                        required
-                    >
+                <div class="premium-login-header">
 
-                </div>
+                    <div class="login-icon">
+                        →
+                    </div>
 
+                    <p class="section-label">
+                        WELCOME BACK
+                    </p>
 
-                <div class="form-group">
+                    <h2>
+                        Login to your account
+                    </h2>
 
-                    <label for="loginPassword">
-                        Password
-                    </label>
-
-                    <input
-                        type="password"
-                        id="loginPassword"
-                        placeholder="Enter your password"
-                        autocomplete="current-password"
-                        required
-                    >
+                    <p>
+                        Continue your AcademicMatch journey.
+                    </p>
 
                 </div>
 
 
-                <div class="auth-options">
 
-                    <label class="remember-option">
+                <form
+                    id="loginForm"
+                    class="auth-form"
+                >
+
+
+                    <div class="form-group">
+
+                        <label for="loginEmail">
+                            Email Address
+                        </label>
 
                         <input
-                            type="checkbox"
-                            id="rememberMe"
+                            type="email"
+                            id="loginEmail"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required
                         >
 
-                        Remember me
+                    </div>
 
-                    </label>
 
-                    <a href="#" class="forgot-link">
-                        Forgot password?
-                    </a>
 
+                    <div class="form-group">
+
+                        <label for="loginPassword">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="auth-options">
+
+                        <label class="remember-option">
+
+                            <input
+                                type="checkbox"
+                                id="rememberMe"
+                            >
+
+                            Remember me
+
+                        </label>
+
+
+                        <a
+                            href="#"
+                            class="forgot-link"
+                        >
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+
+
+                    <p
+                        id="loginError"
+                        class="form-error"
+                        aria-live="polite"
+                    ></p>
+
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary auth-submit premium-login-button"
+                    >
+                        Login to AcademicMatch
+                        <span>→</span>
+                    </button>
+
+                </form>
+
+
+
+                <div class="login-divider">
+                    <span>OR</span>
                 </div>
 
 
-                <p
-                    id="loginError"
-                    class="form-error"
-                    aria-live="polite"
-                ></p>
 
+                <p class="auth-switch">
 
-                <button
-                    type="submit"
-                    class="btn btn-primary auth-submit"
-                >
-                    Login
-                </button>
+                    Don't have an account?
 
-            </form>
+                    <a href="register.html">
+                        Create one
+                    </a>
 
+                </p>
 
-            <p class="auth-switch">
-
-                Don't have an account?
-
-                <a href="register.html">
-                    Create one
-                </a>
-
-            </p>
+            </div>
 
         </div>
 
     </main>
 
 
+
+    <!-- SCRIPTS -->
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="../supabase-config.js"></script>
-<script src="../script.js"></script>
+
+    <script src="../supabase-config.js"></script>
+
+    <script src="../script.js"></script>
+
 
 </body>
 
 </html>
+
