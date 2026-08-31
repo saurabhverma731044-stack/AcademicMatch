@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,21 +13,27 @@
 
     <title>Choose Your Role | AcademicMatch</title>
 
-    <link rel="stylesheet" href="../style.css">
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
 
 </head>
 
 
-<body class="auth-page">
+<body class="auth-page premium-role-page">
 
 
     <!-- Navigation -->
 
-    <header>
+    <header class="login-header">
 
         <nav class="navbar">
 
-            <a href="../index.html" class="logo">
+            <a
+                href="../index.html"
+                class="logo"
+            >
                 AcademicMatch
             </a>
 
@@ -36,130 +43,217 @@
 
 
 
-    <!-- Role Selection -->
+    <!-- ROLE SELECTION -->
 
-    <main class="role-container">
+    <main class="premium-role-container">
 
-        <div class="role-header">
+
+        <!-- HEADER -->
+
+        <div class="premium-role-header">
+
+            <div class="login-badge">
+                <span>✦</span>
+                WELCOME TO ACADEMICA MATCH
+            </div>
 
             <p class="section-label">
                 ONE LAST STEP
             </p>
 
             <h1>
-                How will you use AcademicMatch?
+                How will you use
+                <span>AcademicMatch?</span>
             </h1>
 
             <p>
-                Choose the option that best describes you.
+                Choose your role to personalize your AcademicMatch
+                experience.
             </p>
 
         </div>
 
 
-        <div class="role-grid">
+
+        <!-- ROLE CARDS -->
+
+        <div class="premium-role-grid">
 
 
-            <!-- Student -->
+            <!-- STUDENT -->
 
             <button
                 type="button"
-                class="role-card"
+                class="premium-role-card"
                 data-role="student"
             >
 
-                <div class="role-icon">
-                    🎓
+                <div class="premium-role-top">
+
+                    <div class="premium-role-icon">
+                        🎓
+                    </div>
+
+                    <span class="premium-role-number">
+                        01
+                    </span>
+
                 </div>
 
-                <h2>
-                    I'm a Student
-                </h2>
 
-                <p>
-                    Build your academic profile, discover
-                    internships and connect with companies.
-                </p>
+                <div class="premium-role-content">
 
-                <span class="role-action">
-                    Continue as Student →
-                </span>
+                    <p class="premium-role-label">
+                        FOR STUDENTS
+                    </p>
+
+                    <h2>
+                        I'm a Student
+                    </h2>
+
+                    <p>
+                        Build your academic profile, discover
+                        internships and connect with companies
+                        looking for your skills.
+                    </p>
+
+                </div>
+
+
+                <div class="premium-role-action">
+                    Continue as Student
+                    <span>→</span>
+                </div>
 
             </button>
 
 
 
-            <!-- Company -->
+            <!-- COMPANY -->
 
             <button
                 type="button"
-                class="role-card"
+                class="premium-role-card"
                 data-role="company"
             >
 
-                <div class="role-icon">
-                    💼
+                <div class="premium-role-top">
+
+                    <div class="premium-role-icon">
+                        💼
+                    </div>
+
+                    <span class="premium-role-number">
+                        02
+                    </span>
+
                 </div>
 
-                <h2>
-                    I'm a Company / Recruiter
-                </h2>
 
-                <p>
-                    Create opportunities, discover talented
-                    students and manage applications.
-                </p>
+                <div class="premium-role-content">
 
-                <span class="role-action">
-                    Continue as Company →
-                </span>
+                    <p class="premium-role-label">
+                        FOR COMPANIES
+                    </p>
+
+                    <h2>
+                        I'm a Company
+                    </h2>
+
+                    <p>
+                        Create opportunities, discover talented
+                        students and manage your recruitment
+                        process in one place.
+                    </p>
+
+                </div>
+
+
+                <div class="premium-role-action">
+                    Continue as Company
+                    <span>→</span>
+                </div>
 
             </button>
-            <!-- Academician -->
 
-<button
-    type="button"
-    class="role-card"
-    data-role="academician"
->
 
-    <div class="role-icon">
-        👨‍🏫
-    </div>
 
-    <h2>
-        I'm an Academician
-    </h2>
+            <!-- ACADEMICIAN -->
 
-    <p>
-        Share academic opportunities, faculty internships,
-        training programs and research collaborations.
-    </p>
+            <button
+                type="button"
+                class="premium-role-card premium-role-wide"
+                data-role="academician"
+            >
 
-    <span class="role-action">
-        Continue as Academician →
-    </span>
+                <div class="premium-role-top">
 
-</button>
+                    <div class="premium-role-icon">
+                        👨‍🏫
+                    </div>
+
+                    <span class="premium-role-number">
+                        03
+                    </span>
+
+                </div>
+
+
+                <div class="premium-role-content">
+
+                    <p class="premium-role-label">
+                        FOR ACADEMICIANS
+                    </p>
+
+                    <h2>
+                        I'm an Academician
+                    </h2>
+
+                    <p>
+                        Share academic opportunities, faculty
+                        internships, training programs and
+                        research collaborations.
+                    </p>
+
+                </div>
+
+
+                <div class="premium-role-action">
+                    Continue as Academician
+                    <span>→</span>
+                </div>
+
+            </button>
 
 
         </div>
 
 
+
+        <!-- BACK -->
+
         <a
             href="login.html"
-            class="role-back"
+            class="premium-role-back"
         >
             ← Back to Login
         </a>
 
+
     </main>
 
 
+
+    <!-- SCRIPTS -->
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="../supabase-config.js"></script>
-<script src="../script.js"></script>
+
+    <script src="../supabase-config.js"></script>
+
+    <script src="../script.js"></script>
+
 
 </body>
 
 </html>
+
